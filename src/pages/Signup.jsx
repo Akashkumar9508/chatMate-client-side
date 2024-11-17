@@ -1,15 +1,25 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
 import Nav from '../components/Nav.jsx';
 
 const Signup = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
-  const onSubmit = (data) => {
-    console.log('Form Submitted:', data);
-    alert('Signup successful!');
-    reset();
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post('http://localhost:4000/api/auth/signup', data);
+
+      toast.success('Signup successful!', { duration: 4000 });
+      console.log('Signup Successful:', response.data);
+      reset();
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || 'An error occurred during signup.';
+      toast.error(errorMessage, { duration: 4000 });
+      console.error('Signup Error:', errorMessage);
+    }
   };
 
   return (
