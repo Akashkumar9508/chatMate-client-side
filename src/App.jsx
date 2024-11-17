@@ -1,26 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import Footer from './components/Footer.jsx';
+import Nav from './components/Nav.jsx';
 
 const App = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-900 text-gray-300">
-
-      <nav className="bg-gray-800 text-white py-4 shadow-lg">
-        <div className="container mx-auto flex justify-between items-center px-6">
-          <h1 className="text-2xl font-bold">ChatMate</h1>
-          <div className="hidden md:flex space-x-6">
-            <Link to="/" className="hover:text-blue-400">Home</Link>
-            <Link to="/features" className="hover:text-blue-400">Features</Link>
-            <Link to="/about" className="hover:text-blue-400">About</Link>
-            <Link to="/contact" className="hover:text-blue-400">Contact</Link>
-          </div>
-          <div className="md:hidden">
-            <button className="text-white">☰</button>
-          </div>
-        </div>
-      </nav>
-
+      <Nav />
       <header className="bg-gray-800 text-white py-16 text-center px-6 shadow-lg">
         <h1 className="text-4xl font-bold mb-4">Welcome to ChatMate</h1>
         <p className="text-lg mb-2">Your go-to app for seamless and secure real-time messaging!</p>
@@ -30,7 +16,7 @@ const App = () => {
             Get Started
           </Link>
           <Link to="/login" className="bg-transparent text-blue-600 border-2 border-blue-600 hover:bg-blue-100 py-2 px-6 rounded-md text-lg font-medium transition-colors">
-         Login
+            Login
           </Link>
         </div>
       </header>
@@ -52,17 +38,7 @@ const App = () => {
           </div>
         </div>
       </section>
-
-      <footer className="bg-gray-900 text-gray-500 text-center py-6 shadow-lg">
-        <div className="container mx-auto px-6">
-          <p className="mb-4">&copy; {new Date().getFullYear()} ChatMate. All rights reserved.</p>
-          <div className="space-x-4">
-            <Link to="/" className="hover:text-white">Privacy Policy</Link>
-            <Link to="/" className="hover:text-white">Terms of Service</Link>
-            <Link to="/" className="hover:text-white">Contact Us</Link>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
