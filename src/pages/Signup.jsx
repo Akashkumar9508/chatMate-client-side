@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -7,11 +7,15 @@ import Nav from '../components/Nav.jsx';
 
 const Signup = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   const onSubmit = async (data) => {
     try {
       const response = await axios.post('http://localhost:4000/api/auth/signup', data);
-
       toast.success('Signup successful!', { duration: 4000 });
       console.log('Signup Successful:', response.data);
       reset();
@@ -38,7 +42,7 @@ const Signup = () => {
                 id="FullName"
                 type="text"
                 placeholder="Enter your Full Name"
-                {...register('FullName', { required: 'Full Name is required' })}
+                {...register('fullName', { required: 'Full Name is required' })}
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
               {errors.FullName && (
@@ -54,7 +58,7 @@ const Signup = () => {
                 id="UserName"
                 type="text"
                 placeholder="Enter your User Name"
-                {...register('UserName', { required: 'User Name is required' })}
+                {...register('userName', { required: 'User Name is required' })}
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
               {errors.UserName && (
@@ -88,19 +92,28 @@ const Signup = () => {
               <label className="block text-white text-sm font-bold mb-2" htmlFor="password">
                 Password
               </label>
-              <input
-                id="password"
-                type="password"
-                placeholder="Enter your password"
-                {...register('password', {
-                  required: 'Password is required',
-                  minLength: {
-                    value: 8,
-                    message: 'Password must be at least 8 characters',
-                  },
-                })}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Enter your password"
+                  {...register('password', {
+                    required: 'Password is required',
+                    minLength: {
+                      value: 8,
+                      message: 'Password must be at least 8 characters',
+                    },
+                  })}
+                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute inset-y-0 right-2 flex items-center text-gray-500"
+                >
+                  {showPassword ? 'Hide' : 'Show'}
+                </button>
+              </div>
               {errors.password && (
                 <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
               )}
