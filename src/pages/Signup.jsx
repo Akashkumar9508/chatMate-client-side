@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import Nav from '../components/Nav.jsx';
@@ -8,6 +8,7 @@ import Nav from '../components/Nav.jsx';
 const Signup = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -19,6 +20,7 @@ const Signup = () => {
       toast.success('Signup successful!', { duration: 4000 });
       console.log('Signup Successful:', response.data);
       reset();
+      navigate('/login');
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'An error occurred during signup.';
       toast.error(errorMessage, { duration: 4000 });
@@ -45,8 +47,8 @@ const Signup = () => {
                 {...register('fullName', { required: 'Full Name is required' })}
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
-              {errors.FullName && (
-                <p className="text-red-500 text-sm mt-1">{errors.FullName.message}</p>
+              {errors.fullName && (
+                <p className="text-red-500 text-sm mt-1">{errors.fullName.message}</p>
               )}
             </div>
 
@@ -61,8 +63,8 @@ const Signup = () => {
                 {...register('userName', { required: 'User Name is required' })}
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
-              {errors.UserName && (
-                <p className="text-red-500 text-sm mt-1">{errors.UserName.message}</p>
+              {errors.userName && (
+                <p className="text-red-500 text-sm mt-1">{errors.userName.message}</p>
               )}
             </div>
 

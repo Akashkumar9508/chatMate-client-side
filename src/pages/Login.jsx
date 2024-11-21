@@ -1,18 +1,33 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-import Nav from '../components/Nav.jsx'; 
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
+import Nav from '../components/Nav.jsx';
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    console.log('Login Data:', data);
-    if (data.email && data.password) {
-      alert('Login successful!');
-      reset();
-    } else {
-      alert('Please fill in all fields.');
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post(
+        'http://localhost:4000/api/auth/login', 
+        data,
+        { withCredentials: true } 
+      );
+      if (response.status === 200) {
+        toast.success('Login successful!');
+        reset();
+        navigate('/dashboard'); 
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      if (error.response && error.response.data.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error('An error occurred. Please try again.');
+      }
     }
   };
 
