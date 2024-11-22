@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import io from 'socket.io-client'; // Import Socket.IO client
 import Nav from '../components/Nav.jsx';
 
 const Dashboard = () => {
@@ -8,68 +7,50 @@ const Dashboard = () => {
     const [selectedUser, setSelectedUser] = useState(null);
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const socketRef = useRef(null); // Socket reference
+    const [loggedInUserId, setLoggedInUserId] = useState('');
 
     useEffect(() => {
-        axios.get('http://localhost:4000/api/auth/users')  
+        axios.get('http://localhost:4000/api/getcurrentuser', { withCredentials: true })
             .then(response => {
-                setUsers(response.data);
+                setLoggedInUserId(response.data._id);
             })
-            .catch(error => {
-                console.error('Error fetching users', error);
-            });
+            .catch(error => console.error('Error fetching logged-in user', error));
 
-        // Set up socket connection when component mounts
-        socketRef.current = io('http://localhost:4000', {
-            withCredentials: true
-        });
-
-        // Listen for incoming messages
-        socketRef.current.on('receive-message', (messageData) => {
-            setMessages((prevMessages) => [...prevMessages, messageData]);
-        });
-
-        // Clean up socket connection on unmount
-        return () => {
-            if (socketRef.current) {
-                socketRef.current.disconnect();
-            }
-        };
+        axios.get('http://localhost:4000/api/auth/users')
+            .then(response => setUsers(response.data))
+            .catch(error => console.error('Error fetching users', error));
     }, []);
 
     const handleUserSelect = (user) => {
         setSelectedUser(user);
-        axios.get(`http://localhost:4000/api/messages/${user._id}`)
+        axios.get(`http://localhost:4000/api/messages/getMessages/${user._id}`)
             .then(response => {
                 setMessages(response.data);
             })
-            .catch(error => {
-                console.error('Error fetching messages', error);
-            });
+            .catch(error => console.error('Error fetching messages', error));
     };
 
-    const handleMessageSend = () => {
+    const handleMessageSend = async () => {
         if (message.trim()) {
-            // Emit message to the server for broadcasting
             const messageData = {
-                roomId: selectedUser._id, // Send message to the selected user
-                sender: 'me', // Replace with actual sender
-                text: message
+                roomId: selectedUser._id,
+                sender: loggedInUserId,
+                text: message,
             };
 
-            socketRef.current.emit('send-message', messageData);
-
-            // Update the messages state immediately for a better user experience
-            setMessages((prevMessages) => [...prevMessages, messageData]);
-
-            setMessage('');
+            try {
+                await axios.post('http://localhost:4000/api/messages/sendMessage', messageData);
+                setMessages((prevMessages) => [...prevMessages, messageData]);
+                setMessage('');
+            } catch (error) {
+                console.error('Error sending message', error);
+            }
         }
     };
 
     return (
         <div className="flex flex-col min-h-screen bg-gray-900 text-gray-300">
             <Nav />
-
             <section className="flex-grow py-5 bg-gray-800">
                 <div className="flex">
                     <div className="w-1/4 p-4 border-r border-gray-600">
@@ -97,12 +78,13 @@ const Dashboard = () => {
                     <div className="flex-1 bg-gray-800 p-4 flex flex-col">
                         {selectedUser ? (
                             <div className="flex flex-col h-full">
-                                <h2 className="text-2xl font-semibold text-white mb-4">Buddie : {selectedUser.fullName}</h2>
+                                <h2 className="text-2xl font-semibold text-white mb-4">Buddie: {selectedUser.fullName}</h2>
                                 <div className="flex-1 overflow-y-auto bg-gray-900 p-4 rounded-lg border border-gray-600 mb-4">
                                     {messages.map((msg, index) => (
-                                        <div key={index} className={`mb-2 ${msg.sender === 'me' ? 'text-right' : 'text-left'}`}>
-                                            <div className={`inline-block p-3 rounded-lg ${msg.sender === 'me' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300'}`}>
+                                        <div key={index} className={`mb-2 ${msg.sender === loggedInUserId ? 'text-right' : 'text-left'}`}>
+                                            <div className={`inline-block p-3 rounded-lg ${msg.sender === loggedInUserId ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300'}`}>
                                                 <p>{msg.text}</p>
+                                                <small className="text-gray-500 text-sm">{new Date(msg.sentAt).toLocaleTimeString()}</small>
                                             </div>
                                         </div>
                                     ))}

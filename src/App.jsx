@@ -15,9 +15,6 @@ const App = () => {
           <Link to="/signup" className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-md text-lg font-medium transition-colors">
             Get Started
           </Link>
-          <Link to="/login" className="bg-transparent text-blue-600 border-2 border-blue-600 hover:bg-blue-100 py-2 px-6 rounded-md text-lg font-medium transition-colors">
-            Login
-          </Link>
         </div>
       </header>
 

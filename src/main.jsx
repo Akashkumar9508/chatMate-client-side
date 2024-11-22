@@ -11,7 +11,7 @@ import Dashboard from './pages/Dashboard.jsx';
 import ProtectedRoute from './components/ProtectedRoutes.jsx';
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  <>
     <BrowserRouter>
       <Toaster position="top-center" reverseOrder={true} />
       <Routes>
@@ -26,5 +26,5 @@ createRoot(document.getElementById('root')).render(
         />
       </Routes>
     </BrowserRouter>
-  </StrictMode>
+  </>
 );

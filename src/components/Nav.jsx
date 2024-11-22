@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Logout from './Logout';
 
 const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,8 +14,8 @@ const Nav = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/auth/me'); 
-        console.log(response);
+        const response = await axios.get('http://localhost:4000/api/auth/me', { withCredentials: true });
+        console.log("this is the loggedin user", response);
         setUser(response.data);
       } catch (error) {
         console.error('Error fetching user data', error);
@@ -32,16 +33,20 @@ const Nav = () => {
         <div className="hidden md:flex space-x-6 text-[20px] pr-6">
           <Link to="/" className="hover:text-blue-400">Home</Link>
           <Link to="/features" className="hover:text-blue-400">Features</Link>
-          <Link to="/about" className="hover:text-blue-400">About</Link>
+          <Link to="/dashboard" className="hover:text-blue-400">Dashboard</Link>
+          <Logout/>
         </div>
 
         {user && (
-          <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-400">
-            <img
-              src={user.avatar || 'https://picsum.photos/200'}
-              alt="User Avatar"
-              className="w-full h-full object-cover"
-            />
+          <div className="flex items-center space-x-4">
+            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-400">
+              <img
+                src={user.avatar || 'https://picsum.photos/200'}
+                alt="User Avatar"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <span className="text-lg">{user.fullName}</span>
           </div>
         )}
 
@@ -55,10 +60,10 @@ const Nav = () => {
       </div>
 
       {isMenuOpen && (
-        <div className="md:hidden bg-gray-700 px-6 py-4">
+        <div className="md:hidden px-6 py-4">
           <Link to="/" className="block py-2 hover:text-blue-400">Home</Link>
           <Link to="/features" className="block py-2 hover:text-blue-400">Features</Link>
-          <Link to="/about" className="block py-2 hover:text-blue-400">About</Link>
+          <Link to="/dashboard" className="block py-2 hover:text-blue-400">Dashboard</Link>
         </div>
       )}
     </nav>
