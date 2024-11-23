@@ -1,9 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import Nav from '../components/Nav.jsx';
+import login  from '../services/authService.js'; 
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -11,15 +11,11 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post(
-        'http://localhost:4000/api/auth/login', 
-        data,
-        { withCredentials: true } 
-      );
+      const response = await login(data);
       if (response.status === 200) {
         toast.success('Login successful!');
         reset();
-        navigate('/dashboard'); 
+        navigate('/dashboard');
       }
     } catch (error) {
       console.error('Login error:', error);

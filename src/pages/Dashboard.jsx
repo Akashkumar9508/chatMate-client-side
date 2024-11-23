@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Nav from '../components/Nav.jsx';
+import getAllUsers  from '../services/authService.js';
+import sendMessage  from '../services/messageService.js'
 
 const Dashboard = () => {
     const [users, setUsers] = useState([]);
@@ -10,24 +11,23 @@ const Dashboard = () => {
     const [loggedInUserId, setLoggedInUserId] = useState('');
 
     useEffect(() => {
-        axios.get('http://localhost:4000/api/getcurrentuser', { withCredentials: true })
-            .then(response => {
-                setLoggedInUserId(response.data._id);
+        // Fetch the logged-in user and all users
+        getCurrentUser()
+            .then((response) => {
+                setLoggedInUserId(response._id);
             })
-            .catch(error => console.error('Error fetching logged-in user', error));
+            .catch((error) => console.error('Error fetching logged-in user:', error));
 
-        axios.get('http://localhost:4000/api/auth/users')
-            .then(response => setUsers(response.data))
-            .catch(error => console.error('Error fetching users', error));
+        getAllUsers()
+            .then((response) => setUsers(response))
+            .catch((error) => console.error('Error fetching users:', error));
     }, []);
 
     const handleUserSelect = (user) => {
         setSelectedUser(user);
-        axios.get(`http://localhost:4000/api/messages/getMessages/${user._id}`)
-            .then(response => {
-                setMessages(response.data);
-            })
-            .catch(error => console.error('Error fetching messages', error));
+        getMessages(user._id)
+            .then((response) => setMessages(response))
+            .catch((error) => console.error('Error fetching messages:', error));
     };
 
     const handleMessageSend = async () => {
@@ -39,11 +39,11 @@ const Dashboard = () => {
             };
 
             try {
-                await axios.post('http://localhost:4000/api/messages/sendMessage', messageData);
+                await sendMessage(messageData);
                 setMessages((prevMessages) => [...prevMessages, messageData]);
                 setMessage('');
             } catch (error) {
-                console.error('Error sending message', error);
+                console.error('Error sending message:', error);
             }
         }
     };
@@ -56,7 +56,7 @@ const Dashboard = () => {
                     <div className="w-1/4 p-4 border-r border-gray-600">
                         <h2 className="text-2xl font-semibold mb-4 text-blue-400">Online Buddies</h2>
                         <ul>
-                            {users.map(user => (
+                            {users.map((user) => (
                                 <li
                                     key={user._id}
                                     onClick={() => handleUserSelect(user)}
@@ -81,10 +81,23 @@ const Dashboard = () => {
                                 <h2 className="text-2xl font-semibold text-white mb-4">Buddie: {selectedUser.fullName}</h2>
                                 <div className="flex-1 overflow-y-auto bg-gray-900 p-4 rounded-lg border border-gray-600 mb-4">
                                     {messages.map((msg, index) => (
-                                        <div key={index} className={`mb-2 ${msg.sender === loggedInUserId ? 'text-right' : 'text-left'}`}>
-                                            <div className={`inline-block p-3 rounded-lg ${msg.sender === loggedInUserId ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-300'}`}>
+                                        <div
+                                            key={index}
+                                            className={`mb-2 ${
+                                                msg.sender === loggedInUserId ? 'text-right' : 'text-left'
+                                            }`}
+                                        >
+                                            <div
+                                                className={`inline-block p-3 rounded-lg ${
+                                                    msg.sender === loggedInUserId
+                                                        ? 'bg-blue-600 text-white'
+                                                        : 'bg-gray-700 text-gray-300'
+                                                }`}
+                                            >
                                                 <p>{msg.text}</p>
-                                                <small className="text-gray-500 text-sm">{new Date(msg.sentAt).toLocaleTimeString()}</small>
+                                                <small className="text-gray-500 text-sm">
+                                                    {new Date(msg.sentAt).toLocaleTimeString()}
+                                                </small>
                                             </div>
                                         </div>
                                     ))}
