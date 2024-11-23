@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchUser, handleLogout } from '../services/callPoints.js'
+import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdLogout } from 'react-icons/md'; 
 
@@ -8,10 +8,28 @@ const Logout = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetchUser({setUser});
+        const fetchUser = async () => {
+            try {
+                const response = await axios.get('http://localhost:4000/api/auth/me', { withCredentials: true });
+                setUser(response.data);
+            } catch (error) {
+                setUser(false);
+                console.error('Error fetching user data', error);
+            }
+        };
+        fetchUser();
     }, []);
 
-    handleLogout({setUser, navigate});
+    const handleLogout = async ({setUser,navigate}) => {
+        try {
+            const response = await axios.post('http://localhost:4000/api/auth/logout', {},{ withCredentials: true });
+            console.log(response.data.message);
+            setUser(false);
+            navigate('/');
+        } catch (error) {
+            console.error('Error logging out', error);
+        }
+    };
     return (
         <div>
             {User ? (

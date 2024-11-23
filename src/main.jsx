@@ -9,22 +9,26 @@ import Login from './pages/Login.jsx';
 import { Toaster } from 'react-hot-toast';
 import Dashboard from './pages/Dashboard.jsx';
 import ProtectedRoute from './components/ProtectedRoutes.jsx';
+import {Provider} from 'react-redux'
+import store from './store/store.js'
 
 createRoot(document.getElementById('root')).render(
   <>
-    <BrowserRouter>
-      <Toaster position="top-center" reverseOrder={true} />
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        }
-        />
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Toaster position="top-center" reverseOrder={true} />
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+          />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   </>
 );
