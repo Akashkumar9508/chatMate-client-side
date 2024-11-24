@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Nav from '../components/Nav.jsx';
-import getAllUsers  from '../services/authService.js';
-import sendMessage  from '../services/messageService.js'
+import authService  from '../services/authService.js';
+import messagesService  from '../services/messageService.js'
 
 const Dashboard = () => {
     const [users, setUsers] = useState([]);
@@ -12,20 +12,20 @@ const Dashboard = () => {
 
     useEffect(() => {
         // Fetch the logged-in user and all users
-        getCurrentUser()
+        authService.getCurrentUser()
             .then((response) => {
                 setLoggedInUserId(response._id);
             })
             .catch((error) => console.error('Error fetching logged-in user:', error));
 
-        getAllUsers()
+        authService.getAllUsers()
             .then((response) => setUsers(response))
             .catch((error) => console.error('Error fetching users:', error));
     }, []);
 
     const handleUserSelect = (user) => {
         setSelectedUser(user);
-        getMessages(user._id)
+        messagesService.getMessagesWithUser(user._id)
             .then((response) => setMessages(response))
             .catch((error) => console.error('Error fetching messages:', error));
     };
@@ -39,7 +39,7 @@ const Dashboard = () => {
             };
 
             try {
-                await sendMessage(messageData);
+                await messagesService.sendMessage(messageData);
                 setMessages((prevMessages) => [...prevMessages, messageData]);
                 setMessage('');
             } catch (error) {
