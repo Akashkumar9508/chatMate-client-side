@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   // Login
-  async login(email, password) {
+  async login({email, password}) {
     try {
       const response = await this.API.post('/login', {
         email,

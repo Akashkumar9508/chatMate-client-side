@@ -12,7 +12,8 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       const response = await authService.login(data);
-      if (response.status === 200) {
+      console.log('this is the login response',response)
+      if (response.user) {
         toast.success('Login successful!');
         reset();
         navigate('/dashboard');
