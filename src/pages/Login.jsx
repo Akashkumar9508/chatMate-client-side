@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import Nav from '../components/Nav.jsx';
-import login  from '../services/authService.js'; 
+import authService  from '../services/authService.js'; 
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -11,7 +11,7 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await login(data);
+      const response = await authService.login(data);
       if (response.status === 200) {
         toast.success('Login successful!');
         reset();
