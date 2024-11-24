@@ -13,8 +13,9 @@ export class MessagesService {
 
     // Send a message
     async sendMessage({ targetUser, targetGroupId, text }) {
+        console.log("this is the data",targetUser, targetGroupId, text)
         try {
-            const response = await this.API.post('/send', { targetUser, targetGroupId, text });
+            const response = await this.API.post('/sendMessage', { targetUser, targetGroupId, text });
             return response.data;
         } catch (error) {
             console.error('Error sending message:', error);
@@ -26,6 +27,7 @@ export class MessagesService {
     async getMessagesWithUser(userId) {
         try {
             const response = await this.API.get(`/getUserMessages/${userId}`);
+            console.log("this is the get message wiht user response", response);
             return response.data;
         } catch (error) {
             console.error('Error fetching messages with user:', error);
