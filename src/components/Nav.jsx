@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import authService from '../services/authService';
+import Logout from './Logout';
 
 const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState(null); 
-  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -24,16 +24,6 @@ const Nav = () => {
     fetchUser();
   }, []);
 
-  // Handle user logout
-  const handleLogout = async () => {
-    try {
-      await authService.logout();
-      setUser(null); 
-      navigate('/'); 
-    } catch (error) {
-      console.error('Error logging out:', error);
-    }
-  };
 
   return (
     <nav className="text-white py-3 shadow-lg flex justify-center">
@@ -43,15 +33,7 @@ const Nav = () => {
           <Link to="/" className="hover:text-blue-400">Home</Link>
           <Link to="/features" className="hover:text-blue-400">Features</Link>
           <Link to="/dashboard" className="hover:text-blue-400">Dashboard</Link>
-          {user ? (
-            <button
-              onClick={handleLogout}
-              className="text-white hover:text-red-400 transition duration-300">
-              Logout
-            </button>
-          ) : (
-            <Link to="/login" className="hover:text-blue-400">Login</Link>
-          )}
+          <Logout/>
         </div>
 
         {user && (
