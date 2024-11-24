@@ -25,7 +25,7 @@ export class MessagesService {
     // Get messages with a specific user
     async getMessagesWithUser(userId) {
         try {
-            const response = await this.API.get(`/user/${userId}`);
+            const response = await this.API.get(`/getUserMessages/${userId}`);
             return response.data;
         } catch (error) {
             console.error('Error fetching messages with user:', error);
