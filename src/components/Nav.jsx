@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import Logout from './Logout';
+import { Link, useNavigate } from 'react-router-dom';
+import authService from '../services/authService';
 
 const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null); 
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -14,27 +14,44 @@ const Nav = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/auth/me', { withCredentials: true });
-        console.log("this is the loggedin user", response);
-        setUser(response.data);
+        const currentUser = await authService.getCurrentUser();
+        setUser(currentUser);
       } catch (error) {
-        console.error('Error fetching user data', error);
+        console.error('Error fetching user:', error);
+        setUser(null);
       }
     };
-
     fetchUser();
   }, []);
+
+  // Handle user logout
+  const handleLogout = async () => {
+    try {
+      await authService.logout();
+      setUser(null); 
+      navigate('/'); 
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
 
   return (
     <nav className="text-white py-3 shadow-lg flex justify-center">
       <div className="w-full flex justify-between items-center px-5">
         <h1 className="text-2xl font-bold">ChatMate</h1>
-
         <div className="hidden md:flex space-x-6 text-[20px] pr-6">
           <Link to="/" className="hover:text-blue-400">Home</Link>
           <Link to="/features" className="hover:text-blue-400">Features</Link>
           <Link to="/dashboard" className="hover:text-blue-400">Dashboard</Link>
-          <Logout/>
+          {user ? (
+            <button
+              onClick={handleLogout}
+              className="text-white hover:text-red-400 transition duration-300">
+              Logout
+            </button>
+          ) : (
+            <Link to="/login" className="hover:text-blue-400">Login</Link>
+          )}
         </div>
 
         {user && (
@@ -64,6 +81,15 @@ const Nav = () => {
           <Link to="/" className="block py-2 hover:text-blue-400">Home</Link>
           <Link to="/features" className="block py-2 hover:text-blue-400">Features</Link>
           <Link to="/dashboard" className="block py-2 hover:text-blue-400">Dashboard</Link>
+          {user ? (
+            <button
+              onClick={handleLogout}
+              className="block w-full text-left py-2 hover:text-red-400">
+              Logout
+            </button>
+          ) : (
+            <Link to="/login" className="block py-2 hover:text-blue-400">Login</Link>
+          )}
         </div>
       )}
     </nav>

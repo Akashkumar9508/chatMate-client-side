@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import Nav from '../components/Nav.jsx';
+import authService from '../services/authService.js';
 
 const Signup = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -16,9 +16,14 @@ const Signup = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post('http://localhost:4000/api/auth/signup', data);
+      await authService.createAccount(
+        data.fullName,
+        data.userName,
+        data.email,
+        data.password,
+        data.avatar
+      );
       toast.success('Signup successful!', { duration: 4000 });
-      console.log('Signup Successful:', response.data);
       reset();
       navigate('/login');
     } catch (error) {
