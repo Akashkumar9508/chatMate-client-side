@@ -34,7 +34,7 @@ const Dashboard = () => {
     const handleMessageSend = async () => {
         if (message.trim()) {
             const messageData = {
-                sender: loggedInUserId,
+                targetUser: selectedUser._id,
                 text: message,
             };
             console.log("Thuis is the messagedata", messageData);
