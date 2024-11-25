@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Nav from '../components/Nav.jsx';
-import getAllUsers  from '../services/authService.js';
-import sendMessage  from '../services/messageService.js'
+import authService from '../services/authService.js';
+import messagesService from '../services/messageService.js'
 
 const Dashboard = () => {
     const [users, setUsers] = useState([]);
@@ -11,21 +11,22 @@ const Dashboard = () => {
     const [loggedInUserId, setLoggedInUserId] = useState('');
 
     useEffect(() => {
-        // Fetch the logged-in user and all users
-        getCurrentUser()
+        // Fetch the logged-in user and all users except logged-in user
+        authService.getCurrentUser()
             .then((response) => {
                 setLoggedInUserId(response._id);
             })
             .catch((error) => console.error('Error fetching logged-in user:', error));
 
-        getAllUsers()
+        authService.getAllUsers()
             .then((response) => setUsers(response))
             .catch((error) => console.error('Error fetching users:', error));
     }, []);
 
     const handleUserSelect = (user) => {
         setSelectedUser(user);
-        getMessages(user._id)
+        console.log(`This is the selected user ${user.fullName} id & ${user._id}`)
+        messagesService.getMessagesWithUser(user._id)
             .then((response) => setMessages(response))
             .catch((error) => console.error('Error fetching messages:', error));
     };
@@ -33,13 +34,12 @@ const Dashboard = () => {
     const handleMessageSend = async () => {
         if (message.trim()) {
             const messageData = {
-                roomId: selectedUser._id,
-                sender: loggedInUserId,
+                targetUser: selectedUser._id,
                 text: message,
             };
-
+            console.log("Thuis is the messagedata", messageData);
             try {
-                await sendMessage(messageData);
+                await messagesService.sendMessage(messageData);
                 setMessages((prevMessages) => [...prevMessages, messageData]);
                 setMessage('');
             } catch (error) {
@@ -62,11 +62,14 @@ const Dashboard = () => {
                                     onClick={() => handleUserSelect(user)}
                                     className="cursor-pointer py-2 px-4 rounded-lg hover:bg-blue-600 mb-2 transition duration-300 flex items-center space-x-3"
                                 >
-                                    <div className="w-10 h-10 rounded-full overflow-hidden">
+                                    <div className="relative w-10 h-10 rounded-full ">
                                         <img
                                             src={user.avatar || 'https://via.placeholder.com/150'}
                                             alt={user.fullName}
-                                            className="w-full h-full object-cover"
+                                            className="w-full h-full object-cover rounded-full"
+                                        />
+                                        <span
+                                            className={`absolute z-50 bottom-0 right-0 w-3 h-3 rounded-full ${user.activeStatus ? 'bg-green-500' : 'bg-red-500'}`}
                                         />
                                     </div>
                                     <span>{user.fullName}</span>
@@ -74,7 +77,6 @@ const Dashboard = () => {
                             ))}
                         </ul>
                     </div>
-
                     <div className="flex-1 bg-gray-800 p-4 flex flex-col">
                         {selectedUser ? (
                             <div className="flex flex-col h-full">
@@ -83,16 +85,14 @@ const Dashboard = () => {
                                     {messages.map((msg, index) => (
                                         <div
                                             key={index}
-                                            className={`mb-2 ${
-                                                msg.sender === loggedInUserId ? 'text-right' : 'text-left'
-                                            }`}
+                                            className={`mb-2 ${msg.sender === loggedInUserId ? 'text-right' : 'text-left'
+                                                }`}
                                         >
                                             <div
-                                                className={`inline-block p-3 rounded-lg ${
-                                                    msg.sender === loggedInUserId
-                                                        ? 'bg-blue-600 text-white'
-                                                        : 'bg-gray-700 text-gray-300'
-                                                }`}
+                                                className={`inline-block p-3 rounded-lg ${msg.sender === loggedInUserId
+                                                    ? 'bg-blue-600 text-white'
+                                                    : 'bg-gray-700 text-gray-300'
+                                                    }`}
                                             >
                                                 <p>{msg.text}</p>
                                                 <small className="text-gray-500 text-sm">
