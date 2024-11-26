@@ -9,8 +9,9 @@ import Login from './pages/Login.jsx';
 import { Toaster } from 'react-hot-toast';
 import Dashboard from './pages/Dashboard.jsx';
 import ProtectedRoute from './components/ProtectedRoutes.jsx';
-import {Provider} from 'react-redux'
-import store from './store/store.js'
+import {Provider} from 'react-redux';
+import store from './store/store.js';
+import Friend from './pages/Friend.jsx';
 
 createRoot(document.getElementById('root')).render(
   <>
@@ -24,6 +25,12 @@ createRoot(document.getElementById('root')).render(
           <Route path="/dashboard" element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          }
+          />
+          <Route path="/friends" element={
+            <ProtectedRoute>
+              <Friend />
             </ProtectedRoute>
           }
           />

@@ -31,7 +31,7 @@ const Nav = () => {
         <h1 className="text-2xl font-bold">ChatMate</h1>
         <div className="hidden md:flex space-x-6 text-[20px] pr-6">
           <Link to="/" className="hover:text-blue-400">Home</Link>
-          <Link to="/features" className="hover:text-blue-400">Features</Link>
+          <Link to="/friends" className="hover:text-blue-400">Friend</Link>
           <Link to="/dashboard" className="hover:text-blue-400">Dashboard</Link>
           <Logout/>
         </div>
