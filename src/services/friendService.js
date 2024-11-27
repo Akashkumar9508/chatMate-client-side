@@ -6,15 +6,15 @@ export class FriendsService {
 
     constructor() {
         this.API = axios.create({
-            baseURL: `${config.apiUrl}/api/friends`,
+            baseURL: `${config.apiUrl}/api/friend-requests`,
             withCredentials: true,
         });
     }
 
-    // Send a friend request
-    async sendFriendRequest(receiverUserName) {
+    async sendFriendRequest(receiverUserId) {
         try {
-            const response = await this.API.post('/send-request', { ReceiverUserName: receiverUserName });
+            console.log("reciver's id", receiverUserId);
+            const response = await this.API.post('/sendFriendRequest', { ReceiverUserId: receiverUserId });
             return response.data;
         } catch (error) {
             console.error('Error sending friend request:', error);
@@ -25,7 +25,7 @@ export class FriendsService {
     // Get friend requests
     async getFriendRequests() {
         try {
-            const response = await this.API.get('/requests');
+            const response = await this.API.get('/getFriendRequests');
             return response.data;
         } catch (error) {
             console.error('Error fetching friend requests:', error);
