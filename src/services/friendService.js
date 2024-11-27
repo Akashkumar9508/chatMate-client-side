@@ -34,9 +34,9 @@ export class FriendsService {
     }
 
     // Accept a friend request
-    async acceptFriendRequest(username) {
+    async acceptFriendRequest(userId) {
         try {
-            const response = await this.API.post('/accept-request', { username });
+            const response = await this.API.put('/acceptRequest', { userId });
             return response.data;
         } catch (error) {
             console.error('Error accepting friend request:', error);
