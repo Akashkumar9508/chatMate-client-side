@@ -47,7 +47,7 @@ export class FriendsService {
     // Decline a friend request
     async declineFriendRequest(userId) {
         try {
-            const response = await this.API.post('/declineRequest', { userId });
+            const response = await this.API.patch('/declineRequest', { userId });
             return response.data;
         } catch (error) {
             console.error('Error declining friend request:', error);
