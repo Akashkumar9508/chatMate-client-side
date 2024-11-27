@@ -3,11 +3,13 @@ import Nav from "../components/Nav.jsx";
 import { FaSearch, FaUserFriends, FaUserPlus } from "react-icons/fa";
 import authService from "../services/authService.js";
 import friendService from "../services/friendService.js";
+import { toast } from "react-hot-toast"; // Import toast
 
 const Friend = () => {
     const [users, setUsers] = useState([]);
     const [friendRequests, setFriendRequests] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const [sentRequests, setSentRequests] = useState([]);
 
     useEffect(() => {
         // Fetch all users
@@ -19,6 +21,7 @@ const Friend = () => {
             })
             .catch((error) => {
                 console.error("Error fetching users:", error);
+                toast.error("Error fetching users!");
             });
 
         // Fetch friend requests
@@ -35,6 +38,7 @@ const Friend = () => {
             })
             .catch((error) => {
                 console.error("Error fetching friend requests:", error);
+                toast.error("Error fetching friend requests!");
             });
     }, []);
 
@@ -43,9 +47,12 @@ const Friend = () => {
             .sendFriendRequest(userId)
             .then((response) => {
                 console.log("Friend request sent:", response);
+                setSentRequests((prev) => [...prev, userId]);
+                toast.success("Friend request sent!"); 
             })
             .catch((error) => {
                 console.error("Error sending friend request:", error);
+                toast.error("Error sending friend request!");
             });
     };
 
@@ -54,12 +61,14 @@ const Friend = () => {
             .acceptFriendRequest(requestId)
             .then(() => {
                 console.log("Friend request accepted");
+                toast.success("Friend request accepted!");
                 setFriendRequests((prev) =>
                     prev.filter((request) => request._id !== requestId)
                 );
             })
             .catch((error) => {
                 console.error("Error accepting friend request:", error);
+                toast.error("Error accepting friend request!"); 
             });
     };
 
@@ -68,12 +77,14 @@ const Friend = () => {
             .declineFriendRequest(requestId)
             .then(() => {
                 console.log("Friend request declined");
+                toast.success("Friend request declined!");
                 setFriendRequests((prev) =>
                     prev.filter((request) => request._id !== requestId)
                 );
             })
             .catch((error) => {
                 console.error("Error declining friend request:", error);
+                toast.error("Error declining friend request!");
             });
     };
 
@@ -119,11 +130,16 @@ const Friend = () => {
                                     <span>{user.userName}</span>
                                 </div>
                                 <button
-                                    className="bg-green-500 text-white px-3 py-2 rounded-md flex items-center gap-2"
+                                    className={`${
+                                        sentRequests.includes(user._id)
+                                            ? "bg-red-500"
+                                            : "bg-green-500"
+                                    } text-white px-3 py-2 rounded-md flex items-center gap-2`}
                                     onClick={() => sendFriendRequest(user._id)}
+                                    disabled={sentRequests.includes(user._id)}
                                 >
                                     <FaUserPlus />
-                                    Add Friend
+                                    {sentRequests.includes(user._id) ? "Pending" : "Add Friend"}
                                 </button>
                             </div>
                         ))
