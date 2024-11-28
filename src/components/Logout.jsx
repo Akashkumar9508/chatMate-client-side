@@ -1,30 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdLogout } from 'react-icons/md';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../features/authSlice.js';
 import authService from '../services/authService';
 
 const Logout = () => {
-    const [User, setUser] = useState(null);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { status } = useSelector((state) => state.auth);
 
     useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const user = await authService.getCurrentUser();
-                setUser(user);
-            } catch (error) {
-                setUser(false);
-                console.error('Error fetching user data', error);
-            }
-        };
-        fetchUser();
-    }, []);
+        if (!status) {
+        }
+    }, [status]); 
 
     const handleLogout = async () => {
         try {
             const response = await authService.logout();
             console.log(response.message);
-            setUser(false);
+            dispatch(logout());
             navigate('/');
         } catch (error) {
             console.error('Error logging out', error);
@@ -33,7 +28,7 @@ const Logout = () => {
 
     return (
         <div>
-            {User ? (
+            {status ? (
                 <button
                     onClick={handleLogout}
                     className="flex items-center space-x-2 text-white hover:text-red-500 transition duration-300"

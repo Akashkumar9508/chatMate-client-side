@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import authService from '../services/authService';
-import Logout from './Logout';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../features/authSlice.js';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
 const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [user, setUser] = useState(null);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { status, userData } = useSelector((state) => state.auth);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -15,55 +17,40 @@ const Nav = () => {
 
   const handleLogout = async () => {
     try {
-      await authService.logout();
-      setUser(null);
+      dispatch(logout());
       navigate('/login');
     } catch (error) {
       console.error('Logout failed:', error);
     }
   };
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const currentUser = await authService.getCurrentUser();
-        setUser(currentUser);
-      } catch (error) {
-        console.error('Error fetching user:', error);
-        setUser(null);
-      }
-    };
-    fetchUser();
-
-    const closeMenu = (event) => {
-      if (event.target.closest('.mobile-menu') === null && event.target.closest('.hamburger') === null) {
-        setIsMenuOpen(false);
-      }
-    };
-    document.addEventListener('click', closeMenu);
-    return () => {
-      document.removeEventListener('click', closeMenu);
-    };
-  }, []);
-
   return (
     <nav className="text-white py-3 shadow-lg flex justify-between items-center px-5 bg-gray-800">
       <div className="w-full flex justify-between items-center">
-        {!user && (
+        {!status && (
           <h1 className="text-2xl font-bold">ChatMate</h1>
         )}
         <div className="hidden md:flex space-x-6 text-[20px] pr-6">
           <Link to="/" className="hover:text-blue-400">Home</Link>
           <Link to="/friends" className="hover:text-blue-400">Friend</Link>
           <Link to="/dashboard" className="hover:text-blue-400">Dashboard</Link>
-          <Logout />
+          {status ? (
+            <button
+              onClick={handleLogout}
+              className="text-white hover:text-red-500 transition duration-300"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link to="/login" className="hover:text-blue-400">Login</Link>
+          )}
         </div>
 
-        {user && (
+        {status && userData && (
           <div className="md:hidden flex items-center space-x-4">
             <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-400">
               <img
-                src={user.avatar}
+                src={userData.avatar}
                 alt="User Avatar"
                 className="w-full h-full object-cover"
               />
@@ -98,7 +85,7 @@ const Nav = () => {
             <Link to="/" className="block py-2 hover:text-blue-400">Home</Link>
             <Link to="/friends" className="block py-2 hover:text-blue-400">Friend</Link>
             <Link to="/dashboard" className="block py-2 hover:text-blue-400">Dashboard</Link>
-            {user ? (
+            {status ? (
               <button
                 onClick={handleLogout}
                 className="block w-full text-left py-2 hover:text-red-400">

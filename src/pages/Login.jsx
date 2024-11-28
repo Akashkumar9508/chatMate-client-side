@@ -2,17 +2,22 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import { useDispatch } from 'react-redux'; 
+import { login } from '../features/authSlice.js'; 
 import Nav from '../components/Nav.jsx';
-import authService  from '../services/authService.js'; 
+import authService from '../services/authService.js'; 
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     try {
       const response = await authService.login(data);
       if (response.user) {
+        dispatch(login(response.user));
+
         toast.success('Login successful!');
         reset();
         navigate('/dashboard');
