@@ -1,14 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import authService from '../services/authService';
 import Logout from './Logout';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState(null); 
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await authService.logout();
+      setUser(null); 
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
   };
 
   useEffect(() => {
@@ -22,22 +34,35 @@ const Nav = () => {
       }
     };
     fetchUser();
+
+    const closeMenu = (event) => {
+      if (event.target.closest('.mobile-menu') === null && event.target.closest('.hamburger') === null) {
+        setIsMenuOpen(false);
+      }
+    };
+    document.addEventListener('click', closeMenu);
+    return () => {
+      document.removeEventListener('click', closeMenu);
+    };
   }, []);
 
-
   return (
-    <nav className="text-white py-3 shadow-lg flex justify-center">
-      <div className="w-full flex justify-between items-center px-5">
-        <h1 className="text-2xl font-bold">ChatMate</h1>
+    <nav className="text-white py-3 shadow-lg flex justify-between items-center px-5">
+      <div className="w-full flex justify-between items-center">
+        {/* ChatMate title hidden on small screens */}
+        <h1 className="text-2xl font-bold hidden md:block">ChatMate</h1>
+
+        {/* Navigation links for medium and larger screens */}
         <div className="hidden md:flex space-x-6 text-[20px] pr-6">
           <Link to="/" className="hover:text-blue-400">Home</Link>
           <Link to="/friends" className="hover:text-blue-400">Friend</Link>
           <Link to="/dashboard" className="hover:text-blue-400">Dashboard</Link>
-          <Logout/>
+          <Logout />
         </div>
 
+        {/* User avatar displayed only on small screens */}
         {user && (
-          <div className="flex items-center space-x-4">
+          <div className="md:hidden flex items-center space-x-4">
             <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-400">
               <img
                 src={user.avatar || 'https://picsum.photos/200'}
@@ -45,34 +70,49 @@ const Nav = () => {
                 className="w-full h-full object-cover"
               />
             </div>
-            <span className="text-lg">{user.fullName}</span>
           </div>
         )}
 
+        {/* Hamburger icon displayed only on small screens */}
         <button
-          className="text-white md:hidden"
+          className="text-white md:hidden hamburger"
           onClick={toggleMenu}
           aria-label="Toggle navigation"
         >
-          ☰
+          <FaBars />
         </button>
       </div>
 
+      {/* Mobile menu when the hamburger icon is clicked */}
       {isMenuOpen && (
-        <div className="md:hidden px-6 py-4">
-          <Link to="/" className="block py-2 hover:text-blue-400">Home</Link>
-          <Link to="/features" className="block py-2 hover:text-blue-400">Features</Link>
-          <Link to="/dashboard" className="block py-2 hover:text-blue-400">Dashboard</Link>
-          {user ? (
-            <button
-              onClick={handleLogout}
-              className="block w-full text-left py-2 hover:text-red-400">
-              Logout
+        <>
+          <div
+            className="fixed inset-0 bg-black opacity-50 md:hidden"
+            onClick={toggleMenu}
+          ></div>
+
+          <div className="mobile-menu fixed inset-0 bg-gray-800 text-white px-6 py-4 z-10">
+            <button 
+              className="absolute top-4 right-4 text-white text-2xl"
+              onClick={toggleMenu}
+            >
+              <FaTimes />
             </button>
-          ) : (
-            <Link to="/login" className="block py-2 hover:text-blue-400">Login</Link>
-          )}
-        </div>
+
+            <Link to="/" className="block py-2 hover:text-blue-400">Home</Link>
+            <Link to="/friends" className="block py-2 hover:text-blue-400">Friend</Link>
+            <Link to="/dashboard" className="block py-2 hover:text-blue-400">Dashboard</Link>
+            {user ? (
+              <button
+                onClick={handleLogout}
+                className="block w-full text-left py-2 hover:text-red-400">
+                Logout
+              </button>
+            ) : (
+              <Link to="/login" className="block py-2 hover:text-blue-400">Login</Link>
+            )}
+          </div>
+        </>
       )}
     </nav>
   );

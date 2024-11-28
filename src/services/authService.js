@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   // Login
-  async login({email, password}) {
+  async login({ email, password }) {
     try {
       const response = await this.API.post('/login', {
         email,
@@ -71,6 +71,17 @@ export class AuthService {
       return response.data;
     } catch (error) {
       console.error('Error fetching all users:', error.response?.data || error.message);
+      throw error;
+    }
+  }
+
+  // Get user by ID
+  async getUserById(id) {
+    try {
+      const response = await this.API.get(`/user/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching user by ID:', error.response?.data || error.message);
       throw error;
     }
   }

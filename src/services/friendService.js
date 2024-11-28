@@ -6,15 +6,15 @@ export class FriendsService {
 
     constructor() {
         this.API = axios.create({
-            baseURL: `${config.apiUrl}/api/friends`,
+            baseURL: `${config.apiUrl}/api/friend-requests`,
             withCredentials: true,
         });
     }
 
-    // Send a friend request
-    async sendFriendRequest(receiverUserName) {
+    async sendFriendRequest(receiverUserId) {
         try {
-            const response = await this.API.post('/send-request', { ReceiverUserName: receiverUserName });
+            console.log("reciver's id", receiverUserId);
+            const response = await this.API.post('/sendFriendRequest', { ReceiverUserId: receiverUserId });
             return response.data;
         } catch (error) {
             console.error('Error sending friend request:', error);
@@ -25,7 +25,7 @@ export class FriendsService {
     // Get friend requests
     async getFriendRequests() {
         try {
-            const response = await this.API.get('/requests');
+            const response = await this.API.get('/getFriendRequests');
             return response.data;
         } catch (error) {
             console.error('Error fetching friend requests:', error);
@@ -34,9 +34,9 @@ export class FriendsService {
     }
 
     // Accept a friend request
-    async acceptFriendRequest(username) {
+    async acceptFriendRequest(userId) {
         try {
-            const response = await this.API.post('/accept-request', { username });
+            const response = await this.API.put('/acceptRequest', { userId });
             return response.data;
         } catch (error) {
             console.error('Error accepting friend request:', error);
@@ -45,9 +45,9 @@ export class FriendsService {
     }
 
     // Decline a friend request
-    async declineFriendRequest(username) {
+    async declineFriendRequest(userId) {
         try {
-            const response = await this.API.post('/decline-request', { username });
+            const response = await this.API.patch('/declineRequest', { userId });
             return response.data;
         } catch (error) {
             console.error('Error declining friend request:', error);
