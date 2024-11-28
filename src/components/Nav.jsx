@@ -6,7 +6,7 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 
 const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [user, setUser] = useState(null); 
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   const toggleMenu = () => {
@@ -16,7 +16,7 @@ const Nav = () => {
   const handleLogout = async () => {
     try {
       await authService.logout();
-      setUser(null); 
+      setUser(null);
       navigate('/login');
     } catch (error) {
       console.error('Logout failed:', error);
@@ -49,10 +49,9 @@ const Nav = () => {
   return (
     <nav className="text-white py-3 shadow-lg flex justify-between items-center px-5">
       <div className="w-full flex justify-between items-center">
-        {/* ChatMate title hidden on small screens */}
-        <h1 className="text-2xl font-bold hidden md:block">ChatMate</h1>
-
-        {/* Navigation links for medium and larger screens */}
+        {!user && (
+          <h1 className="text-2xl font-bold">ChatMate</h1>
+        )}
         <div className="hidden md:flex space-x-6 text-[20px] pr-6">
           <Link to="/" className="hover:text-blue-400">Home</Link>
           <Link to="/friends" className="hover:text-blue-400">Friend</Link>
@@ -60,12 +59,11 @@ const Nav = () => {
           <Logout />
         </div>
 
-        {/* User avatar displayed only on small screens */}
         {user && (
           <div className="md:hidden flex items-center space-x-4">
             <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-400">
               <img
-                src={user.avatar || 'https://picsum.photos/200'}
+                src={user.avatar}
                 alt="User Avatar"
                 className="w-full h-full object-cover"
               />
@@ -73,7 +71,6 @@ const Nav = () => {
           </div>
         )}
 
-        {/* Hamburger icon displayed only on small screens */}
         <button
           className="text-white md:hidden hamburger"
           onClick={toggleMenu}
@@ -83,7 +80,6 @@ const Nav = () => {
         </button>
       </div>
 
-      {/* Mobile menu when the hamburger icon is clicked */}
       {isMenuOpen && (
         <>
           <div
@@ -92,7 +88,7 @@ const Nav = () => {
           ></div>
 
           <div className="mobile-menu fixed inset-0 bg-gray-800 text-white px-6 py-4 z-10">
-            <button 
+            <button
               className="absolute top-4 right-4 text-white text-2xl"
               onClick={toggleMenu}
             >
