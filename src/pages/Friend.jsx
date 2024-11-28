@@ -92,22 +92,20 @@ const Friend = () => {
     );
 
     return (
-        <div className="friends-page h-lvh w-full px-4 py-4 bg-gray-900 text-white">
+        <>
             <Nav/>
-            <h1 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                <FaUserFriends /> Friends Page
-            </h1>
-            <div className="flex items-center mb-6 flex-wrap gap-4">
+            <div className="friends-page h-lvh w-full px-4 py-4 bg-gray-900 text-white">
+            <h1 className="text-2xl font-bold mb-4 flex items-center gap-2"><FaUserFriends /> Friends Page</h1>
+            <div className="flex items-center mb-6 flex-wrap gap-4 w-full">
                 <input
                     type="text"
                     placeholder="Search users..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="border border-gray-300 rounded-md px-4 py-2 w-full sm:w-64 text-black outline-none"
+                    className="rounded-md px-4 py-2 sm:w-64 text-black outline-none w-5/6"
                 />
-                <button className="ml-2 bg-blue-500 px-4 py-2 rounded-md flex items-center gap-2">
+                <button className="bg-blue-500 px-2 py-2 rounded-md flex items-center gap-2 h-10">
                     <FaSearch />
-                    Search
                 </button>
             </div>
 
@@ -136,20 +134,16 @@ const Friend = () => {
                                     onClick={() => sendFriendRequest(user._id)}
                                     disabled={sentRequests.includes(user._id)}
                                 >
-                                    {/* For mobile screens, show the icons only */}
                                     <span className="block sm:hidden">
                                         <FaUserPlus />
                                         {sentRequests.includes(user._id) && (
                                             <FaClock className="ml-2 animate-spin" />
                                         )}
                                     </span>
-
-                                    {/* For desktop screens, show the text */}
                                     <span className="hidden sm:inline">
                                         {sentRequests.includes(user._id) ? "Pending" : "Add Friend"}
                                     </span>
                                 </button>
-
                             </div>
                         ))
                     ) : (
@@ -193,11 +187,12 @@ const Friend = () => {
                             </div>
                         ))
                     ) : (
-                        <p>No friend requests.</p>
+                        <p>No Upcoming requests.</p>
                     )}
                 </div>
             </div>
         </div>
+        </>
     );
 };
 
