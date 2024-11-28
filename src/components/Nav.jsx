@@ -47,7 +47,7 @@ const Nav = () => {
   }, []);
 
   return (
-    <nav className="text-white py-3 shadow-lg flex justify-between items-center px-5">
+    <nav className="text-white py-3 shadow-lg flex justify-between items-center px-5 bg-gray-800">
       <div className="w-full flex justify-between items-center">
         {!user && (
           <h1 className="text-2xl font-bold">ChatMate</h1>
