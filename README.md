@@ -45,6 +45,10 @@ A full-stack chatting application built with the MERN (MongoDB, Express, React, 
      ```bash
      npm install
      ```
+   - Create a `.env` file in the root of the `clint` directory and add the following environment variables:
+     ```
+     VITE_API_URL="http://localhost:5000"
+     ```
    - Start the frontend development server:
      ```bash
      npm run dev
