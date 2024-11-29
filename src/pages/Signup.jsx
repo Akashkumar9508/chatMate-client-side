@@ -4,11 +4,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import Nav from '../components/Nav.jsx';
 import authService from '../services/authService.js';
+import generateAvatar from '../utils/avatarGenerator.js'
 
 const Signup = () => {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const { register, handleSubmit, formState: { errors }, reset, watch } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+
+  const userName = watch('userName') || 'placeholder';
+  const avatar = generateAvatar(userName); 
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -21,7 +25,7 @@ const Signup = () => {
         data.userName,
         data.email,
         data.password,
-        data.avatar
+        avatar
       );
       toast.success('Signup successful!', { duration: 4000 });
       reset();
