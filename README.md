@@ -26,11 +26,16 @@ A full-stack chatting application built with the MERN (MongoDB, Express, React, 
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/your-username/mern-chat-app.git
+   git clone https://github.com/Mantu01/chatMate-client-side.git
    cd mern-chat-app
    ```
 
 2. **Backend Setup**
+    *backend url
+    ```bash
+   https://github.com/Anant1004/chatMate-server-side
+   ```
+
 
    - Navigate to the `server` directory:
      ```bash
