@@ -31,7 +31,7 @@ A full-stack chatting application built with the MERN (MongoDB, Express, React, 
    ```
 
 2. **Backend Setup**
-    *backend url
+    -*backend url
     ```bash
    https://github.com/Anant1004/chatMate-server-side
    ```
