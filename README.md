@@ -30,32 +30,11 @@ A full-stack chatting application built with the MERN (MongoDB, Express, React, 
    cd mern-chat-app
    ```
 
-2. **Backend Setup**
-    -*backend url
+2. **backend Setup**
+    **backend url
     ```bash
    https://github.com/Anant1004/chatMate-server-side
    ```
-
-
-   - Navigate to the `server` directory:
-     ```bash
-     cd server
-     ```
-   - Install dependencies:
-     ```bash
-     npm install
-     ```
-   - Create a `.env` file in the root of the `server` directory and add the following environment variables:
-     ```
-     MONGO_URI=your_mongodb_uri
-     JWT_SECRET=your_jwt_secret
-     PORT=5000
-     ```
-   - Start the backend server:
-     ```bash
-     npm start
-     ```
-
 3. **Frontend Setup**
 
    - Navigate to the `client` directory:
@@ -98,26 +77,6 @@ A full-stack chatting application built with the MERN (MongoDB, Express, React, 
 - `POST /api/groups/create`: Create a new group chat.
 - `POST /api/groups/add-member`: Add a member to an existing group.
 
-## Folder Structure
-
-```plaintext
-mern-chat-app/
-├── client/         # React frontend
-│   ├── src/
-│   ├── public/
-│   ├── package.json
-│   └── .env
-├── server/         # Node.js backend
-│   ├── models/     # Mongoose schemas
-│   ├── routes/     # API endpoints
-│   ├── controllers/# Route handlers
-│   ├── middleware/ # Middleware for auth
-│   ├── utils/      # Utility functions
-│   ├── .env
-│   └── server.js
-├── README.md
-└── .gitignore
-```
 
 ## Security
 
