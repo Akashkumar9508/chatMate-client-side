@@ -1,27 +1,18 @@
-import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import authService from "../services/authService";
 import { toast } from "react-hot-toast";
+import { useEffect, useRef } from "react";
 
 const ProtectedRoute = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(null);
+    const { status: isAuthenticated } = useSelector((state) => state.auth);
+    const hasShownToast = useRef(false);
 
     useEffect(() => {
-        const checkAuth = async () => {
-            try {
-                const user = await authService.getCurrentUser();
-                if (user) {
-                    setIsAuthenticated(true);
-                } else {
-                    setIsAuthenticated(false);
-                }
-            } catch (error) {
-                setIsAuthenticated(false);
-                console.error("Error checking authentication:", error);
-            }
-        };
-        checkAuth();
-    }, []);
+        if (!isAuthenticated && !hasShownToast.current) {
+            toast.error("Login to access this!");
+            hasShownToast.current = true;
+        }
+    }, [isAuthenticated]);
 
     if (isAuthenticated === null) {
         return (
@@ -30,9 +21,7 @@ const ProtectedRoute = ({ children }) => {
             </div>
         );
     }
-
-    if (isAuthenticated === false) {
-        toast.error("Login to acces this !");
+    if (!isAuthenticated) {
         return <Navigate to="/login" replace />;
     }
     return children;
