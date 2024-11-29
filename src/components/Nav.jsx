@@ -30,7 +30,7 @@ const Nav = () => {
         {!status && (
           <h1 className="text-2xl font-bold">ChatMate</h1>
         )}
-        <div className="hidden md:flex space-x-6 text-[20px] pr-6">
+        <div className="hidden md:flex space-x-6 text-[20px] pr-6 ">
           <Link to="/" className="hover:text-blue-400">Home</Link>
           <Link to="/friends" className="hover:text-blue-400">Friend</Link>
           <Link to="/dashboard" className="hover:text-blue-400">Dashboard</Link>
@@ -73,8 +73,7 @@ const Nav = () => {
             className="fixed inset-0 bg-black opacity-50 md:hidden"
             onClick={toggleMenu}
           ></div>
-
-          <div className="mobile-menu fixed inset-0 bg-gray-800 text-white px-6 py-4 z-10">
+          <div className="w-[90%] mobile-menu fixed inset-0 bg-gray-800 text-white px-6 py-4 z-10 ">
             <button
               className="absolute top-4 right-4 text-white text-2xl"
               onClick={toggleMenu}
