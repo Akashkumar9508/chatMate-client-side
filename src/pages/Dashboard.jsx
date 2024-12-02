@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { HiMenu } from 'react-icons/hi';
-import Nav from '../components/Nav.jsx';
+import Nav from '../components/Nav';
 import authService from '../services/authService.js';
 import messagesService from '../services/messageService.js';
 
@@ -49,7 +49,7 @@ const Dashboard = () => {
     };
 
     return (
-        <div className="flex flex-col min-h-screen bg-gray-900 text-gray-300">
+        <div className="flex flex-col min-h-screen  text-gray-300">
             <Nav />
             <section className="flex-grow bg-gray-800">
                 <div className="flex flex-col md:flex-row h-full">
