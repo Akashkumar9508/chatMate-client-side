@@ -25,25 +25,39 @@ const Nav = () => {
   };
 
   return (
-    <nav className="text-white py-3 shadow-lg flex justify-between items-center px-5">
-      <div className="w-full flex justify-between items-center">
+    <nav className="text-black h-16 py-3 flex justify-between items-center px-9 ">
+      
         {!status && (
-          <h1 className="text-2xl font-bold">ChatMate</h1>
+          <div className="logo  flex justify-center items-center h-full cursor-pointer ">
+            <img src=" /logo.png " className="h-full" alt="" />
+            <h1 className="text-2xl font-bold">Chat-Mate</h1>
+          </div>
         )}
-        <div className="hidden md:flex space-x-6 text-[20px] pr-6 ">
-          <Link to="/" className="hover:text-blue-400">Home</Link>
-          <Link to="/friends" className="hover:text-blue-400">Friend</Link>
-          <Link to="/dashboard" className="hover:text-blue-400">Dashboard</Link>
-          {status ? (
+        <div className="hidden md:flex space-x-6 pr-6 font-medium">
+          <Link to="/" className="hover:text-[#8e52ff]">Home</Link>
+          <Link to="/friends" className="hover:text-[#8e52ff]">Friend</Link>
+          <Link to="/dashboard" className="hover:text-[#8e52ff]">Dashboard</Link>
+        </div>
+        <div className="navBtn">
+        {status ? (
             <button
               onClick={handleLogout}
-              className="text-white hover:text-red-500 transition duration-300"
+              className="text-white hidden md:flex bg-[#8e52ff] px-5 py-1 rounded-full hover:bg-[#a079e8]  transition duration-300"
             >
               Logout
             </button>
+            
+            
           ) : (
-            <Link to="/login" className="hover:text-blue-400">Login</Link>
+            <button
+              onClick={handleLogout}
+              to='/login'
+              className="text-white hidden md:flex bg-[#8e52ff] px-5 py-1 rounded-full hover:bg-[#a079e8]  transition duration-300"
+            >
+              Sign-in
+            </button>
           )}
+ 
         </div>
 
         {status && userData && (
@@ -59,14 +73,12 @@ const Nav = () => {
         )}
 
         <button
-          className="text-white md:hidden hamburger"
+          className="text-black md:hidden hamburger"
           onClick={toggleMenu}
           aria-label="Toggle navigation"
         >
           <FaBars />
         </button>
-      </div>
-
       {isMenuOpen && (
         <>
           <div
