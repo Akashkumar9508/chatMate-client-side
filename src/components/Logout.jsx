@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { MdLogout } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../features/authSlice.js';
-import authService from '../services/authService';
+import authService from '../services/authService.js';
 
 const Logout = () => {
     const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const Logout = () => {
     const handleLogout = async () => {
         try {
             const response = await authService.logout();
-            console.log(response.message);
+            console.log("this is the message from logout click",response);
             dispatch(logout());
             navigate('/');
         } catch (error) {
@@ -33,7 +33,8 @@ const Logout = () => {
                     onClick={handleLogout}
                     className="flex items-center space-x-2 text-white hover:text-red-500 transition duration-300"
                 >
-                    <MdLogout size={24} />
+                    <span className='hidden md:block'><MdLogout size={24} /></span>
+                    <span className='md:hidden block'>Logout</span>
                 </button>
             ) : (
                 <Link

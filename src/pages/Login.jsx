@@ -52,7 +52,6 @@ const Login = () => {
 
       <div className="flex items-center w-full justify-center min-h-[calc(100vh-64px)]">
         <div className="w-full max-w-5xl flex flex-col md:flex-row mainSection text-black shadow-lg rounded-lg">
-          {/* Left Image Section (Hidden on small screens) */}
           <div className="imgDiv w-full md:w-1/2 hidden md:block">
             <img
               src={loginPng}
@@ -61,7 +60,6 @@ const Login = () => {
             />
           </div>
 
-          {/* Right Form Section */}
           <div className="login w-full md:w-1/2 flex flex-col justify-center p-10">
             <h2 className="text-4xl font-bold text-center">Login</h2>
 
