@@ -6,7 +6,7 @@ import { toast } from 'react-hot-toast';
 import Nav from '../components/Nav.jsx';
 import authService from '../services/authService.js';
 import generateAvatar from '../utils/avatarGenerator.js'
-import signupPng from "/public/assets/signup.png";
+import signupPng from "../assets/Signup.png";
 
 const Signup = () => {
   const { register, handleSubmit, formState: { errors }, reset, watch } = useForm();
@@ -56,14 +56,14 @@ const Signup = () => {
       </div>
 
       {/* Right Form Section */}
-      <div className="login w-full md:w-1/2 flex flex-col justify-center p-10">
+      <div className="login w-full md:w-1/2 flex flex-col justify-center md:p-10 p-4">
         <h2 className="text-4xl font-bold text-center">Sign Up</h2>
 
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col justify-center mt-8"
         >
-          <div className="mb-4">
+          <div className="mb-3">
             <label
               className="block text-sm font-bold mb-2 text-[#8e52ff]"
               htmlFor="FullName"
@@ -73,16 +73,15 @@ const Signup = () => {
             <input
               id="FullName"
               type="text"
-              placeholder="Enter your full name"
               {...register('fullName', { required: 'Full Name is required' })}
-              className="w-full text-base px-4 py-4 border rounded-lg focus:outline-none"
+              className="w-full text-base px-3 py-2 border rounded-lg focus:outline-none"
             />
             {errors.fullName && (
               <p className="text-red-500 text-sm mt-1">{errors.fullName.message}</p>
             )}
           </div>
 
-          <div className="mb-4">
+          <div className="mb-3">
             <label
               className="block text-sm font-bold mb-2 text-[#8e52ff]"
               htmlFor="UserName"
@@ -92,16 +91,15 @@ const Signup = () => {
             <input
               id="UserName"
               type="text"
-              placeholder="Enter your user name"
               {...register('userName', { required: 'User Name is required' })}
-              className="w-full text-base px-4 py-4 border rounded-lg focus:outline-none"
+              className="w-full text-base px-3 py-2 border rounded-lg focus:outline-none"
             />
             {errors.userName && (
               <p className="text-red-500 text-sm mt-1">{errors.userName.message}</p>
             )}
           </div>
 
-          <div className="mb-4">
+          <div className="mb-3">
             <label
               className="block text-sm font-bold mb-2 text-[#8e52ff]"
               htmlFor="email"
@@ -111,7 +109,6 @@ const Signup = () => {
             <input
               id="email"
               type="email"
-              placeholder="Enter your email"
               {...register('email', {
                 required: 'Email is required',
                 pattern: {
@@ -119,14 +116,14 @@ const Signup = () => {
                   message: 'Invalid email address',
                 },
               })}
-              className="w-full text-base px-4 py-4 border rounded-lg focus:outline-none"
+              className="w-full text-base px-3 py-2 border rounded-lg focus:outline-none"
             />
             {errors.email && (
               <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
             )}
           </div>
 
-          <div className="mb-4 relative">
+          <div className="mb-3 relative">
             <label
               className="block text-sm font-bold mb-2 text-[#8e52ff]"
               htmlFor="password"
@@ -136,7 +133,6 @@ const Signup = () => {
             <input
               id="password"
               type={showPassword ? 'text' : 'password'}
-              placeholder="Enter your password"
               {...register('password', {
                 required: 'Password is required',
                 minLength: {
@@ -144,7 +140,7 @@ const Signup = () => {
                   message: 'Password must be at least 8 characters',
                 },
               })}
-              className="w-full text-base px-4 py-4 border rounded-lg focus:outline-none"
+              className="w-full text-base px-3 py-2 border rounded-lg focus:outline-none"
             />
             <button
               type="button"
@@ -162,7 +158,7 @@ const Signup = () => {
             )}
           </div>
 
-          <div className="mb-4">
+          <div className="mb-3">
             <button
               type="submit"
               className="w-full bg-[#8e52ff] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#542aa4] focus:outline-none focus:ring-2 focus:ring-blue-400"

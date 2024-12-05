@@ -14,9 +14,9 @@ const Nav = () => {
     <nav className="text-black h-16 py-3 flex justify-between items-center px-9 ">
       <div className="logo flex justify-center items-center h-full cursor-pointer">
         <img src="/logo.png" className="h-full" alt="" />
-        <h1 className="text-2xl font-bold">Chat-Mate</h1>
+        <h1 className="text-2xl font-bold">ChatMate</h1>
       </div>
-      <div className="hidden md:flex space-x-6 pr-6 font-medium">
+      <div className="hidden md:flex space-x-6 pr-6 font-semibold text-lg">
         <Link to="/" className="hover:text-[#8e52ff]">Home</Link>
         <Link to="/friends" className="hover:text-[#8e52ff]">Friend</Link>
         <Link to="/dashboard" className="hover:text-[#8e52ff]">Dashboard</Link>

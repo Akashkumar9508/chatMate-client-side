@@ -9,7 +9,7 @@ import { login } from "../features/authSlice.js";
 
 import Nav from "../components/Nav.jsx";
 import authService from "../services/authService.js";
-import loginPng from "/public/assets/login.png";
+import loginPng from "../assets/login.png";
 
 const Login = () => {
   const {
@@ -50,8 +50,8 @@ const Login = () => {
     <div className="min-h-screen mainSection">
       <Nav />
 
-      <div className="flex items-center w-full justify-center min-h-[calc(100vh-64px)]">
-        <div className="w-full max-w-5xl flex flex-col md:flex-row mainSection text-black shadow-lg rounded-lg">
+      <div className="flex items-center w-full justify-center min-h-[calc(100vh-64px)] p-3">
+        <div className="w-full flex flex-col md:flex-row mainSection text-black shadow-lg rounded-lg">
           <div className="imgDiv w-full md:w-1/2 hidden md:block">
             <img
               src={loginPng}
@@ -60,14 +60,14 @@ const Login = () => {
             />
           </div>
 
-          <div className="login w-full md:w-1/2 flex flex-col justify-center p-10">
+          <div className="login w-full md:w-1/2 flex flex-col justify-center md:p-10 p-3 rounded-3xl">
             <h2 className="text-4xl font-bold text-center">Login</h2>
 
             <form
               onSubmit={handleSubmit(onSubmit)}
               className="flex flex-col justify-center gap-6 mt-8"
             >
-              <div className="mb-4">
+              <div className="md:mb-4">
                 <label
                   className="block text-sm font-bold mb-2 text-[#8e52ff]"
                   htmlFor="email"
@@ -79,7 +79,7 @@ const Login = () => {
                   type="email"
                   {...register("email", { required: "Email is required" })}
                   placeholder="Enter your email"
-                  className="w-full text-base px-4 py-4 border rounded-lg focus:outline-none"
+                  className="w-full text-base px-3 py-2 border rounded-lg focus:outline-none"
                 />
                 {errors.email && (
                   <p className="text-red-500 text-sm mt-1">
@@ -88,7 +88,7 @@ const Login = () => {
                 )}
               </div>
 
-              <div className="mb-4 relative">
+              <div className="md:mb-4 relative">
                 <label
                   className="block text-sm font-bold mb-2 text-[#8e52ff] "
                   htmlFor="password"
@@ -102,7 +102,7 @@ const Login = () => {
                     required: "Password is required",
                   })}
                   placeholder="Enter your password"
-                  className="w-full px-4 py-4 border rounded-lg focus:outline-none"
+                  className="w-full px-3 py-2 border rounded-lg focus:outline-none"
                 />
                 <button
                   type="button"

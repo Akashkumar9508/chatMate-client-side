@@ -1,16 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Navigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import authService from "../services/authService";
-import { login } from "../features/authSlice.js";
+import { login } from "../features/authSlice";
 
 const ProtectedRoute = ({ children }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const hasShownToast = useRef(false);
-    const [isUserChecked, setIsUserChecked] = useState(false);
-
     const { status: isAuthenticated } = useSelector((state) => state.auth);
 
     useEffect(() => {
@@ -19,33 +16,22 @@ const ProtectedRoute = ({ children }) => {
                 const response = await authService.getCurrentUser();
                 dispatch(login(response));
             } catch (error) {
-                console.error("Login error:", error);
+                toast.error("Login to access this!");
                 navigate("/login");
-            } finally {
-                setIsUserChecked(true);
             }
         };
 
-        fetchCurrentUser();
-    }, [dispatch, navigate]);
-
-    useEffect(() => {
-        if (isUserChecked && !isAuthenticated && !hasShownToast.current) {
-            toast.error("Login to access this!");
-            hasShownToast.current = true;
+        if (!isAuthenticated) {
+            fetchCurrentUser();
         }
-    }, [isUserChecked, isAuthenticated]);
+    }, [dispatch, navigate, isAuthenticated]);
 
-    if (!isUserChecked) {
+    if (!isAuthenticated) {
         return (
             <div className="bg-slate-950 w-full h-screen flex items-center justify-center text-[4rem] text-white">
                 Loading...
             </div>
         );
-    }
-
-    if (!isAuthenticated) {
-        return <Navigate to="/login" replace />;
     }
 
     return children;
