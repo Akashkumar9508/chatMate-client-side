@@ -33,14 +33,14 @@ const Logout = () => {
                     className="flex items-center space-x-2 text-white hover:text-red-500 transition duration-300"
                 >
                     <span className='hidden md:block'><MdLogout size={24} /></span>
-                    <span className='md:hidden block'>Logout</span>
+                    <span className='md:hidden block text-lg'>Logout</span>
                 </button>
             ) : (
                 <Link
                     to="/login"
-                    className="flex items-center space-x-2 text-white hover:text-blue-500 transition duration-300"
+                    className="flex items-center space-x-2 text-black font-semibold hover:text-blue-500 transition duration-300"
                 >
-                    <span>Login</span>
+                    <span className='text-lg'>Login</span>
                 </Link>
             )}
         </div>

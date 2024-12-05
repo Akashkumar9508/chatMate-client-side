@@ -9,7 +9,7 @@ import { login } from "../features/authSlice.js";
 
 import Nav from "../components/Nav.jsx";
 import authService from "../services/authService.js";
-import loginPng from "/public/assets/login.png";
+import loginPng from "../assets/login.png";
 
 const Login = () => {
   const {

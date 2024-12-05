@@ -6,7 +6,7 @@ import { toast } from 'react-hot-toast';
 import Nav from '../components/Nav.jsx';
 import authService from '../services/authService.js';
 import generateAvatar from '../utils/avatarGenerator.js'
-import signupPng from "/public/assets/signup.png";
+import signupPng from "../assets/Signup.png";
 
 const Signup = () => {
   const { register, handleSubmit, formState: { errors }, reset, watch } = useForm();
