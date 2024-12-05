@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useEffect } from "react";
 import authService from "../services/authService";
@@ -28,7 +28,7 @@ const ProtectedRoute = ({ children }) => {
 
     if (!isAuthenticated) {
         return (
-            <div className="bg-slate-950 w-full h-screen flex items-center justify-center text-[4rem] text-white">
+            <div className="bg-slate-950 w-full h-screen flex items-center justify-center text-[4rem]">
                 Loading...
             </div>
         );

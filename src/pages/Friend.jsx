@@ -91,7 +91,7 @@ const Friend = () => {
     return (
         <>
             <Nav />
-            <div className="friends-page h-lvh w-full px-4 py-4 bg-gray-900 text-white">
+            <div className="friends-page h-lvh w-full px-4 py-4 bg-gray-900">
                 <h1 className="text-2xl font-bold mb-4 flex items-center gap-2"><FaUserFriends /> Friends Page</h1>
                 <div className="flex items-center mb-6 flex-wrap gap-4 w-full">
                     <input
@@ -99,7 +99,7 @@ const Friend = () => {
                         placeholder="Search users..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="rounded-md px-4 py-2 sm:w-64 text-black outline-none w-5/6"
+                        className="rounded-md px-4 py-2 sm:w-64 outline-none w-5/6"
                     />
                     <button className="bg-blue-500 px-2 py-2 rounded-md flex items-center gap-2 h-10">
                         <FaSearch />
@@ -127,7 +127,7 @@ const Friend = () => {
                                         className={`${sentRequests.includes(user._id)
                                             ? "bg-red-500"
                                             : "bg-green-500"
-                                            } text-white px-3 py-2 rounded-md flex items-center gap-2`}
+                                            } px-3 py-2 rounded-md flex items-center gap-2`}
                                         onClick={() => sendFriendRequest(user._id)}
                                         disabled={sentRequests.includes(user._id)}
                                     >
@@ -170,13 +170,13 @@ const Friend = () => {
                                             <FaClock className="text-yellow-500" />
                                         )}
                                         <button
-                                            className="bg-blue-500 text-white px-3 py-2 rounded-md"
+                                            className="bg-blue-500 px-3 py-2 rounded-md"
                                             onClick={() => handleAcceptRequest(request._id)}
                                         >
                                             Accept
                                         </button>
                                         <button
-                                            className="bg-red-500 text-white px-3 py-2 rounded-md"
+                                            className="bg-red-500 px-3 py-2 rounded-md"
                                             onClick={() => handleDeclineRequest(request._id)}
                                         >
                                             Decline

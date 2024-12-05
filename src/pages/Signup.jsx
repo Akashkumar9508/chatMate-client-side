@@ -44,7 +44,7 @@ const Signup = () => {
   <Nav />
 
   <div className="flex items-center w-full justify-center min-h-[calc(100vh-64px)]">
-    <div className="w-full max-w-6xl flex flex-col md:flex-row mainSection text-black shadow-lg rounded-lg">
+    <div className="w-full max-w-6xl flex flex-col md:flex-row mainSection shadow-lg rounded-lg">
       
       {/* Left Image Section (Hidden on small screens) */}
       <div className="imgDiv w-full md:w-1/2 hidden md:block">
@@ -161,7 +161,7 @@ const Signup = () => {
           <div className="mb-3">
             <button
               type="submit"
-              className="w-full bg-[#8e52ff] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#542aa4] focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full bg-[#8e52ff] font-bold py-2 px-4 rounded-lg hover:bg-[#542aa4] focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
               Sign Up
             </button>

@@ -1,17 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect ,useState} from 'react';
 import { Link } from 'react-router-dom';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes, FaMoon, FaSun } from 'react-icons/fa';
 import Logout from './Logout.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleTheme } from '../features/themeSlice.js';
 
 const Nav = () => {
+  const dispatch = useDispatch();
+  const theme = useSelector((state) => state.theme.theme); 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleToggleTheme = () => {
+    dispatch(toggleTheme());
+  };
+
   return (
-    <nav className="text-black h-16 py-3 flex justify-between items-center px-9 ">
+    <nav className="h-16 py-3 flex justify-between items-center px-4">
       <div className="logo flex justify-center items-center h-full cursor-pointer">
         <img src="/logo.png" className="h-full" alt="" />
         <h1 className="text-2xl font-bold">ChatMate</h1>
@@ -21,10 +37,21 @@ const Nav = () => {
         <Link to="/friends" className="hover:text-[#8e52ff]">Friend</Link>
         <Link to="/dashboard" className="hover:text-[#8e52ff]">Dashboard</Link>
       </div>
-      <div className="navBtn hidden md:flex"> <Logout /> </div>
+      <div className="flex items-center space-x-4">
+        <button
+          onClick={handleToggleTheme} 
+          className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600"
+          aria-label="Toggle theme"
+        >
+          {theme === 'dark' ? <FaSun className="text-yellow-500" /> : <FaMoon />}
+        </button>
+        <div className="hidden md:flex">
+          <Logout />
+        </div>
+      </div>
 
       <button
-        className="text-black md:hidden hamburger"
+        className="md:hidden hamburger"
         onClick={toggleMenu}
         aria-label="Toggle navigation"
       >
@@ -37,9 +64,9 @@ const Nav = () => {
             className="fixed inset-0 bg-black opacity-50 md:hidden"
             onClick={toggleMenu}
           ></div>
-          <div className="w-[90%] mobile-menu fixed inset-0 bg-gray-800 text-white px-6 py-4 z-10">
+          <div className="w-[90%] mobile-menu fixed inset-0 bg-gray-800 px-6 py-4 z-10">
             <button
-              className="absolute top-4 right-4 text-white text-2xl"
+              className="absolute top-4 right-4 text-2xl"
               onClick={toggleMenu}
             >
               <FaTimes />
