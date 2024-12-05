@@ -13,7 +13,6 @@ export class FriendsService {
 
     async sendFriendRequest(receiverUserId) {
         try {
-            console.log("reciver's id", receiverUserId);
             const response = await this.API.post('/sendFriendRequest', { ReceiverUserId: receiverUserId });
             return response.data;
         } catch (error) {
