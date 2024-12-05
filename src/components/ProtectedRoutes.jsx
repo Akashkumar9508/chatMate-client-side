@@ -17,7 +17,6 @@ const ProtectedRoute = ({ children }) => {
         const fetchCurrentUser = async () => {
             try {
                 const response = await authService.getCurrentUser();
-                console.log("User fetched:", response);
                 dispatch(login(response));
             } catch (error) {
                 console.error("Login error:", error);

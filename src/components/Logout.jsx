@@ -18,7 +18,6 @@ const Logout = () => {
     const handleLogout = async () => {
         try {
             const response = await authService.logout();
-            console.log("this is the message from logout click",response);
             dispatch(logout());
             navigate('/');
         } catch (error) {

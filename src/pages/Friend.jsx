@@ -45,7 +45,6 @@ const Friend = () => {
         friendService
             .sendFriendRequest(userId)
             .then((response) => {
-                console.log("Friend request sent:", response);
                 setSentRequests((prev) => [...prev, userId]);
                 toast.success("Friend request sent!");
             })
@@ -59,7 +58,6 @@ const Friend = () => {
         friendService
             .acceptFriendRequest(requestId)
             .then(() => {
-                console.log("Friend request accepted");
                 toast.success("Friend request accepted!");
                 setFriendRequests((prev) =>
                     prev.filter((request) => request._id !== requestId)
@@ -75,7 +73,6 @@ const Friend = () => {
         friendService
             .declineFriendRequest(requestId)
             .then(() => {
-                console.log("Friend request declined");
                 toast.success("Friend request declined!");
                 setFriendRequests((prev) =>
                     prev.filter((request) => request._id !== requestId)
