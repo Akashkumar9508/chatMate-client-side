@@ -31,9 +31,9 @@ const App = () => {
           {isDarkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
         </button>
 
-        <div className="landingPage flex flex-col md:flex-row items-center md:justify-between w-full h-full md:gap-8">
+        <div className="landingPage flex flex-col md:flex-row items-center md:justify-between w-full h-full md:gap-8 gap-5">
           {/* Text Section */}
-          <div className="flex flex-col items-start text-center md:text-left md:w-1/2 gap-4 px-4">
+          <div className="flex flex-col md:items-start text-center md:text-left md:w-1/2 gap-4 px-4 h-[40%]">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium leading-tight">
               Connect, <span className="text-[#8e52ff]">Communicate</span>, and Collaborate{" "}
               <span className="text-[#8e52ff]">Seamlessly</span>!
@@ -45,7 +45,7 @@ const App = () => {
             </p>
             <Link
               to="/signup"
-              className="text-white bg-[#8e52ff] px-6 py-3 rounded-full hover:bg-[#a079e8] transition duration-300"
+              className="text-white bg-[#8e52ff] px-6 py-3 rounded-full hover:bg-[#a079e8] transition duration-300 mt-2"
             >
               Get Started
             </Link>
@@ -58,7 +58,7 @@ const App = () => {
               alt="Hero"
               className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg md:scale-75"
             />
-            <div className="absolute bottom-[50px] w-[30%] h-6 bg-gradient-to-br from-purple-600 to-blue-600 opacity-50 blur-lg rounded-full"></div>
+            <div className="absolute bottom-[50px] md:bottom-[100px] md:w-[30%] w-[70%] h-6 bg-gradient-to-br from-purple-600 to-blue-600 opacity-50 blur-lg rounded-full"></div>
           </div>
         </div>
       </header>

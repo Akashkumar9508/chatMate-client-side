@@ -18,8 +18,13 @@ const Logout = () => {
     const handleLogout = async () => {
         try {
             const response = await authService.logout();
-            dispatch(logout());
-            navigate('/');
+            if(response){
+                dispatch(logout());
+                navigate('/');
+            }
+            else{
+                console,log("logout error")
+            }
         } catch (error) {
             console.error('Error logging out', error);
         }
@@ -30,10 +35,10 @@ const Logout = () => {
             {status ? (
                 <button
                     onClick={handleLogout}
-                    className="flex items-center space-x-2 text-white hover:text-red-500 transition duration-300"
+                    className="flex items-center md:space-x-2 text-white hover:text-red-500 transition duration-300"
                 >
                     <span className='hidden md:block'><MdLogout size={24} /></span>
-                    <span className='md:hidden block text-lg'>Logout</span>
+                    <span className='md:hidden block md:text-lg'>Logout</span>
                 </button>
             ) : (
                 <Link
