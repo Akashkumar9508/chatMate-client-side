@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes, FaMoon, FaSun } from 'react-icons/fa';
 import Logout from './Logout.jsx';
 
 const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+    document.documentElement.classList.toggle('dark');
+  };
+
   return (
-    <nav className="text-black h-16 py-3 flex justify-between items-center px-9 ">
+    <nav className="text-black h-16 py-3 flex justify-between items-center px-4 ">
       <div className="logo flex justify-center items-center h-full cursor-pointer">
         <img src="/logo.png" className="h-full" alt="" />
         <h1 className="text-2xl font-bold">ChatMate</h1>
@@ -21,7 +27,18 @@ const Nav = () => {
         <Link to="/friends" className="hover:text-[#8e52ff]">Friend</Link>
         <Link to="/dashboard" className="hover:text-[#8e52ff]">Dashboard</Link>
       </div>
-      <div className="navBtn hidden md:flex"> <Logout /> </div>
+      <div className="flex items-center space-x-4">
+        <button
+          onClick={toggleTheme}
+          className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600"
+          aria-label="Toggle theme"
+        >
+          {isDarkMode ? <FaSun className="text-yellow-500" /> : <FaMoon />}
+        </button>
+        <div className="hidden md:flex">
+          <Logout />
+        </div>
+      </div>
 
       <button
         className="text-black md:hidden hamburger"
