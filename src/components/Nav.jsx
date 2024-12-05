@@ -1,23 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect ,useState} from 'react';
 import { Link } from 'react-router-dom';
 import { FaBars, FaTimes, FaMoon, FaSun } from 'react-icons/fa';
 import Logout from './Logout.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleTheme } from '../features/themeSlice.js';
 
 const Nav = () => {
+  const dispatch = useDispatch();
+  const theme = useSelector((state) => state.theme.theme); 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle('dark');
+  const handleToggleTheme = () => {
+    dispatch(toggleTheme());
   };
 
   return (
-    <nav className="h-16 py-3 flex justify-between items-center px-4 ">
+    <nav className="h-16 py-3 flex justify-between items-center px-4">
       <div className="logo flex justify-center items-center h-full cursor-pointer">
         <img src="/logo.png" className="h-full" alt="" />
         <h1 className="text-2xl font-bold">ChatMate</h1>
@@ -29,11 +39,11 @@ const Nav = () => {
       </div>
       <div className="flex items-center space-x-4">
         <button
-          onClick={toggleTheme}
+          onClick={handleToggleTheme} 
           className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600"
           aria-label="Toggle theme"
         >
-          {isDarkMode ? <FaSun className="text-yellow-500" /> : <FaMoon />}
+          {theme === 'dark' ? <FaSun className="text-yellow-500" /> : <FaMoon />}
         </button>
         <div className="hidden md:flex">
           <Logout />
