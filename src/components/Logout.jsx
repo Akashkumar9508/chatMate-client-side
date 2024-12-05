@@ -35,7 +35,7 @@ const Logout = () => {
             {status ? (
                 <button
                     onClick={handleLogout}
-                    className="flex items-center md:space-x-2 text-white hover:text-red-500 transition duration-300"
+                    className="flex items-center md:space-x-2 hover:text-red-500 transition duration-300"
                 >
                     <span className='hidden md:block'><MdLogout size={24} /></span>
                     <span className='md:hidden block md:text-lg'>Logout</span>
@@ -43,7 +43,7 @@ const Logout = () => {
             ) : (
                 <Link
                     to="/login"
-                    className="flex items-center space-x-2 text-black font-semibold hover:text-blue-500 transition duration-300"
+                    className="flex items-center space-x-2 font-semibold hover:text-blue-500 transition duration-300"
                 >
                     <span className='text-lg'>Login</span>
                 </Link>

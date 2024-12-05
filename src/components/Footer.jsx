@@ -8,9 +8,9 @@ const Footer = () => {
         <div className='py-2'>
           <p>&copy; {new Date().getFullYear()} ChatMate. All rights reserved.</p>
           <div className="space-x-4">
-            <Link to="/" className="hover:text-white">Privacy Policy</Link>
-            <Link to="/" className="hover:text-white">Terms of Service</Link>
-            <Link to="/" className="hover:text-white">Contact Us</Link>
+            <Link to="/">Privacy Policy</Link>
+            <Link to="/">Terms of Service</Link>
+            <Link to="/">Contact Us</Link>
           </div>
         </div>
       </footer>

@@ -49,7 +49,7 @@ const Dashboard = () => {
     };
 
     return (
-        <div className="flex flex-col min-h-screen  text-gray-300">
+        <div className="flex flex-col min-h-screen">
             <Nav />
             <section className="flex-grow bg-gray-800">
                 <div className="flex flex-col md:flex-row h-full">
@@ -59,7 +59,7 @@ const Dashboard = () => {
                     >
                         <button
                             onClick={() => setIsSidebarOpen(false)}
-                            className="md:hidden text-gray-300 hover:text-white absolute top-4 right-4"
+                            className="md:hidden absolute top-4 right-4"
                         >
                             Close
                         </button>
@@ -99,7 +99,7 @@ const Dashboard = () => {
                         {selectedUser ? (
                             <div className="flex flex-col h-full">
                                 <div className="flex items-center justify-between mb-4">
-                                    <h2 className="text-xl md:text-2xl font-semibold text-white">
+                                    <h2 className="text-xl md:text-2xl font-semibold ">
                                         Buddie: {selectedUser.fullName}
                                     </h2>
                                     <button
@@ -117,8 +117,8 @@ const Dashboard = () => {
                                         >
                                             <div
                                                 className={`inline-block p-3 rounded-lg ${msg.sender === loggedInUserId
-                                                    ? 'bg-blue-600 text-white'
-                                                    : 'bg-gray-700 text-gray-300'
+                                                    ? 'bg-blue-600'
+                                                    : 'bg-gray-700'
                                                     }`}
                                             >
                                                 <p className="text-sm md:text-base">{msg.text}</p>
@@ -135,11 +135,11 @@ const Dashboard = () => {
                                         value={message}
                                         onChange={(e) => setMessage(e.target.value)}
                                         placeholder="Type a message"
-                                        className="w-full p-3 border border-gray-600 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        className="w-full p-3 border border-gray-600 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     />
                                     <button
                                         onClick={handleMessageSend}
-                                        className="p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                        className="p-3 bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     >
                                         Send
                                     </button>

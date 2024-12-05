@@ -28,7 +28,7 @@ const ProtectedRoute = ({ children }) => {
 
     if (!isAuthenticated) {
         return (
-            <div className="bg-slate-950 w-full h-screen flex items-center justify-center text-[4rem] text-white">
+            <div className="bg-slate-950 w-full h-screen flex items-center justify-center text-[4rem]">
                 Loading...
             </div>
         );

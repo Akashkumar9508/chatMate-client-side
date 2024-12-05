@@ -17,7 +17,7 @@ const Nav = () => {
   };
 
   return (
-    <nav className="text-black h-16 py-3 flex justify-between items-center px-4 ">
+    <nav className="h-16 py-3 flex justify-between items-center px-4 ">
       <div className="logo flex justify-center items-center h-full cursor-pointer">
         <img src="/logo.png" className="h-full" alt="" />
         <h1 className="text-2xl font-bold">ChatMate</h1>
@@ -41,7 +41,7 @@ const Nav = () => {
       </div>
 
       <button
-        className="text-black md:hidden hamburger"
+        className="md:hidden hamburger"
         onClick={toggleMenu}
         aria-label="Toggle navigation"
       >
@@ -54,9 +54,9 @@ const Nav = () => {
             className="fixed inset-0 bg-black opacity-50 md:hidden"
             onClick={toggleMenu}
           ></div>
-          <div className="w-[90%] mobile-menu fixed inset-0 bg-gray-800 text-white px-6 py-4 z-10">
+          <div className="w-[90%] mobile-menu fixed inset-0 bg-gray-800 px-6 py-4 z-10">
             <button
-              className="absolute top-4 right-4 text-white text-2xl"
+              className="absolute top-4 right-4 text-2xl"
               onClick={toggleMenu}
             >
               <FaTimes />

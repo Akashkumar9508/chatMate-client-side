@@ -51,7 +51,7 @@ const Login = () => {
       <Nav />
 
       <div className="flex items-center w-full justify-center min-h-[calc(100vh-64px)] p-3">
-        <div className="w-full flex flex-col md:flex-row mainSection text-black shadow-lg rounded-lg">
+        <div className="w-full flex flex-col md:flex-row mainSection shadow-lg rounded-lg">
           <div className="imgDiv w-full md:w-1/2 hidden md:block">
             <img
               src={loginPng}
@@ -125,7 +125,7 @@ const Login = () => {
               <div className="mb-4">
                 <button
                   type="submit"
-                  className="w-full bg-[#8e52ff] text-white font-bold py-2 px-4 rounded-lg hover:bg-[#542aa4] focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className="w-full bg-[#8e52ff] font-bold py-2 px-4 rounded-lg hover:bg-[#542aa4] focus:outline-none focus:ring-2 focus:ring-blue-400"
                 >
                   Login
                 </button>
