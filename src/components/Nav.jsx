@@ -4,24 +4,16 @@ import { FaBars, FaTimes, FaMoon, FaSun } from 'react-icons/fa';
 import Logout from './Logout.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleTheme } from '../features/themeSlice.js';
-import authService from '../services/authService.js';
 
 const Nav = () => {
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.theme.theme); 
+  const auth = useSelector((state) => state.auth); 
+  const currentUser = auth.userData;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    const fetchuser = async ()=>{
-      try {
-        const response = await authService.getCurrentUser();
-        setCurrentUser(response);
-      } catch (error) {
-        console.error('Error fetching user:', error);
-      }
-    }
-    fetchuser();
+
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
