@@ -78,7 +78,6 @@ const Login = () => {
                   id="email"
                   type="email"
                   {...register("email", { required: "Email is required" })}
-                  placeholder="Enter your email"
                   className="w-full text-base px-3 py-2 border rounded-lg focus:outline-none text-black"
                 />
                 {errors.email && (
@@ -101,7 +100,6 @@ const Login = () => {
                   {...register("password", {
                     required: "Password is required",
                   })}
-                  placeholder="Enter your password"
                   className="w-full px-3 py-2 border rounded-lg focus:outline-none text-black"
                 />
                 <button
