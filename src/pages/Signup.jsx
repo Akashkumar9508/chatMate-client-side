@@ -44,18 +44,15 @@ const Signup = () => {
   <Nav />
 
   <div className="flex items-center w-full justify-center min-h-[calc(100vh-64px)]">
-    <div className="w-full max-w-6xl flex flex-col md:flex-row mainSection shadow-lg rounded-lg">
-      
-      {/* Left Image Section (Hidden on small screens) */}
+    <div className="w-full max-w-6xl flex flex-col md:flex-row mainSection shadow-lg rounded-lg">      
       <div className="imgDiv w-full md:w-1/2 hidden md:block">
         <img
-          src={signupPng} // You can replace this with a relevant image for Sign Up if needed
+          src={signupPng}
           alt="Sign Up illustration"
           className="w-full h-full object-cover"
         />
       </div>
 
-      {/* Right Form Section */}
       <div className="login w-full md:w-1/2 flex flex-col justify-center md:p-10 p-4">
         <h2 className="text-4xl font-bold text-center">Sign Up</h2>
 
@@ -74,7 +71,7 @@ const Signup = () => {
               id="FullName"
               type="text"
               {...register('fullName', { required: 'Full Name is required' })}
-              className="w-full text-base px-3 py-2 border rounded-lg focus:outline-none"
+              className="w-full text-base px-3 py-2 border rounded-lg focus:outline-none text-black"
             />
             {errors.fullName && (
               <p className="text-red-500 text-sm mt-1">{errors.fullName.message}</p>
@@ -92,7 +89,7 @@ const Signup = () => {
               id="UserName"
               type="text"
               {...register('userName', { required: 'User Name is required' })}
-              className="w-full text-base px-3 py-2 border rounded-lg focus:outline-none"
+              className="w-full text-base px-3 py-2 border rounded-lg focus:outline-none text-black"
             />
             {errors.userName && (
               <p className="text-red-500 text-sm mt-1">{errors.userName.message}</p>
@@ -116,7 +113,7 @@ const Signup = () => {
                   message: 'Invalid email address',
                 },
               })}
-              className="w-full text-base px-3 py-2 border rounded-lg focus:outline-none"
+              className="w-full text-base px-3 py-2 border rounded-lg focus:outline-none text-black"
             />
             {errors.email && (
               <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
@@ -140,7 +137,7 @@ const Signup = () => {
                   message: 'Password must be at least 8 characters',
                 },
               })}
-              className="w-full text-base px-3 py-2 border rounded-lg focus:outline-none"
+              className="w-full text-base px-3 py-2 border rounded-lg focus:outline-none text-black"
             />
             <button
               type="button"
