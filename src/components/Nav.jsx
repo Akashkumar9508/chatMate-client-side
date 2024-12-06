@@ -8,9 +8,12 @@ import { toggleTheme } from '../features/themeSlice.js';
 const Nav = () => {
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.theme.theme); 
+  const auth = useSelector((state) => state.auth); 
+  const currentUser = auth.userData;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
+
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
@@ -29,8 +32,18 @@ const Nav = () => {
   return (
     <nav className="h-16 py-3 flex justify-between items-center px-4">
       <div className="logo flex justify-center items-center h-full cursor-pointer">
-        <img src="/logo.png" className="h-full" alt="" />
-        <h1 className="text-2xl font-bold">ChatMate</h1>
+      {currentUser && currentUser.avatar ? (
+          <img
+            src={currentUser.avatar}
+            className="h-10 w-10 rounded-full object-cover"
+            alt={`${currentUser.fullName}'s avatar`}
+          />
+        ) : (
+          <>
+          <img src="/logo.png" className="h-full" alt="ChatMate Logo" />
+          <h1 className="text-2xl font-bold">ChatMate</h1>
+          </>
+        )}
       </div>
       <div className="hidden md:flex space-x-6 pr-6 font-semibold text-lg">
         <Link to="/" className="hover:text-[#8e52ff]">Home</Link>
@@ -38,6 +51,9 @@ const Nav = () => {
         <Link to="/dashboard" className="hover:text-[#8e52ff]">Dashboard</Link>
       </div>
       <div className="flex items-center space-x-4">
+        <div className="hidden md:flex">
+          <Logout />
+        </div>
         <button
           onClick={handleToggleTheme} 
           className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600"
@@ -45,9 +61,6 @@ const Nav = () => {
         >
           {theme === 'dark' ? <FaSun className="text-yellow-500" /> : <FaMoon />}
         </button>
-        <div className="hidden md:flex">
-          <Logout />
-        </div>
       </div>
 
       <button
@@ -64,7 +77,7 @@ const Nav = () => {
             className="fixed inset-0 bg-black opacity-50 md:hidden"
             onClick={toggleMenu}
           ></div>
-          <div className="w-[90%] mobile-menu fixed inset-0 bg-gray-800 px-6 py-4 z-10">
+          <div className="w-[90%] mobile-menu fixed inset-0 bg-[#4f4848] px-6 py-4 z-10">
             <button
               className="absolute top-4 right-4 text-2xl"
               onClick={toggleMenu}
@@ -72,9 +85,9 @@ const Nav = () => {
               <FaTimes />
             </button>
 
-            <Link to="/" className="block py-2 hover:text-blue-400">Home</Link>
-            <Link to="/friends" className="block py-2 hover:text-blue-400">Friend</Link>
-            <Link to="/dashboard" className="block py-2 hover:text-blue-400">Dashboard</Link>
+            <Link to="/" className="block py-2 hover:text-blue-400 font-semibold text-lg">Home</Link>
+            <Link to="/friends" className="block py-2 hover:text-blue-400 font-semibold text-lg">Friend</Link>
+            <Link to="/dashboard" className="block py-2 hover:text-blue-400 font-semibold text-lg">Dashboard</Link>
             <Logout />
           </div>
         </>

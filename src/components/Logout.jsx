@@ -38,7 +38,7 @@ const Logout = () => {
                     className="flex items-center md:space-x-2 hover:text-red-500 transition duration-300"
                 >
                     <span className='hidden md:block'><MdLogout size={24} /></span>
-                    <span className='md:hidden block md:text-lg'>Logout</span>
+                    <span className='md:hidden block text-lg font-semibold md:mt-0 mt-1'>Logout</span>
                 </button>
             ) : (
                 <Link

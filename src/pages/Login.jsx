@@ -78,8 +78,7 @@ const Login = () => {
                   id="email"
                   type="email"
                   {...register("email", { required: "Email is required" })}
-                  placeholder="Enter your email"
-                  className="w-full text-base px-3 py-2 border rounded-lg focus:outline-none"
+                  className="w-full text-base px-3 py-2 border rounded-lg focus:outline-none text-black"
                 />
                 {errors.email && (
                   <p className="text-red-500 text-sm mt-1">
@@ -101,13 +100,12 @@ const Login = () => {
                   {...register("password", {
                     required: "Password is required",
                   })}
-                  placeholder="Enter your password"
-                  className="w-full px-3 py-2 border rounded-lg focus:outline-none"
+                  className="w-full px-3 py-2 border rounded-lg focus:outline-none text-black"
                 />
                 <button
                   type="button"
                   onClick={togglePasswordVisibility}
-                  className="absolute inset-y-0 right-3 top-6 flex items-center text-gray-500"
+                  className="absolute inset-y-0 right-3 top-6 flex items-center"
                 >
                   {showPassword ? (
                     <HiOutlineEye size={20} />
