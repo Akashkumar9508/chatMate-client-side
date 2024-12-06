@@ -64,7 +64,7 @@ const Nav = () => {
             className="fixed inset-0 bg-black opacity-50 md:hidden"
             onClick={toggleMenu}
           ></div>
-          <div className="w-[90%] mobile-menu fixed inset-0 bg-gray-800 px-6 py-4 z-10">
+          <div className="w-[90%] mobile-menu fixed inset-0 bg-[#4f4848] px-6 py-4 z-10">
             <button
               className="absolute top-4 right-4 text-2xl"
               onClick={toggleMenu}
@@ -72,9 +72,9 @@ const Nav = () => {
               <FaTimes />
             </button>
 
-            <Link to="/" className="block py-2 hover:text-blue-400">Home</Link>
-            <Link to="/friends" className="block py-2 hover:text-blue-400">Friend</Link>
-            <Link to="/dashboard" className="block py-2 hover:text-blue-400">Dashboard</Link>
+            <Link to="/" className="block py-2 hover:text-blue-400 font-semibold text-lg">Home</Link>
+            <Link to="/friends" className="block py-2 hover:text-blue-400 font-semibold text-lg">Friend</Link>
+            <Link to="/dashboard" className="block py-2 hover:text-blue-400 font-semibold text-lg">Dashboard</Link>
             <Logout />
           </div>
         </>
