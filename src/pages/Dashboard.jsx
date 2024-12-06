@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { HiMenu } from 'react-icons/hi';
 import Nav from '../components/Nav';
+import { FaTimes } from 'react-icons/fa';
 import authService from '../services/authService.js';
 import messagesService from '../services/messageService.js';
 
@@ -51,17 +52,17 @@ const Dashboard = () => {
     return (
         <div className="flex flex-col min-h-screen">
             <Nav />
-            <section className="flex-grow bg-gray-800">
+            <section className="flex-grow">
                 <div className="flex flex-col md:flex-row h-full">
                     {/* Sidebar */}
                     <div
-                        className={`fixed md:static top-0 left-0 w-full md:w-1/4 bg-gray-800 p-4 border-b md:border-b-0 md:border-r border-gray-600 z-10 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 transition-transform duration-300 ease-in-out`}
+                        className={`fixed md:static top-0 left-0 w-full bg-[#4f4848] md:w-1/4 p-4 border-b md:border-b-0 md:border-r z-10 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 transition-transform duration-300 ease-in-out`}
                     >
                         <button
                             onClick={() => setIsSidebarOpen(false)}
-                            className="md:hidden absolute top-4 right-4"
+                            className="md:hidden absolute top-4 right-4 font-bold"
                         >
-                            Close
+                            <FaTimes />
                         </button>
                         <h2 className="text-2xl font-semibold mb-4 text-blue-400">Online Buddies</h2>
                         <ul className="space-y-2">
@@ -81,13 +82,13 @@ const Dashboard = () => {
                                             className={`absolute bottom-0 right-0 w-3 h-3 rounded-full ${user.activeStatus ? 'bg-green-500' : 'bg-red-500'}`}
                                         />
                                     </div>
-                                    <span className="text-sm md:text-base">{user.fullName}</span>
+                                    <span className="text-sm md:text-base font-semibold">{user.fullName}</span>
                                 </li>
                             ))}
                         </ul>
                     </div>
                     {/* Chat Section */}
-                    <div className="flex-1 bg-gray-800 p-4 flex flex-col md:ml-0">
+                    <div className="flex-1 p-4 flex flex-col md:ml-0">
                         {!isSidebarOpen && (
                             <button
                                 onClick={() => setIsSidebarOpen(true)}

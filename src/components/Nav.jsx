@@ -4,13 +4,24 @@ import { FaBars, FaTimes, FaMoon, FaSun } from 'react-icons/fa';
 import Logout from './Logout.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleTheme } from '../features/themeSlice.js';
+import authService from '../services/authService.js';
 
 const Nav = () => {
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.theme.theme); 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
+    const fetchuser = async ()=>{
+      try {
+        const response = await authService.getCurrentUser();
+        setCurrentUser(response);
+      } catch (error) {
+        console.error('Error fetching user:', error);
+      }
+    }
+    fetchuser();
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
@@ -29,8 +40,18 @@ const Nav = () => {
   return (
     <nav className="h-16 py-3 flex justify-between items-center px-4">
       <div className="logo flex justify-center items-center h-full cursor-pointer">
-        <img src="/logo.png" className="h-full" alt="" />
-        <h1 className="text-2xl font-bold">ChatMate</h1>
+      {currentUser && currentUser.avatar ? (
+          <img
+            src={currentUser.avatar}
+            className="h-10 w-10 rounded-full object-cover"
+            alt={`${currentUser.fullName}'s avatar`}
+          />
+        ) : (
+          <>
+          <img src="/logo.png" className="h-full" alt="ChatMate Logo" />
+          <h1 className="text-2xl font-bold">ChatMate</h1>
+          </>
+        )}
       </div>
       <div className="hidden md:flex space-x-6 pr-6 font-semibold text-lg">
         <Link to="/" className="hover:text-[#8e52ff]">Home</Link>
@@ -38,6 +59,9 @@ const Nav = () => {
         <Link to="/dashboard" className="hover:text-[#8e52ff]">Dashboard</Link>
       </div>
       <div className="flex items-center space-x-4">
+        <div className="hidden md:flex">
+          <Logout />
+        </div>
         <button
           onClick={handleToggleTheme} 
           className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600"
@@ -45,9 +69,6 @@ const Nav = () => {
         >
           {theme === 'dark' ? <FaSun className="text-yellow-500" /> : <FaMoon />}
         </button>
-        <div className="hidden md:flex">
-          <Logout />
-        </div>
       </div>
 
       <button
