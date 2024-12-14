@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { HiMenu } from 'react-icons/hi';
-import Nav from '../components/Nav';
 import { FaTimes } from 'react-icons/fa';
 import authService from '../services/authService.js';
 import messagesService from '../services/messageService.js';
@@ -52,7 +51,6 @@ const Dashboard = () => {
 
     return (
         <div className="flex flex-col min-h-screen">
-            <Nav />
             <section className="flex-grow">
                 <div className="flex flex-col md:flex-row h-full">
                     {/* Sidebar */}

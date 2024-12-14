@@ -7,7 +7,6 @@ import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { login } from "../features/authSlice.js";
 
-import Nav from "../components/Nav.jsx";
 import authService from "../services/authService.js";
 import loginPng from "../assets/login.png";
 
@@ -48,7 +47,6 @@ const Login = () => {
 
   return (
     <div className="min-h-screen mainSection">
-      <Nav />
 
       <div className="flex items-center w-full justify-center min-h-[calc(100vh-64px)] p-3">
         <div className="w-full flex flex-col md:flex-row mainSection shadow-lg rounded-lg">

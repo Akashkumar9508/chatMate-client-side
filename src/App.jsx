@@ -5,7 +5,7 @@ import heartImg from "./assets/heartImg.png";
 
 const App = () => {
   return (
-    <div className={"mainSection flex flex-col min-h-screen "} >
+    <div className={"mainSection flex flex-co min-h-screen "} >
       <Nav />
       <div className="landingPage flex flex-col md:flex-row items-center md:justify-between w-full h-lvh">
         <div className="flex flex-col md:items-start text-center md:text-left md:w-1/2 gap-4 px-12 h-full md:justify-center ">

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Nav from "../components/Nav.jsx";
 import { FaSearch, FaUserFriends, FaUserPlus, FaClock } from "react-icons/fa";
 import authService from "../services/authService.js";
 import friendService from "../services/friendService.js";
@@ -90,7 +89,6 @@ const Friend = () => {
 
     return (
         <>
-            <Nav />
             <div className="friends-page h-lvh w-full px-4 py-4 bg-gray-900">
                 <h1 className="text-2xl font-bold mb-4 flex items-center gap-2"><FaUserFriends /> Friends Page</h1>
                 <div className="flex items-center mb-6 flex-wrap gap-4 w-full">

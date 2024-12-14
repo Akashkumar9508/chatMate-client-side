@@ -10,6 +10,7 @@ import ProtectedRoute from './components/ProtectedRoutes.jsx';
 import {Provider} from 'react-redux';
 import store from './store/store.js';
 import Friend from './pages/Friend.jsx';
+import Layout from './Layout.jsx';
 
 createRoot(document.getElementById('root')).render(
   <>
@@ -17,21 +18,21 @@ createRoot(document.getElementById('root')).render(
       <BrowserRouter>
         <Toaster position="top-center" reverseOrder={true} />
         <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-          />
-          <Route path="/friends" element={
-            <ProtectedRoute>
-              <Friend />
-            </ProtectedRoute>
-          }
-          />
+          <Route path="/" element={<Layout />}>
+            <Route path='' element={<App/>} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="login" element={<Login />} />
+            <Route path="dashboard" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="friends" element={
+              <ProtectedRoute>
+                <Friend />
+              </ProtectedRoute>
+            } />
+          </Route>
         </Routes>
       </BrowserRouter>
     </Provider>
