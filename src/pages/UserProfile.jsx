@@ -78,7 +78,7 @@ function UserProfile() {
               ))
             }
           </div>
-          <div className='shadow-sm shadow-black dark:shadow-white mb-10'>
+          <div className='shadow-sm shadow-black dark:shadow-white mt-10'>
             <p className="text-2xl mb-5">Explore</p>
             {
               allUsers.map((user)=>(
