@@ -3,42 +3,13 @@ import { FaSearch, FaUserFriends, FaUserPlus, FaClock } from "react-icons/fa";
 import authService from "../services/authService.js";
 import friendService from "../services/friendService.js";
 import { toast } from "react-hot-toast"; // Import toast
+import { useSelector } from "react-redux";
 
 const Friend = () => {
-    const [users, setUsers] = useState([]);
-    const [friendRequests, setFriendRequests] = useState([]);
+    const users=useSelector(state=>state.user.allUsers)
+    const friendRequests=useSelector(state=>state.user.friendRequests);
     const [searchTerm, setSearchTerm] = useState("");
     const [sentRequests, setSentRequests] = useState([]);
-
-    useEffect(() => {
-        // Fetch all users
-        authService
-            .getAllUsers()
-            .then((response) => {
-                setUsers(response);
-            })
-            .catch((error) => {
-                console.error("Error fetching users:", error);
-                toast.error("Error fetching users!");
-            });
-
-        // Fetch friend requests
-        friendService
-            .getFriendRequests()
-            .then(async (response) => {
-                const friendRequestIds = response.friendRequests;
-                const requests = await Promise.all(
-                    friendRequestIds.map((id) =>
-                        authService.getUserById(id)
-                    )
-                );
-                setFriendRequests(requests);
-            })
-            .catch((error) => {
-                console.error("Error fetching friend requests:", error);
-                toast.error("Error fetching friend requests!");
-            });
-    }, []);
 
     const sendFriendRequest = (userId) => {
         friendService

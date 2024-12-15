@@ -57,7 +57,7 @@ export class FriendsService {
     // Get all friends list
     async getFriendList() {
         try {
-            const response = await this.API.get('/list');
+            const response = await this.API.get('/getFriends');
             return response.data;
         } catch (error) {
             console.error('Error fetching friend list:', error);

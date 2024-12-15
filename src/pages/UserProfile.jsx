@@ -24,7 +24,6 @@ function UserProfile() {
         );
         const users=await authService.getAllUsers();
         setAllUser(users);
-        console.log(allUsers);
         setRequestDetails(request);
         setFriendsDetails(friends);
       }catch(error){
