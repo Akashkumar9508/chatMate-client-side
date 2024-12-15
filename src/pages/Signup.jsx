@@ -3,7 +3,6 @@ import { HiOutlineEye, HiOutlineEyeOff } from 'react-icons/hi';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import Nav from '../components/Nav.jsx';
 import authService from '../services/authService.js';
 import generateAvatar from '../utils/avatarGenerator.js'
 import signupPng from "../assets/Signup.png";

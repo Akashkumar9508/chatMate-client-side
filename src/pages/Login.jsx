@@ -6,7 +6,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { login } from "../features/authSlice.js";
-
 import authService from "../services/authService.js";
 import loginPng from "../assets/login.png";
 

@@ -5,8 +5,7 @@ import heartImg from "./assets/heartImg.png";
 
 const App = () => {
   return (
-    <div className={"mainSection flex flex-co min-h-screen "} >
-      <Nav />
+    <div className={"mainSection flex flex-col min-h-screen "} >
       <div className="landingPage flex flex-col md:flex-row items-center md:justify-between w-full h-lvh">
         <div className="flex flex-col md:items-start text-center md:text-left md:w-1/2 gap-4 px-12 h-full md:justify-center ">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium leading-tight">Connect, <span className="text-[#8e52ff]">Communicate</span>, and Collaborate{" "}<span className="text-[#8e52ff]">Seamlessly</span>!</h1>
@@ -36,8 +35,6 @@ const App = () => {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };

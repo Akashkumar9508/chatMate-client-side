@@ -1,5 +1,5 @@
 import React, { useEffect ,useState} from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { FaBars, FaTimes, FaMoon, FaSun } from 'react-icons/fa';
 import Logout from './Logout.jsx';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,8 +8,8 @@ import { toggleTheme } from '../features/themeSlice.js';
 const Nav = () => {
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.theme.theme); 
-  const auth = useSelector((state) => state.auth); 
-  const currentUser = auth.userData;
+  const auth = useSelector((state) => state.auth);
+  const currentUser = auth?.userData;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -30,8 +30,8 @@ const Nav = () => {
   };
 
   return (
-    <nav className="h-16 py-3 flex justify-between items-center px-4">
-      <div className="logo flex justify-center items-center h-full cursor-pointer">
+    <nav className="h-16 py-3 flex justify-between items-center px-4 shadow-sm shadow-black dark:shadow-white mb-1">
+      <NavLink to={`${currentUser?`/user/${currentUser.userName}`:"/"}`} className="logo flex justify-center items-center h-full cursor-pointer">
       {currentUser && currentUser.avatar ? (
           <img
             src={currentUser.avatar}
@@ -44,11 +44,11 @@ const Nav = () => {
           <h1 className="text-2xl font-bold">ChatMate</h1>
           </>
         )}
-      </div>
+      </NavLink>
       <div className="hidden md:flex space-x-6 pr-6 font-semibold text-lg">
-        <Link to="/" className="hover:text-[#8e52ff]">Home</Link>
-        <Link to="/friends" className="hover:text-[#8e52ff]">Friend</Link>
-        <Link to="/dashboard" className="hover:text-[#8e52ff]">Dashboard</Link>
+        <NavLink to="/" className={({isActive})=>`hover:text-[#8e52ff] ${isActive?"text-orange-400":""}`}>Home</NavLink>
+        <NavLink to="/friends" className={({isActive})=>`hover:text-[#8e52ff] ${isActive?"text-orange-400":""}`}>Friend</NavLink>
+        <NavLink to="/dashboard" className={({isActive})=>`hover:text-[#8e52ff] ${isActive?"text-orange-400":""}`}>Dashboard</NavLink>
       </div>
       <div className="flex items-center space-x-4">
         <div className="hidden md:flex">
@@ -85,9 +85,9 @@ const Nav = () => {
               <FaTimes />
             </button>
 
-            <Link to="/" className="block py-2 hover:text-blue-400 font-semibold text-lg">Home</Link>
-            <Link to="/friends" className="block py-2 hover:text-blue-400 font-semibold text-lg">Friend</Link>
-            <Link to="/dashboard" className="block py-2 hover:text-blue-400 font-semibold text-lg">Dashboard</Link>
+            <NavLink to="/" className={({isActive})=>`block py-2 hover:text-blue-400 font-semibold text-lgNav ${isActive?"text-orange-400":""}`}>Home</NavLink>
+            <NavLink to="/friends" className="block py-2 hover:text-blue-400 font-semibold text-lg">Friend</NavLink>
+            <NavLink to="/dashboard" className="block py-2 hover:text-blue-400 font-semibold text-lg">Dashboard</NavLink>
             <Logout />
           </div>
         </>

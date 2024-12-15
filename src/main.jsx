@@ -11,6 +11,7 @@ import {Provider} from 'react-redux';
 import store from './store/store.js';
 import Friend from './pages/Friend.jsx';
 import Layout from './Layout.jsx';
+import UserProfile from './pages/UserProfile.jsx';
 
 createRoot(document.getElementById('root')).render(
   <>
@@ -30,6 +31,11 @@ createRoot(document.getElementById('root')).render(
             <Route path="friends" element={
               <ProtectedRoute>
                 <Friend />
+              </ProtectedRoute>
+            } />
+            <Route path='/user/:userName' element={
+              <ProtectedRoute>
+                <UserProfile/>
               </ProtectedRoute>
             } />
           </Route>
