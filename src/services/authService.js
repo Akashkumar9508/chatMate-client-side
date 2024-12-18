@@ -85,6 +85,16 @@ export class AuthService {
       throw error;
     }
   }
+  // update the user Id
+  async updateAvtar(){
+    try {
+      const response = await this.API.post('/updateAvatar');
+      return response.data;
+    } catch (error){
+      console.error('error Updation of Avatar',error.response.data || error.message);
+      throw error;
+    }
+  }
 }
 
 const authService = new AuthService();
