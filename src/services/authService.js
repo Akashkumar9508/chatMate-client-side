@@ -86,9 +86,13 @@ export class AuthService {
     }
   }
   // update the user Id
-  async updateAvatar(){
+  async updateAvatar(formData){
     try {
-      const response = await this.API.post('/updateAvatar');
+      const response = await this.API.post('/updateAvatar',formData,{
+        headers:{
+          'Content-Type': 'multipart/form-data',
+        }
+      });
       return response.data;
     } catch (error){
       console.error('error Updation of Avatar',error.response.data || error.message);
