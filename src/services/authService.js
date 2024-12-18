@@ -86,7 +86,7 @@ export class AuthService {
     }
   }
   // update the user Id
-  async updateAvtar(){
+  async updateAvatar(){
     try {
       const response = await this.API.post('/updateAvatar');
       return response.data;
