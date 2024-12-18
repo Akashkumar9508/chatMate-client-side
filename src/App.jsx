@@ -9,15 +9,15 @@ const App = () => {
   return (
     <div className={"mainSection flex flex-col min-h-screen "} >
       <div className="landingPage flex flex-col md:flex-row items-center md:justify-between w-full h-lvh">
-        <div className="flex flex-col md:items-start text-center md:text-left md:w-1/2 gap-4 px-12 h-full md:justify-center ">
+        <div className="flex flex-col md:mt-0 mt-3 md:items-start text-center md:text-left md:w-1/2 gap-4 px-12 md:h-full h-[30%] md:justify-center ">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium leading-tight">Connect, <span className="text-[#8e52ff]">Communicate</span>, and Collaborate{" "}<span className="text-[#8e52ff]">Seamlessly</span>!</h1>
           <p className="hidden sm:block text-gray-700 sm:text-lg md:text-xl lg:text-lg">Experience real-time messaging with speed, security, and simplicity. Stay connected with friends, family, or colleagues in a modern chat app designed to make every conversation meaningful.</p>
-          <Link to="/signup" className={`bg-[#8e52ff] px-6 py-3 rounded-full hover:bg-[#a079e8] transition duration-300 mt-2 ${status?"hidden":""}`}>Get Started</Link>
+          <Link to="/signup" className={`bg-[#8e52ff] px-6 py-3 rounded-full hover:bg-[#a079e8] transition duration-300 md:mt-2 mt-5 ${status?"hidden":""}`}> <span className="block md:hidden">Get me There !!</span> <span className="md:block hidden">Get Started</span></Link>
         </div>
-        <div className="relative w-1/2 h-full flex items-center justify-center">
-          <img src={heartImg} alt="Hero" className="absolute md:scale-75 object-scale-down" />
-          <img src={heartImg} alt="Hero" className="absolute bottom-[25px] right-[280px] md:scale-75 object-scale-down" />
-          <img src={heartImg} alt="Hero" className="absolute top-[20px] left-[290px] md:scale-75 object-scale-down" />
+        <div className="md:relative w-1/2 md:h-full h-[70%] flex items-center justify-center">
+          <img src={heartImg} alt="Hero" className="absolute md:scale-75 object-scale-down scale-90" />
+          <img src={heartImg} alt="Hero" className="md:flex hidden absolute bottom-[25px] right-[280px] md:scale-75 object-scale-down" />
+          <img src={heartImg} alt="Hero" className="md:flex hidden absolute top-[20px] left-[290px] md:scale-75 object-scale-down" />
         </div>
       </div>
 

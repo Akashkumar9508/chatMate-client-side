@@ -1,143 +1,100 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import authService from "../services/authService";
+import authService from '../services/authService.js';
+import { MdModeEdit } from "react-icons/md";
 
 function UserProfile() {
-  const [isEditable, setIsEditable] = useState(false);
   const auth = useSelector((state) => state.auth);
   const user = auth?.userData;
   const { userName } = useParams();
-  const [friendsDetails, setFriendsDetails] = useState([]);
-  const [requestDetails, setRequestDetails] = useState([]);
-  const [allUsers, setAllUser] = useState([]);
   const [file, setFile] = useState(null);
-  const [uploadStatus, setUploadStatus] = useState('');
 
-  // Handle file change (store selected file)
+  // Handle file change
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
 
-  // Handle file upload to backend
+  // Handle file upload
   const handleUpload = async () => {
-    if (!file) {
-      setUploadStatus('Please select a file.');
-      return;
-    }
-
+    if (!file) return;
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append("file", file);
 
     try {
-      const response = await fetch('http://localhost:5000/api/uploadProfile/profilePicture', {
-        method: 'POST',
-        body: formData,
-      });
-
+      const response = await authService.updateAvatar(formData);
       if (response.ok) {
         const data = await response.json();
-        setUploadStatus(`File uploaded successfully!`);
-        // Update user avatar after successful upload
-        // Assuming your response includes the updated file URL
-        authService.updateUserAvatar(data.fileUrl);
+        console.log("File uploaded successfully:", data.fileUrl);
       } else {
-        setUploadStatus('File upload failed.');
+        console.error("File upload failed.");
       }
     } catch (error) {
-      console.error('Error uploading file:', error);
-      setUploadStatus('Error uploading file.');
+      console.error("Error uploading file:", error);
     }
   };
 
   useEffect(() => {
-    async function getFriendsDetails() {
+    async function fetchFriendsDetails() {
       try {
-        const friends = await Promise.all(
-          user?.friends.map((friendId) => authService.getUserById(friendId))
-        );
-        const request = await Promise.all(
-          user?.friendRequests.map((requestId) => authService.getUserById(requestId))
-        );
-        const users = await authService.getAllUsers();
-        setAllUser(users);
-        setRequestDetails(request);
-        setFriendsDetails(friends);
+        if (user?.friends?.length) {
+          await Promise.all(user.friends.map((friendId) => authService.getUserById(friendId)));
+        }
       } catch (error) {
         console.error("Error fetching friends details:", error);
       }
     }
-    getFriendsDetails();
+    fetchFriendsDetails();
   }, [user]);
 
   return (
-    <>
-      <div className="h-screen w-full flex flex-col md:flex-row">
-        <div className="md:h-full min-h-1/2 h-auto w-full md:w-2/3 md:shadow-slate-400 flex flex-col items-center p-5">
+    <div className="min-h-screen w-full flex flex-col items-center py-8 px-4 sm:px-8">
+      <div className=" bg-slate-900 rounded-lg shadow-lg w-full max-w-4xl flex flex-col items-center p-6 sm:flex-row sm:items-start sm:gap-8">
+        <div className="relative">
           <div
-            style={{ backgroundImage: `url(${user.avatar})` }}
-            className="relative h-40 w-40 rounded-full border-2 bg-cover border-black dark:border-white mb-4">
-            <form>
-              <label htmlFor="FileForLabel">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCusGV4ilsSb14amngVyEQ14HajeMcC5nogg&s"
-                  className="h-10 w-10 rounded-full cursor-pointer relative top-28 left-28"
-                  alt="Upload"
-                />
-              </label>
-              <input
-                className="hidden"
-                type="file"
-                id="FileForLabel"
-                name="file"
-                onChange={handleFileChange}
-              />
-            <button onClick={handleUpload} className=" absolute bottom-2 -right-20 mt-1 px-2 py-1 bg-blue-500 text-white rounded">Upload</button>
-            </form>
-          </div>
-          <p className="text-4xl font-serif">{user.fullName}</p>
-          <p>~{userName}</p>
-          <form className="h-auto w-2/3 mt-10">
-            <label className="text-2xl block">Bio</label>
-            <input className="h-10 w-full bg-transparent" value="Hey there, I'm using ChatMate" disabled={true} />
-            <label className="text-2xl block mt-5">Email</label>
-            <input className="h-10 w-full bg-transparent" value={user.email} disabled={true} />
-            <label className="text-2xl block mt-5">DOB</label>
-            <input className="h-10 w-full bg-transparent" value="DD/MM/YYYY" disabled={true} />
-          </form>
+            className="h-40 w-40 sm:h-48 sm:w-48 rounded-full border-4 border-blue-500 bg-cover bg-center mb-4 sm:mb-0"
+            style={{ backgroundImage: `url(${user?.avatar || "https://via.placeholder.com/150"})` }}
+          ></div>
+          <label htmlFor="FileForLabel" className="cursor-pointer absolute bottom-2 right-2 sm:bottom-1 sm:right-4 bg-blue-500 p-2 rounded-full shadow-md hover:bg-blue-600 transition">
+          <MdModeEdit size={30}/>
+          </label>
+          <input
+            className="hidden"
+            type="file"
+            id="FileForLabel"
+            onChange={handleFileChange}
+          />
+          {file && (
+            <button
+              type="button"
+              onClick={handleUpload}
+              className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+            >
+              Upload
+            </button>
+          )}
         </div>
 
-        <div className="md:h-full min-h-1/2 h-auto w-full md:w-1/3 shadow-sm md:shadow-slate-400 hidden md:block overflow-x-scroll px-10 py-1">
-          <div className={`${user?.friends.length ? "" : "hidden"} shadow-sm shadow-black dark:shadow-white mb-10 mt-3`}>
-            <p className="text-2xl mb-5">Friends</p>
-            {friendsDetails.map((friend) => (
-              <div key={friend._id} className="h-20 w-5/6 p-2 m-2 flex justify-start items-center gap-5">
-                <img src={friend.avatar} className="h-10 w-10" />
-                <p>{friend.fullName}</p>
-              </div>
-            ))}
+        <div className="flex-1 flex flex-col gap-4">
+          <div>
+            <p className="text-2xl font-semibold ">{user?.fullName || "Full Name"}</p>
+            <p>@{userName}</p>
           </div>
-          <div className={`${user?.friendRequests.length ? "" : "hidden"} shadow-sm shadow-black dark:shadow-white mb-10`}>
-            <p className="text-2xl mb-5">Requests</p>
-            {requestDetails.map((user) => (
-              <div key={user._id} className="h-20 w-5/6 p-2 m-2 flex justify-start items-center gap-5">
-                <img src={user.avatar} className="h-10 w-10" />
-                <p>{user.fullName}</p>
-              </div>
-            ))}
+          <div className="flex flex-col gap-2">
+            <label className=" text-sm font-medium">Bio</label>
+            <p className="w-full bg-purple-900 rounded-lg px-4 py-2">{user?.bio || "Hey there, I'm using ChatMate"}</p>
           </div>
-          <div className="shadow-sm shadow-black dark:shadow-white mt-10">
-            <p className="text-2xl mb-5">Explore</p>
-            {allUsers.map((user) => (
-              <div key={user._id} className="h-20 w-5/6 p-2 m-2 flex justify-start items-center gap-5">
-                <img src={user.avatar} className="h-10 w-10" />
-                <p>{user.fullName}</p>
-              </div>
-            ))}
+          <div className="flex flex-col gap-2">
+            <label className=" text-sm font-medium">Email</label>
+            <p className="w-full bg-purple-900 rounded-lg px-4 py-2">{user?.email || "N/A"}</p>
+          </div>
+          <div className="flex flex-col gap-2">
+            <label className=" text-sm font-medium">Date of Birth</label>
+            <p className="w-full bg-purple-900 rounded-lg px-4 py-2">{user?.dob || "DD/MM/YYYY"}</p>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

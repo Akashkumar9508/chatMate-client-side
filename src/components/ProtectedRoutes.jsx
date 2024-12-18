@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useEffect } from "react";
 import authService from "../services/authService";
@@ -15,15 +15,14 @@ const ProtectedRoute = ({ children }) => {
     useEffect(() => {
         const fetchCurrentUser = async () => {
             try {
-                await authService.getCurrentUser().then((user) =>dispatch(login(user)));
+                await authService.getCurrentUser().then((user) => dispatch(login(user)));
                 await authService.getAllUsers().then((users) => dispatch(setAllUsers(users)));
                 const friendsId = await friendService.getFriendList();
                 const allFriends = await Promise.all(
-                  friendsId.map((id) => authService.getUserById(id))
+                    friendsId.map((id) => authService.getUserById(id))
                 );
                 dispatch(setFriends(allFriends));
-                const requestsId=await friendService.getFriendRequests();
-                console.log(requestsId)
+                const requestsId = await friendService.getFriendRequests();
                 const allRequests = await Promise.all(
                     requestsId.map((id) => authService.getUserById(id))
                 );
