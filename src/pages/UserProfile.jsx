@@ -10,7 +10,8 @@ function UserProfile() {
   const user = auth?.userData;
   const { userName } = useParams();
   const [file, setFile] = useState(null);
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   // Handle file change
   const handleFileChange = (e) => {
@@ -21,18 +22,22 @@ function UserProfile() {
   const handleUpload = async (e) => {
     e.preventDefault();
     if (!file) return;
+
     const formData = new FormData();
     formData.append("avatar", file);
+    setLoading(true);
 
     try {
       const response = await authService.updateAvatar(formData);
       if (response) {
-        dispatch(login({...user, avatar:response.url}));
+        dispatch(login({ ...user, avatar: response.url }));
       } else {
         console.error("File upload failed.");
       }
     } catch (error) {
       console.error("Error uploading file:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -51,12 +56,22 @@ function UserProfile() {
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center py-8 px-4 sm:px-8">
-      <div className=" bg-slate-900 rounded-lg shadow-lg w-full max-w-4xl flex flex-col items-center p-6 sm:flex-row sm:items-start sm:gap-8">
+      <div className="bg-slate-900 rounded-lg shadow-lg w-full max-w-4xl flex flex-col items-center p-6 sm:flex-row sm:items-start sm:gap-8">
         <div className="relative">
           <div
-            className="h-40 w-40 sm:h-48 sm:w-48 rounded-full border-4 border-blue-500 bg-cover bg-center mb-4 sm:mb-0"
-            style={{ backgroundImage: `url(${user?.avatar || "https://via.placeholder.com/150"})` }}
-          ></div>
+            className={`h-40 w-40 sm:h-48 sm:w-48 rounded-full border-4 border-blue-500 bg-cover bg-center mb-4 sm:mb-0 ${
+              loading ? "relative overflow-hidden" : ""
+            }`}
+            style={{
+              backgroundImage: `url(${user?.avatar || "https://via.placeholder.com/150"})`,
+            }}
+          >
+            {loading && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-full">
+                <div className="w-8 h-8 border-4 border-t-blue-500 border-b-transparent border-l-transparent border-r-transparent rounded-full animate-spin"></div>
+              </div>
+            )}
+          </div>
           <form onSubmit={handleUpload}>
             <label htmlFor="FileForLabel" className="cursor-pointer absolute bottom-2 right-2 sm:bottom-1 sm:right-4 bg-blue-500 p-2 rounded-full shadow-md hover:bg-blue-600 transition">
             <MdModeEdit size={30}/>
@@ -67,7 +82,7 @@ function UserProfile() {
               id="FileForLabel"
               onChange={handleFileChange}
             />
-            {file && (
+            {file && !loading && (
               <button
                 type="submit"
                 className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
