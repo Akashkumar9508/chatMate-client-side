@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import authService from '../services/authService.js';
 import { MdModeEdit } from "react-icons/md";
-import { logout } from "../features/authSlice.js";
+import { login } from "../features/authSlice.js";
 
 function UserProfile() {
   const auth = useSelector((state) => state.auth);
@@ -27,7 +27,7 @@ function UserProfile() {
     try {
       const response = await authService.updateAvatar(formData);
       if (response) {
-        dispatch(logout({...user, avatar:response.url}));
+        dispatch(login({...user, avatar:response.url}));
       } else {
         console.error("File upload failed.");
       }
