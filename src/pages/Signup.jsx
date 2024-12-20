@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import authService from '../services/authService.js';
 import generateAvatar from '../utils/avatarGenerator.js'
-import signupPng from "../assets/Signup.png";
+
 
 const Signup = () => {
   const { register, handleSubmit, formState: { errors }, reset, watch } = useForm();
@@ -45,7 +45,7 @@ const Signup = () => {
     <div className="w-full max-w-6xl flex flex-col md:flex-row mainSection shadow-lg rounded-lg">      
       <div className="imgDiv w-full md:w-1/2 hidden md:block">
         <img
-          src={signupPng}
+          src="https://res.cloudinary.com/chatmateapp/image/upload/v1734677395/vmtkdspxvtcvvdtapqsi.png"
           alt="Sign Up illustration"
           className="w-full h-full object-cover"
         />

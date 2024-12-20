@@ -2,17 +2,13 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css';
 import App from './App.jsx';
-import Signup from './pages/Signup.jsx';
-import Login from './pages/Login.jsx';
 import { Toaster } from 'react-hot-toast';
-import Dashboard from './pages/Dashboard.jsx';
 import ProtectedRoute from './components/ProtectedRoutes.jsx';
 import {Provider} from 'react-redux';
 import store from './store/store.js';
-import Friend from './pages/Friend.jsx';
 import Layout from './Layout.jsx';
-import UserProfile from './pages/UserProfile.jsx';
-import About from './pages/About.jsx';
+import {Signup , Login , Dashboard , Friend , UserProfile , About} from './pages/allPages.js';
+
 
 createRoot(document.getElementById('root')).render(
   <>
