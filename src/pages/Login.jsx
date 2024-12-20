@@ -7,7 +7,7 @@ import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { login } from "../features/authSlice.js";
 import authService from "../services/authService.js";
-import loginPng from "../assets/login.png";
+
 
 const Login = () => {
   const {
@@ -51,7 +51,7 @@ const Login = () => {
         <div className="w-full flex flex-col md:flex-row mainSection shadow-lg rounded-lg">
           <div className="imgDiv w-full md:w-1/2 hidden md:block">
             <img
-              src={loginPng}
+              src="https://res.cloudinary.com/chatmateapp/image/upload/v1734677344/xqpr1jdbafdfcshyoclk.png"
               alt="Login illustration"
               className="w-full h-full object-cover"
             />

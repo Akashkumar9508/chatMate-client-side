@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import heartImg from "./assets/heartImg.png";
 import { useSelector } from "react-redux";
 
 const App = () => {
@@ -15,9 +14,9 @@ const App = () => {
           <Link to="/signup" className={`bg-[#8e52ff] px-6 py-3 rounded-full hover:bg-[#a079e8] transition duration-300 md:mt-2 mt-5 ${status?"hidden":""}`}> <span className="block md:hidden">Get me There !!</span> <span className="md:block hidden">Get Started</span></Link>
         </div>
         <div className="md:relative w-1/2 md:h-full h-[70%] flex items-center justify-center">
-          <img src={heartImg} alt="Hero" className="absolute md:scale-75 object-scale-down scale-90" />
-          <img src={heartImg} alt="Hero" className="md:flex hidden absolute bottom-[25px] right-[280px] md:scale-75 object-scale-down" />
-          <img src={heartImg} alt="Hero" className="md:flex hidden absolute top-[20px] left-[290px] md:scale-75 object-scale-down" />
+          <img src="https://res.cloudinary.com/chatmateapp/image/upload/v1734677224/w8qyrhnxyvnr0kfssjvk.png" alt="Hero" className="absolute md:scale-75 object-scale-down scale-90" />
+          <img src="https://res.cloudinary.com/chatmateapp/image/upload/v1734677224/w8qyrhnxyvnr0kfssjvk.png" alt="Hero" className="md:flex hidden absolute bottom-[25px] right-[280px] md:scale-75 object-scale-down" />
+          <img src="https://res.cloudinary.com/chatmateapp/image/upload/v1734677224/w8qyrhnxyvnr0kfssjvk.png" alt="Hero" className="md:flex hidden absolute top-[20px] left-[290px] md:scale-75 object-scale-down" />
         </div>
       </div>
 
