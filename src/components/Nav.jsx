@@ -89,7 +89,7 @@ const Nav = () => {
             <NavLink to="/" className={({isActive})=>`block py-2 hover:text-blue-400 font-semibold text-lgNav ${isActive?"text-orange-400":""}`}>Home</NavLink>
             <NavLink to="/friends" className="block py-2 hover:text-blue-400 font-semibold text-lg">Friend</NavLink>
             <NavLink to="/dashboard" className="block py-2 hover:text-blue-400 font-semibold text-lg">Dashboard</NavLink>
-        <NavLink to="/about" className={({isActive})=>`hover:text-[#8e52ff] ${isActive?"text-orange-400":""}`}>About</NavLink>
+        <NavLink to="/about" className={({isActive})=>`block py-2 hover:text-blue-400 font-semibold text-lg ${isActive?"text-orange-400":""}`}>About</NavLink>
             <Logout />
           </div>
         </>
