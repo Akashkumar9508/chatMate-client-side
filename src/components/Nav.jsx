@@ -1,7 +1,7 @@
 import React, { useEffect ,useState} from 'react';
 import { NavLink } from 'react-router-dom';
 import { FaBars, FaTimes, FaMoon, FaSun } from 'react-icons/fa';
-import Logout from './Logout.jsx';
+import { Logout } from "./allComponents.js"
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleTheme } from '../features/themeSlice.js';
 
