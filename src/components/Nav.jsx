@@ -40,7 +40,7 @@ const Nav = () => {
           />
         ) : (
           <>
-          <img src="/logo.png" className="h-full" alt="ChatMate Logo" />
+          <img src="https://res.cloudinary.com/chatmateapp/image/upload/v1734678699/i0atxfmhhbwemls6xqq8.png" className="h-full" alt="ChatMate Logo" />
           <h1 className="text-2xl font-bold">ChatMate</h1>
           </>
         )}
