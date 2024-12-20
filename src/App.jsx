@@ -1,9 +1,15 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import { useEffect } from "react";
+import { setupSocketEvents } from "./sockets/socketHandlers";
 const App = () => {
 
   const status=useSelector(state=>state.auth.status);
+  useEffect(() => {
+    setupSocketEvents((message) => {
+      console.log("Received message in App:", message);
+    });
+  }, []);
 
   return (
     <div className={"mainSection flex flex-col min-h-screen "} >
