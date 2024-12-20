@@ -1,7 +1,4 @@
 import React from 'react';
-import ChatImage from '../assets/heartImg.png';
-// import BoyImage from '../assets/2.jpg';
-// import GirlImage from '../assets/1.jpg';
 
 const About = () => {
     return (
@@ -15,9 +12,9 @@ const About = () => {
                 </div>
                 <div className='flex flex-row w-full justify-center'>
                   
-                    <img className='h-52 w-52' src={ChatImage} alt="askf" />
-                    <img className='h-52 w-52' src={ChatImage} alt="askf" />
-                    <img className='h-52 w-52' src={ChatImage} alt="askf" />
+                    <img className='h-52 w-52' src="https://res.cloudinary.com/chatmateapp/image/upload/v1734677224/w8qyrhnxyvnr0kfssjvk.png" alt="askf" />
+                    <img className='h-52 w-52' src="https://res.cloudinary.com/chatmateapp/image/upload/v1734677224/w8qyrhnxyvnr0kfssjvk.png" alt="askf" />
+                    <img className='h-52 w-52' src="https://res.cloudinary.com/chatmateapp/image/upload/v1734677224/w8qyrhnxyvnr0kfssjvk.png" alt="askf" />
                 </div>
 
             </section>
