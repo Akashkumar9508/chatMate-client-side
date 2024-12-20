@@ -7,7 +7,8 @@ import ProtectedRoute from './components/ProtectedRoutes.jsx';
 import {Provider} from 'react-redux';
 import store from './store/store.js';
 import Layout from './Layout.jsx';
-import {Signup , Login , Dashboard , Friend , UserProfile} from './pages/allPages.js';
+import {Signup , Login , Dashboard , Friend , UserProfile , About} from './pages/allPages.js';
+
 
 createRoot(document.getElementById('root')).render(
   <>
@@ -19,6 +20,7 @@ createRoot(document.getElementById('root')).render(
             <Route path='' element={<App/>} />
             <Route path="signup" element={<Signup />} />
             <Route path="login" element={<Login />} />
+            <Route path="about" element={<About />} />
             <Route path="dashboard" element={
               <ProtectedRoute>
                 <Dashboard />
