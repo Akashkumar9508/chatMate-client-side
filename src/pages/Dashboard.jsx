@@ -3,7 +3,6 @@ import { HiMenu } from 'react-icons/hi';
 import { FaTimes } from 'react-icons/fa';
 import authService from '../services/authService.js';
 import messagesService from '../services/messageService.js';
-import { sendMessage } from '../sockets/socketHandlers.js'
 
 const Dashboard = () => {
     const [users, setUsers] = useState([]);
@@ -40,8 +39,7 @@ const Dashboard = () => {
                 text: message,
             };
             try {
-                await messagesService.sendMessage(messageData); // save to database
-                sendMessage(messageData); //socket.io 
+                await messagesService.sendMessage(messageData); 
                 setMessages((prevMessages) => [...prevMessages, messageData]);
                 setMessage('');
             } catch (error) {
