@@ -16,25 +16,7 @@ export const setupSocketEvents = (onMessageReceived) => {
     socket.on('disconnect', () => {
         console.log('Disconnected from server');
     });
-
-    // Handle received messages
-    socket.on('receiveMessage', (message) => {
-        console.log('Message received:', message);
-        if (onMessageReceived) onMessageReceived(message);
-    });
 };
 
-// Emit events
-export const joinRoom = (roomId) => {
-    if (roomId) {
-        socket.emit('joinRoom', roomId);
-        console.log(`Joined room: ${roomId}`);
-    }
-};
-
-export const sendMessage = (message) => {
-        socket.emit('sendMessage', message);
-        console.log('Message recived from forntend and sent to backend:', message);
-};
 
 export default socket;
