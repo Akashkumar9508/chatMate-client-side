@@ -3,6 +3,9 @@ import { HiMenu } from 'react-icons/hi';
 import { FaTimes } from 'react-icons/fa';
 import authService from '../services/authService.js';
 import messagesService from '../services/messageService.js';
+import { io } from "socket.io-client";
+import config from '../config/config.js';
+import { useSelector } from 'react-redux';
 
 const Dashboard = () => {
     const [users, setUsers] = useState([]);
@@ -11,6 +14,17 @@ const Dashboard = () => {
     const [messages, setMessages] = useState([]);
     const [loggedInUserId, setLoggedInUserId] = useState('');
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [onlineUsers,setOnlineUsers]=useState({});
+    const userId=useSelector(state=>state.auth.userData?._id);
+
+
+    useEffect(()=>{
+        const socket=io(config.apiUrl);
+        socket.on('connect',()=>console.log('Connected to server :: ',socket.id));
+        socket.emit('userId',userId);
+        socket.on('onlineUsers',(users)=>setOnlineUsers(users));
+    },[]);
+    console.log('Online users: ',onlineUsers)
 
     useEffect(() => {
         authService.getCurrentUser()
