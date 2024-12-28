@@ -60,7 +60,7 @@ const Friend = () => {
 
     return (
         <>
-            <div className="friends-page h-lvh w-full px-4 py-4 bg-gray-900">
+            <div className="friends-page h-lvh w-full px-4 pt-20 ">
                 <h1 className="text-2xl font-bold mb-4 flex items-center gap-2"><FaUserFriends /> Friends Page</h1>
                 <div className="flex items-center mb-6 flex-wrap gap-4 w-full">
                     <input
