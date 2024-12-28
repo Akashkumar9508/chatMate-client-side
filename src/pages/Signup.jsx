@@ -39,7 +39,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen mainSection">
+    <div className="min-h-screen mainSection pt-20">
 
   <div className="flex items-center w-full justify-center min-h-[calc(100vh-64px)]">
     <div className="w-full max-w-6xl flex flex-col md:flex-row mainSection shadow-lg rounded-lg">      

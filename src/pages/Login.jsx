@@ -45,7 +45,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen mainSection">
+    <div className="min-h-screen mainSection pt-20">
 
       <div className="flex items-center w-full justify-center min-h-[calc(100vh-64px)] p-3">
         <div className="w-full flex flex-col md:flex-row mainSection shadow-lg rounded-lg">
@@ -53,7 +53,7 @@ const Login = () => {
             <img
               src="https://res.cloudinary.com/chatmateapp/image/upload/v1734677344/xqpr1jdbafdfcshyoclk.png"
               alt="Login illustration"
-              className="w-full h-full object-cover"
+              className="w-[90%] h-full object-cover"
             />
           </div>
 
