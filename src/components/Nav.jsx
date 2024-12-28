@@ -1,36 +1,60 @@
-import React, { useEffect ,useState} from 'react';
+import React, { useState} from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaBars, FaTimes, FaMoon, FaSun } from 'react-icons/fa';
+import { FaBars, FaTimes } from 'react-icons/fa';
+import { MdChangeCircle } from "react-icons/md";
 import { Logout } from "./allComponents.js"
-import { useDispatch, useSelector } from 'react-redux';
-import { toggleTheme } from '../features/themeSlice.js';
+import { useSelector } from 'react-redux';
 
 const Nav = () => {
-  const dispatch = useDispatch();
-  const theme = useSelector((state) => state.theme.theme); 
   const auth = useSelector((state) => state.auth);
   const currentUser = auth?.userData;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [themeIndex, setThemeIndex] = useState(0);
+  const themes = ["light",
+      "dark",
+      "cupcake",
+      "bumblebee",
+      "emerald",
+      "corporate",
+      "synthwave",
+      "retro",
+      "cyberpunk",
+      "valentine",
+      "halloween",
+      "garden",
+      "forest",
+      "aqua",
+      "lofi",
+      "pastel",
+      "fantasy",
+      "wireframe",
+      "black",
+      "luxury",
+      "dracula",
+      "cmyk",
+      "autumn",
+      "business",
+      "acid",
+      "lemonade",
+      "night",
+      "coffee",
+      "winter",
+      "dim",
+      "nord",
+      "sunset"];
 
-  useEffect(() => {
-
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [theme]);
-
+  const changeTheme = () => {
+    const newIndex = (themeIndex + 1) % themes.length;
+    setThemeIndex(newIndex);
+    document.documentElement.setAttribute("data-theme", themes[newIndex]);
+  }
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleToggleTheme = () => {
-    dispatch(toggleTheme());
-  };
 
   return (
-    <nav className="h-16 py-3 flex justify-between items-center px-4 shadow-sm shadow-black dark:shadow-white mb-1">
+    <nav className=" fixed w-full top-0 right-0 h-16 py-3 flex justify-between items-center px-4 shadow-sm shadow-black dark:shadow-white mb-1 backdrop-blur-lg">
       <NavLink to={`${currentUser?`/user/${currentUser.userName}`:"/"}`} className="logo flex justify-center items-center h-full cursor-pointer">
       {currentUser && currentUser.avatar ? (
           <img
@@ -55,12 +79,8 @@ const Nav = () => {
         <div className="hidden md:flex">
           <Logout />
         </div>
-        <button
-          onClick={handleToggleTheme} 
-          className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600"
-          aria-label="Toggle theme"
-        >
-          {theme === 'dark' ? <FaSun className="text-yellow-500" /> : <FaMoon />}
+        <button className="p-2 rounded-full" onClick={changeTheme}>
+        <MdChangeCircle size={30}/>
         </button>
       </div>
 
