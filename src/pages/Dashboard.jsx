@@ -32,15 +32,15 @@ const Dashboard = () => {
 
 
     return (
-        <div className="flex flex-col min-h-screen">
-            <div className="flex-grow flex flex-col md:flex-row h-full">
+        <div className="flex flex-col h-lvh">
+            <div className="flex-grow flex flex-col md:flex-row h-full ">
                 <Sidebar
                     users={users}
                     onSelectUser={handleUserSelect}
                     isSidebarOpen={isSidebarOpen}
                     closeSidebar={() => setIsSidebarOpen(false)}
                 />
-                <div className="flex-1 p-4 flex flex-col">
+                <div className="flex-1 p-4 flex flex-col pt-20">
                     {selectedUser ? (
                         <>
                             <ChatHeader

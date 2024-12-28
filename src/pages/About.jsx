@@ -3,9 +3,8 @@ import Img from '../assects/1.png';
 
 const About = () => {
     return (
-        <div className="bg-black text-white">
-            {/* Hero Section */}
-            <section className="h-auto w-full bg-gradient-to-r from-purple-500 to-pink-500 py-16 px-8 md:px-20 text-center flex flex-col md:flex-row justify-center items-center">
+        <div>
+            <section className="h-lvh w-full bg-gradient-to-r py-16 px-8 md:px-20 text-center flex flex-col md:flex-row justify-center items-center">
                 <div className="flex-1 flex flex-col justify-center items-center text-center md:text-left">
                     <h2 className="text-3xl md:text-4xl font-bold mb-4">ChatMate Platform for Random Text and File Sharing</h2>
                     <p className="text-base md:text-lg mb-8">
@@ -25,7 +24,7 @@ const About = () => {
                 <div className="flex flex-col gap-10">
 
                     <div className={`flex flex-col md:flex-row items-center gap-6  md:text-left'md:flex-row-reverse'}`}>
-                        <img src="https://via.placeholder.com/200" alt="Journey" className="rounded-full w-36 h-36 md:w-48 md:h-48" />
+                        <img src="https://img.freepik.com/premium-vector/boy-girl-have-online-chat_166119-187.jpg?w=740" alt="Journey" className="rounded-full w-36 h-36 md:w-48 md:h-48" />
                         <div>
                             <h3 className="text-xl font-semibold mb-2">The Vision</h3>
                             <p className="text-sm md:text-base max-w-[700px]">
@@ -44,10 +43,10 @@ const About = () => {
                                 . It also has a strong self-learning ability and can truly create content on its own.
                             </p>
                         </div>
-                        <img src="https://via.placeholder.com/200" alt="Journey" className="rounded-full w-36 h-36 md:w-48 md:h-48" />
+                        <img src="https://img.freepik.com/premium-vector/boy-girl-have-online-chat_166119-187.jpg?w=740" alt="Journey" className="rounded-full w-36 h-36 md:w-48 md:h-48" />
                     </div>
                     <div className={`flex flex-col md:flex-row items-center gap-6  md:text-left'md:flex-row-reverse'}`}>
-                        <img src="https://via.placeholder.com/200" alt="Journey" className="rounded-full w-36 h-36 md:w-48 md:h-48" />
+                        <img src="https://img.freepik.com/premium-vector/boy-girl-have-online-chat_166119-187.jpg?w=740" alt="Journey" className="rounded-full w-36 h-36 md:w-48 md:h-48" />
                         <div>
                             <h3 className="text-xl font-semibold mb-2">The Vision</h3>
                             <p className="text-sm md:text-base max-w-[700px]">
@@ -66,11 +65,11 @@ const About = () => {
                                 . It also has a strong self-learning ability and can truly create content on its own.
                             </p>
                         </div>
-                        <img src="https://via.placeholder.com/200" alt="Journey" className="rounded-full w-36 h-36 md:w-48 md:h-48" />
+                        <img src="https://img.freepik.com/premium-vector/boy-girl-have-online-chat_166119-187.jpg?w=740" alt="Journey" className="rounded-full w-36 h-36 md:w-48 md:h-48" />
                     </div>
 
                     <div className={`flex flex-col md:flex-row items-center gap-6  md:text-left'md:flex-row-reverse'}`}>
-                        <img src="https://via.placeholder.com/200" alt="Journey" className="rounded-full w-36 h-36 md:w-48 md:h-48" />
+                        <img src="https://img.freepik.com/premium-vector/boy-girl-have-online-chat_166119-187.jpg?w=740" alt="Journey" className="rounded-full w-36 h-36 md:w-48 md:h-48" />
                         <div>
                             <h3 className="text-xl font-semibold mb-2">The Vision</h3>
                             <p className="text-sm md:text-base max-w-[700px]">
@@ -87,7 +86,7 @@ const About = () => {
 
             {/* Impact Section */}
             <section className="py-16 px-4 md:px-20 flex flex-col justify-center items-center">
-                <div className="bg-black text-white py-16 w-full">
+                <div className="py-16 w-full">
                     <div className="container mx-auto text-center">
                         <h2 className="text-2xl md:text-3xl font-bold mb-4">Our Impact</h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">

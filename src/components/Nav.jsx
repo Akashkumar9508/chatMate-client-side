@@ -70,10 +70,10 @@ const Nav = () => {
         )}
       </NavLink>
       <div className="hidden md:flex space-x-6 pr-6 font-semibold text-lg">
-        <NavLink to="/" className={({isActive})=>`hover:text-[#8e52ff] ${isActive?"text-orange-400":""}`}>Home</NavLink>
-        <NavLink to="/friends" className={({isActive})=>`hover:text-[#8e52ff] ${isActive?"text-orange-400":""}`}>Friend</NavLink>
-        <NavLink to="/dashboard" className={({isActive})=>`hover:text-[#8e52ff] ${isActive?"text-orange-400":""}`}>Dashboard</NavLink>
-        <NavLink to="/about" className={({isActive})=>`hover:text-[#8e52ff] ${isActive?"text-orange-400":""}`}>About</NavLink>
+        <NavLink to="/" className={({isActive})=>`hover:text-[#8e52ff] ${isActive?"text-orange-400 border-b-2 border-orange-400":""}`}>Home</NavLink>
+        <NavLink to="/friends" className={({isActive})=>`hover:text-[#8e52ff] ${isActive?"text-orange-400 border-b-2 border-orange-400":""}`}>Friend</NavLink>
+        <NavLink to="/dashboard" className={({isActive})=>`hover:text-[#8e52ff] ${isActive?"text-orange-400 border-b-2 border-orange-400":""}`}>Dashboard</NavLink>
+        <NavLink to="/about" className={({isActive})=>`hover:text-[#8e52ff] ${isActive?"text-orange-400 border-b-2 border-orange-400":""}`}>About</NavLink>
       </div>
       <div className="flex items-center space-x-4">
         <div className="hidden md:flex">

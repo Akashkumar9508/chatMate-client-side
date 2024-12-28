@@ -1,16 +1,8 @@
 import { FaTimes } from 'react-icons/fa';
 
 const Sidebar = ({ users, onSelectUser, isSidebarOpen, closeSidebar }) => (
-    <div
-        className={`fixed md:static top-0 pt-20 left-0 w-full md:w-1/4 p-4 border-b md:border-b-0 md:border-r z-10 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-            } md:translate-x-0 transition-transform duration-300 ease-in-out`}
-    >
-        <button
-            onClick={closeSidebar}
-            className="md:hidden absolute top-4 right-4 font-bold"
-        >
-            <FaTimes />
-        </button>
+    <div className={`fixed md:static top-0 pt-20  left-0 w-full md:w-1/4 p-4 border-b md:border-b-0 md:border-r z-10 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 transition-transform duration-300 ease-in-out`}>
+        <button onClick={closeSidebar}className="md:hidden absolute top-4 right-4 font-bold"><FaTimes /></button>
         <h2 className="text-2xl font-semibold mb-4 text-blue-400">Online Buddies</h2>
         <ul className="space-y-2">
             {users.map((user) => (
