@@ -16,12 +16,3 @@
   background: #8e52ff;
   box-shadow: 20px 20px 60px #b48cfd, -20px -20px 60px #ffffff;
 }
-.light {
-  background-color: #fff;
-  color: #000;
-}
-
-.dark {
-  background-color: #121212;
-  color: #fff;
-}
