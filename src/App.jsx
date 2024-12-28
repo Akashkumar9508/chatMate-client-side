@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-const App = () => {
 
+const App = () => {
+  
   return (
     <div className={"mainSection flex flex-col min-h-screen "} >
       <div className="landingPage flex flex-col md:flex-row items-center md:justify-between w-full h-lvh ">

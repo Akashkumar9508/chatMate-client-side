@@ -54,7 +54,7 @@ const Nav = () => {
 
 
   return (
-    <nav className=" fixed w-full top-0 right-0 h-16 py-3 flex justify-between items-center px-4 shadow-sm shadow-black dark:shadow-white mb-1 backdrop-blur-lg">
+    <nav className="z-[999] fixed w-full top-0 right-0 h-16 py-3 flex justify-between items-center px-4 shadow-sm shadow-black dark:shadow-white mb-1 backdrop-blur-lg">
       <NavLink to={`${currentUser?`/user/${currentUser.userName}`:"/"}`} className="logo flex justify-center items-center h-full cursor-pointer">
       {currentUser && currentUser.avatar ? (
           <img
