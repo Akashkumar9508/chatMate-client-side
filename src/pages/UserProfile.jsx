@@ -55,8 +55,8 @@ function UserProfile() {
   }, [user]);
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center py-8 px-4 sm:px-8">
-      <div className="bg-slate-900 rounded-lg shadow-lg w-full max-w-4xl flex flex-col items-center p-6 sm:flex-row sm:items-start sm:gap-8">
+    <div className="min-h-screen w-full flex flex-col items-center py-8 px-4 sm:px-8 pt-40 ">
+      <div className="rounded-lg shadow-lg w-full max-w-4xl flex flex-col items-center p-6 sm:flex-row sm:items-start sm:gap-8">
         <div className="relative">
           <div
             className={`h-40 w-40 sm:h-48 sm:w-48 rounded-full border-4 border-blue-500 bg-cover bg-center mb-4 sm:mb-0 ${
