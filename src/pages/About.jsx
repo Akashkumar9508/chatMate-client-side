@@ -4,16 +4,15 @@ import Img from '../assects/1.png';
 const About = () => {
     return (
         <div>
-            <section className="h-lvh w-full bg-gradient-to-r py-16 px-8 md:px-20 text-center flex flex-col md:flex-row justify-center items-center">
+            <section className="md:h-lvh w-full bg-gradient-to-r py-16 px-8 md:px-20 text-center flex flex-col md:flex-row justify-center items-center">
                 <div className="flex-1 flex flex-col justify-center items-center text-center md:text-left">
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4">ChatMate Platform for Random Text and File Sharing</h2>
-                    <p className="text-base md:text-lg mb-8">
-                        ChatMate is an application that uses the most advanced artificial intelligence technology.
-                        It can mimic human conversation and provide you with a natural and authentic dialogue experience.
+                    <h2 className="text-3xl md:text-4xl font-bold md:mb-4 md:mt-0 mt-2">ChatMate Platform for Random Text and File Sharing</h2>
+                    <p className="text-base md:text-lg md:mb-8">
+                        ChatMate is an application. It can mimic human conversation and provide you with a natural and authentic dialogue experience.
                         It also has a strong self-learning ability and can truly create content on its own.
                     </p>
                 </div>
-                <div className="flex-1 flex justify-center items-center mt-8 md:mt-0">
+                <div className="flex-1 flex justify-center items-center md:mt-0">
                     <img src={Img} alt="ChatMate" className="max-w-full h-auto object-contain rounded-lg" />
                 </div>
             </section>
