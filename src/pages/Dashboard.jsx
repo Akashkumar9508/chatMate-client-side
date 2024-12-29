@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import authService from '../services/authService.js';
 import { useSelector } from 'react-redux';
-import { ChatHeader, ChatMessages, MessageInput, Sidebar } from '../components/allComponents.js';
+import { Chatheader, ChatMessages, MessageInput, Sidebar } from '../components/allComponents.js';
 
 
 const Dashboard = () => {
@@ -43,7 +43,7 @@ const Dashboard = () => {
                 <div className="flex-1 p-4 flex flex-col pt-20">
                     {selectedUser ? (
                         <>
-                            <ChatHeader
+                            <Chatheader
                                 selectedUser={selectedUser}
                                 openSidebar={() => setIsSidebarOpen(true)}
                             />
