@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 const App = () => {
-  
+
   return (
     <div className={"mainSection flex flex-col min-h-screen "} >
       <div className="landingPage flex flex-col md:flex-row items-center md:justify-between w-full h-lvh ">
@@ -14,16 +14,20 @@ const App = () => {
           <div className="md:w-[75%] md:h-[70%] rounded-lg border border-white flex justify-center items-center ">
             <div className="w-[95%] h-[95%] flex flex-wrap items-center justify-around border border-white rounded-lg p-2 ">
               {Array.from({ length: 12 }).map((_, index) => {
-                // Generate a random color
                 const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+                const emojis = ["😀", "😎", "🎉", "🚀", "🐱", "🌟", "🔥", "💡", "🎵", "🌈", "🍀", "⚡"];
+                const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
                 return (
                   <div
                     key={index}
                     style={{ backgroundColor: randomColor }}
-                    className="w-[30%] h-[22%] rounded-md animate-pulse m-1"
-                  ></div>
+                    className="w-[30%] h-[22%] rounded-md animate-pulse m-1 flex items-center justify-center text-3xl"
+                  >
+                    {randomEmoji}
+                  </div>
                 );
               })}
+
             </div>
 
           </div>
