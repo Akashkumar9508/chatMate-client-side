@@ -1,9 +1,34 @@
 import { FaTimes } from 'react-icons/fa';
+import { useState,useEffect } from 'react';
+import authService from '../services/authService.js';
+import { useDispatch } from 'react-redux';
+import { selectedUser } from '../features/userSlice.js';
 
-const Sidebar = ({ users, onSelectUser, isSidebarOpen, closeSidebar }) => {
+const Sidebar = ({onSelectUser, isSidebarOpen, closeSidebar }) => {
+    const [users, setUsers] = useState([]);
+    
+    const dispatch = useDispatch();
+    useEffect(() => {
+            const fetchUsers = async () => {
+                try {
+                    const fetchedUsers = await authService.getAllUsers();
+                    setUsers(fetchedUsers);
+                } catch (error) {
+                    console.error('Error fetching users:', error);
+                }
+            };
+            fetchUsers();
+        }, []);
+
+    
+    // user select handler
+    const handleUserSelect = () => {
+        closeSidebar();
+    }
+
     return (
         <div
-            className={`fixed md:static top-0 pt-20 left-0 w-full md:w-1/4 p-4 border-b md:border-b-0 md:border-r z-10 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+            className={`fixed backdrop-blur-lg translate-y-16 md:static top-0 left-0 w-full md:w-1/4 p-4 border-b md:border-b-0 md:border-r z-10 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
                 } md:translate-x-0 transition-transform duration-300 ease-in-out`}
         >
             <button
@@ -17,7 +42,10 @@ const Sidebar = ({ users, onSelectUser, isSidebarOpen, closeSidebar }) => {
                 {users.map((user) => (
                     <li
                         key={user._id}
-                        onClick={() => onSelectUser(user)}
+                        onClick={() => {
+                            dispatch(selectedUser(user))
+                            handleUserSelect(user)
+                        }}
                         className="cursor-pointer py-2 px-4 rounded-lg hover:bg-blue-600 flex items-center space-x-3 transition duration-300"
                     >
                         <div className="relative w-10 h-10 rounded-full">

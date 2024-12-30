@@ -1,7 +1,7 @@
-const ChatMessages = ({ messages, loggedInUserId }) => {
+const ChatMessages = () => {
     return (
         <div className="flex-1 overflow-y-auto bg-gray-900 p-4 rounded-lg border border-gray-600 mb-4">
-            {messages.map((msg, index) => (
+            {/* {messages.map((msg, index) => (
                 <div
                     key={index}
                     className={`mb-2 ${msg.sender === loggedInUserId ? 'text-right' : 'text-left'}`}
@@ -16,7 +16,7 @@ const ChatMessages = ({ messages, loggedInUserId }) => {
                         </small>
                     </div>
                 </div>
-            ))}
+            ))} */}
         </div>
     );
 };

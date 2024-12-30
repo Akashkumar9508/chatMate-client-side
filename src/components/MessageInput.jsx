@@ -1,7 +1,7 @@
 import messageService from "../services/messageService.js";
 import { useState } from "react";
 
-const MessageInput = ({ onSend }) => {
+const MessageInput = () => {
     const [message, setMessage] = useState("");
 
     const handleSendMessage = async () => {
