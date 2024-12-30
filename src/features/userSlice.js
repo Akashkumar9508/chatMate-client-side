@@ -4,6 +4,7 @@ const initialState={
   allUsers:[],
   friends:[],
   friendRequests:[],
+  selectedUser:null, //curent chatting user
 };
 
 const userSlice = createSlice({
@@ -34,9 +35,12 @@ const userSlice = createSlice({
         state.friendRequests.splice(index, 1);
       }
     },
+    selectedUser:(state,action)=>{
+      state.selectedUser = action.payload;
+    }
   }
 }); 
 
-export const { setAllUsers, setFriends, setFriendRequests, addFriend, removeFriend, acceptFriendRequest } = userSlice.actions;
+export const { setAllUsers, setFriends, setFriendRequests, addFriend, removeFriend, acceptFriendRequest, selectedUser } = userSlice.actions;
 
 export default userSlice.reducer;

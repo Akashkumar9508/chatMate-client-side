@@ -17,21 +17,22 @@ const App = () => {
                 const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
                 const emojis = ["😀", "😎", "🎉", "🚀", "🐱", "🌟", "🔥", "💡", "🎵", "🌈", "🍀", "⚡"];
                 const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+                const randomDelay = Math.floor(Math.random() * 3);
                 return (
                   <div
                     key={index}
-                    style={{ backgroundColor: randomColor }}
+                    style={{
+                      backgroundColor: randomColor,
+                      animationDelay: `${randomDelay}s`
+                    }}
                     className="w-[30%] h-[22%] rounded-md animate-pulse m-1 flex items-center justify-center text-3xl"
                   >
                     {randomEmoji}
                   </div>
                 );
               })}
-
             </div>
-
           </div>
-
         </div>
       </div>
 

@@ -1,10 +1,11 @@
 import { HiMenu } from "react-icons/hi";
-
-const ChatHeader = ({ selectedUser, openSidebar }) => {
+import { useSelector } from "react-redux";
+const ChatHeader = ({ openSidebar }) => {
+    const selctedUser = useSelector((state) => state?.user?.selectedUser);
     return (
         <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl md:text-2xl font-semibold">
-                Buddie: {selectedUser.fullName}
+                Buddie: {selctedUser?selctedUser.fullName:'N/A'} 
             </h2>
             <button
                 onClick={openSidebar}
