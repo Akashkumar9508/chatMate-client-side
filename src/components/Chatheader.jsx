@@ -1,6 +1,6 @@
 import { HiMenu } from "react-icons/hi";
 import { useSelector } from "react-redux";
-const Chatheader = ({ openSidebar }) => {
+const ChatHeader = ({ openSidebar }) => {
     const selctedUser = useSelector((state) => state?.user?.selectedUser);
     return (
         <div className="flex items-center justify-between mb-4">
@@ -17,4 +17,4 @@ const Chatheader = ({ openSidebar }) => {
     );
 };
 
-export default Chatheader;
+export default ChatHeader;
