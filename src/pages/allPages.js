@@ -1,9 +1,9 @@
-import Dashboard from "./Dashboard";
-import Friend from "./Friend";
-import Login from "./Login";
+import Dashboard from "./Dashboard.jsx";
+import Friend from "./Friend.jsx";
+import Login from "./Login.jsx";
 import Signup from "./Signup";
-import UserProfile from "./UserProfile";
-import About from "./About";
+import UserProfile from "./UserProfile.jsx";
+import About from "./About.jsx";
 
 
 export { Dashboard, Friend, Login, Signup, UserProfile , About };

@@ -1,6 +1,7 @@
 import React, { useState} from 'react';
 import { ChatHeader, ChatMessages, MessageInput, Sidebar } from '../components/allComponents.js';
 import { useSelector } from 'react-redux';
+
 const Dashboard = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);    
     const selectedUser = useSelector((state) => state?.user?.selectedUser);
