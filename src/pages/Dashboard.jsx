@@ -6,7 +6,7 @@ const Dashboard = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);    
     const selectedUser = useSelector((state) => state?.user?.selectedUser);
     return (
-        <div className="flex flex-col h-lvh">
+        <div className="flex flex-col h-screen w-full pb-[4%]">
             <div className="flex-grow flex flex-col md:flex-row h-full ">
                 <Sidebar
                     isSidebarOpen={isSidebarOpen}
@@ -15,7 +15,7 @@ const Dashboard = () => {
                 <div className="flex-1 p-4 flex flex-col pt-20">
                     <ChatHeader openSidebar={() => setIsSidebarOpen(true)}/>
                     {selectedUser ? (
-                        <div className="flex-1 flex flex-col">
+                        <div className="h-[95%] flex flex-col">
                             <ChatMessages />
                             <MessageInput />
                         </div>

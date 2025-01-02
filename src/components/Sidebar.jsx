@@ -1,30 +1,24 @@
 import { FaTimes } from 'react-icons/fa';
-import { useState,useEffect } from 'react';
-import authService from '../services/authService.js';
-import { useDispatch } from 'react-redux';
-import { selectedUser } from '../features/userSlice.js';
+import {  useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSelectedUser } from '../features/userSlice.js';
+import messagesService from '../services/messageService.js';
+import { initialiseMessages } from '../features/messageSlice.js';
 
-const Sidebar = ({onSelectUser, isSidebarOpen, closeSidebar }) => {
-    const [users, setUsers] = useState([]);
-    
+const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
+    const users=useSelector(state=>state.user?.allUsers);
+    const { selectedUser } = useSelector(state => state.user);
+
     const dispatch = useDispatch();
-    useEffect(() => {
-            const fetchUsers = async () => {
-                try {
-                    const fetchedUsers = await authService.getAllUsers();
-                    setUsers(fetchedUsers);
-                } catch (error) {
-                    console.error('Error fetching users:', error);
-                }
-            };
-            fetchUsers();
-        }, []);
 
-    
-    // user select handler
-    const handleUserSelect = () => {
-        closeSidebar();
-    }
+    useEffect(() => {
+        async function fetchUsers() {
+            if(selectedUser){
+                await messagesService.getMessagesWithUser(selectedUser?.userName).then((response) =>dispatch(initialiseMessages({userName:selectedUser.userName,messages:response})));
+            }
+        }
+        fetchUsers();
+    },[selectedUser]);
 
     return (
         <div
@@ -38,15 +32,15 @@ const Sidebar = ({onSelectUser, isSidebarOpen, closeSidebar }) => {
                 <FaTimes />
             </button>
             <h2 className="text-2xl font-semibold mb-4 text-blue-400">Online Buddies</h2>
-            <ul className="space-y-2">
+            <ul className="space-y-2 h-full overflow-auto">
                 {users.map((user) => (
                     <li
                         key={user._id}
                         onClick={() => {
-                            dispatch(selectedUser(user))
-                            handleUserSelect(user)
+                            dispatch(setSelectedUser(user));
+                            closeSidebar();
                         }}
-                        className="cursor-pointer py-2 px-4 rounded-lg hover:bg-blue-600 flex items-center space-x-3 transition duration-300"
+                        className={`cursor-pointer py-2 px-4 rounded-lg flex items-center space-x-3 transition duration-300 ${user.userName === selectedUser?.userName ? "bg-orange-800" : "hover:bg-blue-600"}`}
                     >
                         <div className="relative w-10 h-10 rounded-full">
                             <img

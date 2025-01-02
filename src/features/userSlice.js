@@ -35,12 +35,12 @@ const userSlice = createSlice({
         state.friendRequests.splice(index, 1);
       }
     },
-    selectedUser:(state,action)=>{
+    setSelectedUser:(state,action)=>{
       state.selectedUser = action.payload;
     }
   }
 }); 
 
-export const { setAllUsers, setFriends, setFriendRequests, addFriend, removeFriend, acceptFriendRequest, selectedUser } = userSlice.actions;
+export const { setAllUsers, setFriends, setFriendRequests, addFriend, removeFriend, acceptFriendRequest, setSelectedUser } = userSlice.actions;
 
 export default userSlice.reducer;

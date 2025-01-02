@@ -23,6 +23,9 @@ const messageSlice = createSlice({
     name: "message",
     initialState,
     reducers: {
+        initialiseMessages:(state,action)=>{
+            state.messages[action.payload.userName]=action.payload.messages;
+        },
         addMessage: (state, action) => {
             const { senderId, content, userName } = action.payload;
             if (!state.messages[userName]) {
@@ -44,6 +47,6 @@ const messageSlice = createSlice({
     },
 });
 
-export const { addMessage, clearMessages } = messageSlice.actions;
+export const { addMessage, clearMessages, initialiseMessages } = messageSlice.actions;
 
 export default messageSlice.reducer;

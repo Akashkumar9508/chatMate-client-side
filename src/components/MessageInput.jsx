@@ -1,16 +1,21 @@
+import { useSelector } from "react-redux";
 import messageService from "../services/messageService.js";
 import { useState } from "react";
 
 const MessageInput = () => {
     const [message, setMessage] = useState("");
+    const {selectedUser}=useSelector(state=>state.user?.selectedUser);
 
     const handleSendMessage = async () => {
         try {
             if (message.trim() === "") {
                 return; // Prevent sending empty messages
             }
-            await messageService.sendMessage({ content: message });
-            setMessage(""); // Clear the input field after sending
+            if (selectedUser) {
+                await messageService.sendMessage({ text: message,targetUser:selectedUser?._id });
+                
+            }
+            setMessage("");
         } catch (error) {
             console.error("Error sending message:", error);
         }
