@@ -12,9 +12,9 @@ export class MessagesService {
     }
 
     // Send a message
-    async sendMessage({ targetUser, targetGroupId, text }) {
+    async sendMessage({ targetUser, targetGroupId, texts }) {
         try {
-            const response = await this.API.post('/sendMessage', { targetUser, targetGroupId, text });
+            const response = await this.API.post('/sendMessage', { targetUser, targetGroupId, texts });
             return response.data;
         } catch (error) {
             console.error('Error sending message:', error);

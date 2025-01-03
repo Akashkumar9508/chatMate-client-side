@@ -1,9 +1,11 @@
 import { useSelector } from "react-redux";
-
+import { useEffect } from "react";
 const ChatMessages = () => {
     const {selectedUser}=useSelector(state=>state.user);
     const loggedInUserId = useSelector((state) => state.auth.userData?._id);
     const messages = useSelector((state) => state.message.messages[selectedUser?.userName]);
+
+    
     return (
         <div className="h-[90%] overflow-y-auto bg-black p-4 rounded-lg border border-gray-600 mb-4">
             {messages?.map((msg, index) => (
