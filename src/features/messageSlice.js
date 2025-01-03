@@ -27,14 +27,14 @@ const messageSlice = createSlice({
             state.messages[action.payload.userName]=action.payload.messages;
         },
         addMessage: (state, action) => {
-            const { senderId, content, userName } = action.payload;
+            const { senderId, content, userName,Date } = action.payload;
             if (!state.messages[userName]) {
                 state.messages[userName] = [];
             }
             state.messages[userName].push({
                 content: content,
                 sender: senderId,
-                timestamp: new Date().toISOString(),
+                sentAt: Date,
                 isSeen: false,
             });
         },

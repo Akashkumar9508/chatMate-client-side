@@ -1,25 +1,48 @@
 import { useSelector } from "react-redux";
 import messageService from "../services/messageService.js";
+import { useEffect } from "react";
 import { useState } from "react";
-
+import { useDispatch } from "react-redux";
+import { addMessage } from "../features/messageSlice.js";
 const MessageInput = () => {
+    const dispatch = useDispatch();
     const [message, setMessage] = useState("");
-    const {selectedUser}=useSelector(state=>state.user?.selectedUser);
-
+    const selectedUser= useSelector(state => state.user?.selectedUser);
+    const messages = useSelector(state => state.message.messages[selectedUser?.userName]);
+    const userData = useSelector(state => state.auth.userData);
     const handleSendMessage = async () => {
+        console.log("selectedUser", selectedUser);
         try {
             if (message.trim() === "") {
-                return; // Prevent sending empty messages
+                return;
             }
             if (selectedUser) {
-                await messageService.sendMessage({ text: message,targetUser:selectedUser?._id });
-                
+                dispatch(
+                    addMessage({
+                        senderId: userData?._id,
+                        content: message,
+                        Date: Date.now(),
+                        userName: selectedUser.userName,
+                    })
+                );
             }
             setMessage("");
         } catch (error) {
             console.error("Error sending message:", error);
         }
     };
+
+    useEffect(() => {
+        return async () => {
+                try {
+                    console.log("Sending unsent messages:", messages);
+                    await messageService.sendMessage({targetUser:selectedUser._id,texts:messages});
+                    console.log("Unsent messages sent successfully");
+                } catch (error) {
+                    console.error("Error sending unsent messages:", error);
+                }
+        };
+    },[]);
 
     return (
         <div className="flex items-center space-x-3 mt-auto">

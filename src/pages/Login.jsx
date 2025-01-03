@@ -75,7 +75,7 @@ const Login = () => {
                   id="email"
                   type="email"
                   {...register("email", { required: "Email is required" })}
-                  className="w-full text-base px-3 py-2 border rounded-lg focus:outline-none text-black"
+                  className="w-full text-base px-3 py-2 border rounded-lg focus:outline-none "
                 />
                 {errors.email && (
                   <p className="text-red-500 text-sm mt-1">
@@ -86,7 +86,7 @@ const Login = () => {
 
               <div className="md:mb-4 relative">
                 <label
-                  className="block text-sm font-bold mb-2 text-[#8e52ff] "
+                  className="block text-sm font-bold mb-2"
                   htmlFor="password"
                 >
                   Password
@@ -97,12 +97,12 @@ const Login = () => {
                   {...register("password", {
                     required: "Password is required",
                   })}
-                  className="w-full px-3 py-2 border rounded-lg focus:outline-none text-black"
+                  className="w-full px-3 py-2 border rounded-lg focus:outline-none "
                 />
                 <button
                   type="button"
                   onClick={togglePasswordVisibility}
-                  className="absolute inset-y-0 right-3 top-6 flex items-center text-black"
+                  className="absolute inset-y-0 right-3 top-6 flex items-center "
                 >
                   {showPassword ? (
                     <HiOutlineEye size={20} />
