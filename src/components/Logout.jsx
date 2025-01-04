@@ -9,11 +9,10 @@ const Logout = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { status } = useSelector((state) => state.auth);
-
     useEffect(() => {
-        if (!status) {
-        }
-    }, [status]); 
+        
+    }, [status]);
+    
 
     const handleLogout = async () => {
         try {

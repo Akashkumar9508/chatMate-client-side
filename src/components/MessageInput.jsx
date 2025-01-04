@@ -1,17 +1,14 @@
-import { useSelector } from "react-redux";
-import messageService from "../services/messageService.js";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { addMessage } from "../features/messageSlice.js";
+import messagesService from "../services/messageService.js";
 const MessageInput = () => {
     const dispatch = useDispatch();
     const [message, setMessage] = useState("");
-    const selectedUser= useSelector(state => state.user?.selectedUser);
-    const messages = useSelector(state => state.message.messages[selectedUser?.userName]);
+    const selectedUser = useSelector(state => state.user?.selectedUser);
     const userData = useSelector(state => state.auth.userData);
+    const messages = useSelector(state => state.message.messages[selectedUser?.userName]);
     const handleSendMessage = async () => {
-        console.log("selectedUser", selectedUser);
         try {
             if (message.trim() === "") {
                 return;
@@ -25,33 +22,35 @@ const MessageInput = () => {
                         userName: selectedUser.userName,
                     })
                 );
-            }
+            }            
             setMessage("");
         } catch (error) {
             console.error("Error sending message:", error);
         }
     };
-
     useEffect(() => {
         return async () => {
-                try {
-                    console.log("Sending unsent messages:", messages);
-                    await messageService.sendMessage({targetUser:selectedUser._id,texts:messages});
-                    console.log("Unsent messages sent successfully");
-                } catch (error) {
-                    console.error("Error sending unsent messages:", error);
+            try {
+                if(selectedUser){
+                    await messagesService.sendMessage({ targetUser: selectedUser._id, texts: messages });
                 }
+                
+            } catch (error) {
+                console.error("Error sending unsent messages:", error);
+            }
         };
-    },[]);
+
+    }, [selectedUser]);
 
     return (
-        <div className="flex items-center space-x-3 mt-auto">
+        <div className="flex w-[90%] items-center space-x-3 break-words mt-auto">
             <input
                 type="text"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Type a message"
-                className="w-full p-3 border border-gray-600 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full p-3 border border-gray-600 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y overflow-x-hidden"
+                style={{ minHeight: '50px' }}
             />
             <button
                 onClick={handleSendMessage}
