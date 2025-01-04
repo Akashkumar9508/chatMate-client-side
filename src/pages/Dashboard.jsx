@@ -18,11 +18,11 @@ const Dashboard = () => {
           <ChatHeader openSidebar={() => setIsSidebarOpen(true)} />
         {/* Chat Header (handles sidebar toggle on mobile) */}
 
-        <div className=" overflow-auto px-5 pt-3 flex flex-col">
+        <div className=" overflow-auto px-5 pt-3 flex flex-col h-full">
           {selectedUser ? (
             // Chat Area when a user is selected
-            <div className="flex flex-col h-[100%] justify-between w-full">
-              <div className=" flex flex-col justify-start  gap-1 h-full">
+            <div className="flex relative flex-col h-[100%] justify-between w-full">
+              <div className="fixed flex flex-col justify-start md:w-[77%] h-[84%] w-[89%]    md:h-[78%] gap-1">
                 <ChatMessages />
                 <MessageInput />
               </div>
