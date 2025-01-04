@@ -28,7 +28,7 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
 
     return (
         <div
-            className={`fixed backdrop-blur-lg translate-y-16 md:static top-0 left-0 w-full md:w-1/4 p-4 border-b md:border-b-0 md:border-r z-10 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+            className={`fixed backdrop-blur-lg translate-y-5 md:static top-0 left-0 w-full md:w-1/5 px-4 border-b md:border-b-0 md:border-r z-10 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
                 } md:translate-x-0 transition-transform duration-300 ease-in-out`}
         >
             <button

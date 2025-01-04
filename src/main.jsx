@@ -24,7 +24,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="dashboard" element={
               <ProtectedRoute>
                 <Dashboard />
-              </ProtectedRoute>
+              // </ProtectedRoute>
             } />
             <Route path="friends" element={
               <ProtectedRoute>

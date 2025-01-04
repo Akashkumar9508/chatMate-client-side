@@ -1,12 +1,12 @@
 import { useSelector } from "react-redux";
+
 const ChatMessages = () => {
-    const {selectedUser}=useSelector(state=>state.user);
+    const { selectedUser } = useSelector(state => state.user);
     const loggedInUserId = useSelector((state) => state.auth.userData?._id);
     const messages = useSelector((state) => state.message.messages[selectedUser?.userName]);
 
-    
     return (
-        <div className="h-[90%] w-full overflow-auto bg-black p-4 flex flex-col justify-start rounded-lg border border-gray-600 mb-4">
+        <div className="h-[87%] w-full bg-red-500 p-5 flex flex-col justify-end rounded-lg border-gray-600  overflow-y-auto scrollbar-hide">
             {messages?.map((msg, index) => (
                 <div
                     key={index}

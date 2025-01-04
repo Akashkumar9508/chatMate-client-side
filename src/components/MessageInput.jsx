@@ -43,13 +43,13 @@ const MessageInput = () => {
     }, [selectedUser]);
 
     return (
-        <div className="flex w-[90%] items-center space-x-3 break-words mt-auto">
+        <div className="flex w-full items-center space-x-3 break-words mt-1">
             <input
                 type="text"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Type a message"
-                className="w-full p-3 border border-gray-600 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y overflow-x-hidden"
+                className="w-full p-3 border outline-none border-gray-600 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y overflow-x-hidden"
                 style={{ minHeight: '50px' }}
             />
             <button
