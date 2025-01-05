@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 const App = () => {
 
   return (
-    <div className={"mainSection flex flex-col min-h-screen "} >
-      <div className="landingPage flex flex-col md:flex-row items-center md:justify-between w-full h-lvh md:pt-0 pt-20">
+    <div className="mainSection flex flex-col min-h-screen   ">
+      <div className="landingPage flex flex-col md:flex-row items-center md:justify-between w-full h-lvh md:pt-0 pt-20 ">
         <div className="flex flex-col md:mt-0 mt-3 md:items-start text-center md:text-left md:w-1/2 gap-4 px-12 md:h-full h-[30%] md:justify-center ">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium leading-tight">Connect, <span className="text-[#8e52ff]">Communicate</span>, and Collaborate{" "}<span className="text-[#8e52ff]">Seamlessly</span>!</h1>
           <p className="hidden sm:block sm:text-lg md:text-xl lg:text-lg">Experience real-time messaging with speed, security, and simplicity. Stay connected with friends, family, or colleagues in a modern chat app designed to make every conversation meaningful.</p>
