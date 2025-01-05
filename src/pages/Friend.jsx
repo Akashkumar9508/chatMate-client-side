@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FaSearch, FaUserFriends, FaUserPlus, FaClock } from "react-icons/fa";
-import authService from "../services/authService.js";
 import friendService from "../services/friendService.js";
-import { toast } from "react-hot-toast"; // Import toast
+import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
 
 const Friend = () => {
-    const users=useSelector(state=>state.user.allUsers)
-    const friendRequests=useSelector(state=>state.user.friendRequests);
+    const users = useSelector(state => state.user.allUsers);
+    const friendRequests = useSelector(state => state.user.friendRequests);
     const [searchTerm, setSearchTerm] = useState("");
     const [sentRequests, setSentRequests] = useState([]);
 
     const sendFriendRequest = (userId) => {
         friendService
             .sendFriendRequest(userId)
-            .then((response) => {
+            .then(() => {
                 setSentRequests((prev) => [...prev, userId]);
                 toast.success("Friend request sent!");
             })
@@ -29,9 +28,6 @@ const Friend = () => {
             .acceptFriendRequest(requestId)
             .then(() => {
                 toast.success("Friend request accepted!");
-                setFriendRequests((prev) =>
-                    prev.filter((request) => request._id !== requestId)
-                );
             })
             .catch((error) => {
                 console.error("Error accepting friend request:", error);
@@ -44,9 +40,6 @@ const Friend = () => {
             .declineFriendRequest(requestId)
             .then(() => {
                 toast.success("Friend request declined!");
-                setFriendRequests((prev) =>
-                    prev.filter((request) => request._id !== requestId)
-                );
             })
             .catch((error) => {
                 console.error("Error declining friend request:", error);
@@ -60,23 +53,25 @@ const Friend = () => {
 
     return (
         <>
-            <div className="friends-page h-lvh w-full px-4 pt-20 ">
-                <h1 className="text-2xl font-bold mb-4 flex items-center gap-2"><FaUserFriends /> Friends Page</h1>
-                <div className="flex items-center mb-6 flex-wrap gap-4 w-full">
+            <div className="friends-page h-lvh w-full px-4 pt-5">
+                <h1 className="text-xl font-bold mb-4 flex items-center gap-2">
+                    <FaUserFriends /> Friends Page
+                </h1>
+                <div className="flex items-center justify-start mb-6 flex-wrap gap-2 w-full md:w-[50vw]">
                     <input
                         type="text"
                         placeholder="Search users..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="rounded-md px-4 py-2 sm:w-64 outline-none w-5/6"
+                        className="rounded-md px-4 py-2 sm:w-64 outline-none md:w-[85%]"
                     />
-                    <button className="bg-blue-500 px-2 py-2 rounded-md flex items-center gap-2 h-10">
+                    <button className="bg-blue-500 px-5 py-2 rounded-md flex items-center gap-2 h-10">
                         <FaSearch />
                     </button>
                 </div>
 
                 <div className="flex flex-col md:flex-row gap-6">
-                    <div className="users-list mb-8 flex-1">
+                    <div className="users-list mb-8 flex-1 max-h-[70vh] overflow-y-auto scrollbar-hide pr-2">
                         <h2 className="text-xl font-semibold mb-2">All Users</h2>
                         {displayedUsers.length > 0 ? (
                             displayedUsers.map((user) => (
@@ -118,7 +113,7 @@ const Friend = () => {
                         )}
                     </div>
 
-                    <div className="friend-requests flex-1">
+                    <div className="friend-requests flex-1 max-h-[70vh] overflow-y-auto scrollbar-hide pr-2">
                         <h2 className="text-xl font-semibold mb-4">Friend Requests</h2>
                         {friendRequests.length > 0 ? (
                             friendRequests.map((request) => (
@@ -154,7 +149,7 @@ const Friend = () => {
                                 </div>
                             ))
                         ) : (
-                            <p>No Upcoming requests.</p>
+                            <p>No friend requests found.</p>
                         )}
                     </div>
                 </div>

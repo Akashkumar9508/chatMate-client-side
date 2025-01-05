@@ -43,12 +43,12 @@ const Nav = () => {
   }, [lastScrollY]);
 
   return (
-    <nav className={`z-[99] w-full h-16 py-3 flex justify-between items-center px-4 shadow-sm dark:shadow-white mb-1 backdrop-blur-lg transition-transform duration-300 ${isHidden ? '-translate-y-full' : 'translate-y-0'}`}>
+    <nav className={`z-[99] w-full h-14 py-3 flex justify-between items-center px-4 shadow-sm dark:shadow-white mb-1 transition-transform duration-300 ${isHidden ? '-translate-y-full' : 'translate-y-0'}`}>
       <NavLink to={`${currentUser ? `/user/${currentUser.userName}` : "/"}`} className="logo flex justify-center items-center h-full cursor-pointer">
         {currentUser && currentUser.avatar ? (
           <img
             src={currentUser.avatar}
-            className="h-10 w-10 rounded-full object-cover"
+            className="h-8 w-8 rounded-full object-cover"
             alt={`${currentUser.fullName}'s avatar`}
           />
         ) : (

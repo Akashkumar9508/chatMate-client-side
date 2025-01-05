@@ -45,9 +45,9 @@ const Signup = () => {
   };
 
   return (
-    <div className="h-[90vh] flex items-center justify-center bg-gray-50">
-      <div className="flex flex-col md:flex-row shadow-lg rounded-lg overflow-hidden w-full max-w-4xl bg-white">
-        {/* Image Section */}
+    <div className="h-[88vh] flex items-center justify-center bg-base-100"> 
+      <div className="flex flex-col md:flex-row shadow-lg rounded-lg overflow-hidden w-full h-[95%] max-w-4xl bg-base-200">  
+      
         <div className="hidden md:block md:w-1/2">
           <img
             src="https://res.cloudinary.com/chatmateapp/image/upload/v1734677395/vmtkdspxvtcvvdtapqsi.png"
@@ -56,18 +56,18 @@ const Signup = () => {
           />
         </div>
 
-        {/* Form Section */}
+        
         <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-800">
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-base-content">
             Sign Up
           </h2>
 
           <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-6">
-            {/* Full Name */}
+
             <div>
               <label
                 htmlFor="fullName"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-base-content"
               >
                 Full Name
               </label>
@@ -75,20 +75,19 @@ const Signup = () => {
                 id="fullName"
                 type="text"
                 {...register("fullName", { required: "Full Name is required" })}
-                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#8e52ff] focus:border-[#8e52ff]"
+                className="input input-bordered mt-1 w-full" 
               />
               {errors.fullName && (
-                <p className="text-sm text-red-500 mt-1">
+                <p className="text-sm text-error mt-1">
                   {errors.fullName.message}
                 </p>
               )}
             </div>
 
-            {/* User Name */}
             <div>
               <label
                 htmlFor="userName"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-base-content"
               >
                 User Name
               </label>
@@ -96,20 +95,20 @@ const Signup = () => {
                 id="userName"
                 type="text"
                 {...register("userName", { required: "User Name is required" })}
-                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#8e52ff] focus:border-[#8e52ff]"
+                className="input input-bordered mt-1 w-full"  
               />
               {errors.userName && (
-                <p className="text-sm text-red-500 mt-1">
+                <p className="text-sm text-error mt-1">
                   {errors.userName.message}
                 </p>
               )}
             </div>
 
-            {/* Email */}
+
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-base-content"
               >
                 Email
               </label>
@@ -123,20 +122,20 @@ const Signup = () => {
                     message: "Invalid email address",
                   },
                 })}
-                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#8e52ff] focus:border-[#8e52ff]"
+                className="input input-bordered mt-1 w-full"
               />
               {errors.email && (
-                <p className="text-sm text-red-500 mt-1">
+                <p className="text-sm text-error mt-1">
                   {errors.email.message}
                 </p>
               )}
             </div>
 
-            {/* Password */}
+
             <div className="relative">
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-base-content"
               >
                 Password
               </label>
@@ -150,12 +149,12 @@ const Signup = () => {
                     message: "Password must be at least 8 characters",
                   },
                 })}
-                className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#8e52ff] focus:border-[#8e52ff]"
+                className="input input-bordered mt-1 w-full"
               />
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
-                className="absolute inset-y-0 right-4 top-8 text-gray-500 hover:text-gray-700"
+                className="absolute inset-y-0 right-4 top-6 text-base-content hover:text-secondary"
               >
                 {showPassword ? (
                   <HiOutlineEye size={20} />
@@ -164,28 +163,28 @@ const Signup = () => {
                 )}
               </button>
               {errors.password && (
-                <p className="text-sm text-red-500 mt-1">
+                <p className="text-sm text-error mt-1">
                   {errors.password.message}
                 </p>
               )}
             </div>
 
-            {/* Submit Button */}
+    
             <button
               type="submit"
-              className="w-full py-2 bg-[#8e52ff] text-white font-semibold rounded-md hover:bg-[#542aa4] focus:outline-none focus:ring-2 focus:ring-[#8e52ff] focus:ring-offset-2 transition duration-200"
+              className="btn btn-primary w-full"  
             >
               Sign Up
             </button>
           </form>
 
-          {/* Additional Links */}
+    
           <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-base-content">
               Already have an account?{" "}
               <Link
                 to="/login"
-                className="text-[#8e52ff] font-medium hover:underline"
+                className="text-primary font-medium hover:underline"
               >
                 Login
               </Link>
