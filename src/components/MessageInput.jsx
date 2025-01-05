@@ -29,19 +29,6 @@ const MessageInput = () => {
             console.error("Error sending message:", error);
         }
     };
-    useEffect(() => {
-        return async () => {
-            try {
-                if(selectedUser){
-                    await messagesService.sendMessage({ targetUser: selectedUser._id, texts: messages });
-                }
-                
-            } catch (error) {
-                console.error("Error sending unsent messages:", error);
-            }
-        };
-
-    }, [selectedUser]);
 
     return (
         <div className="flex w-full items-center space-x-3 break-words mt-1">
