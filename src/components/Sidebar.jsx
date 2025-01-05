@@ -1,5 +1,5 @@
 import { FaTimes } from 'react-icons/fa';
-import {  useEffect, useState } from 'react';
+import {  useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedUser } from '../features/userSlice.js';
 import messagesService from '../services/messageService.js';
@@ -8,9 +8,6 @@ import { initialiseMessages } from '../features/messageSlice.js';
 const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
     const users=useSelector(state=>state.user?.allUsers);
     const selectedUser = useSelector(state => state.user?.selectedUser);
-    const messages = useSelector(state => state.message.messages[selectedUser?.userName]);
-    const [prev,setPrev]=useState(null);
-    const [prevMsg,setPrevMsg]=useState(null);
 
     const dispatch = useDispatch();
 
@@ -18,9 +15,6 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
         async function fetchUsers() {
             if(selectedUser){
                 await messagesService.getMessagesWithUser(selectedUser?.userName).then((response) =>dispatch(initialiseMessages({userName:selectedUser.userName,messages:response})));
-            }
-            if (prev && prevMsg) {
-                await messagesService.sendMessage({ targetUser: prev?._id, texts: prevMsg });
             }
         }
         fetchUsers();
@@ -43,8 +37,6 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
                     <li
                         key={user._id}
                         onClick={() => {
-                            setPrev(selectedUser);
-                            setPrevMsg(messages);
                             dispatch(setSelectedUser(user));
                             closeSidebar();
                         }}

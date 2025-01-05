@@ -22,6 +22,7 @@ const MessageInput = () => {
                         userName: selectedUser.userName,
                     })
                 );
+                messagesService.sendMessage({ targetUser: selectedUser._id, text:message });
             }            
             setMessage("");
         } catch (error) {
