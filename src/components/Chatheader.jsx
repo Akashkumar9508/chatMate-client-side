@@ -4,7 +4,7 @@ const ChatHeader = ({ openSidebar }) => {
     const selctedUser = useSelector((state) => state?.user?.selectedUser);
     return (
         <div className="flex items-center justify-between mt-4 5 ml-4 text-center " >
-            <h2 className="text-xl md:text-2xl font-semibold">
+            <h2 className="text-xl md:text-1xl font-semibold">
                 Buddie: {selctedUser?selctedUser.fullName:'N/A'} 
             </h2>
             <button
