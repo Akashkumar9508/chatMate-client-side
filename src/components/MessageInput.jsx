@@ -7,7 +7,6 @@ const MessageInput = () => {
     const [message, setMessage] = useState("");
     const selectedUser = useSelector(state => state.user?.selectedUser);
     const userData = useSelector(state => state.auth.userData);
-    const messages = useSelector(state => state.message.messages[selectedUser?.userName]);
     const handleSendMessage = async () => {
         try {
             if (message.trim() === "") {

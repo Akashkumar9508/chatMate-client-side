@@ -27,7 +27,7 @@ const ChatMessages = () => {
                         className={`mb-1 ${msg.sender === loggedInUserId ? 'text-right' : 'text-left'}`}
                     >
                         <div
-                            className={`inline-block rounded-lg min-w-[10%] max-w-[70%] ${msg.sender === loggedInUserId ? 'bg-gray-700' : 'bg-gray-700'
+                            className={`inline-block rounded-lg min-w-[10%] max-w-[70%] ${msg.sender === loggedInUserId ? 'bg-blue-700' : 'bg-gray-700'
                                 }`}
                         >
                             <p className="h-[60%] w-full text-start px-2 text-sm break-words pt-1">{msg.content}</p>
