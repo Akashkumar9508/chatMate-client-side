@@ -1,10 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { ChatHeader, ChatMessages, MessageInput, Sidebar } from '../components/allComponents.js';
-import { useSelector } from 'react-redux';
+import { fetchAllUsers, fetchFriendRequests, fetchFriends } from "../features/userSlice.js";
+import { useDispatch , useSelector } from "react-redux";
 
 const Dashboard = () => {
   const selectedUser = useSelector(state => state.user?.selectedUser);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const {status} = useSelector(state => state.auth);
+  const users = useSelector(state => state.user.allUsers);
+
+  const dispatch = useDispatch();
+
+  useEffect(() =>{
+    if(status && users.length === 0){
+        dispatch(fetchAllUsers());
+        dispatch(fetchFriends());
+        dispatch(fetchFriendRequests());
+    }
+    
+},[users, status]);
 
   return (
     <div className="flex w-full overflow-hidden -mt-2 ">
