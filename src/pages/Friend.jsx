@@ -19,7 +19,6 @@ const Friend = () => {
             dispatch(fetchFriends());
             dispatch(fetchFriendRequests());
         }
-        console.log(users);
         
     },[users, status]);
 
