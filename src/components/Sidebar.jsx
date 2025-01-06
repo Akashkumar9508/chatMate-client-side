@@ -6,7 +6,7 @@ import messagesService from '../services/messageService.js';
 import { initialiseMessages } from '../features/messageSlice.js';
 
 const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
-    const users = useSelector(state => state.user?.allUsers);
+    const friends = useSelector(state => state.user?.friends);
     const selectedUser = useSelector(state => state.user?.selectedUser);
 
     const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
 
             {/* Scrollable User List */}
             <ul className="space-y-2 h-full max-h-[80vh] overflow-y-auto pr-2">
-                {users.map((user) => (
+                {friends.map((user) => (
                     <li
                         key={user._id}
                         onClick={() => {

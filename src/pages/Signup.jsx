@@ -35,7 +35,7 @@ const Signup = () => {
       );
       toast.success("Signup successful!", { duration: 4000 });
       reset();
-      navigate("/login");
+      navigate("/dashboard");
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || "An error occurred during signup.";
