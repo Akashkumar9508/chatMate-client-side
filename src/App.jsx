@@ -1,6 +1,18 @@
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { fetchUser } from "./features/authSlice";
+import { useEffect } from "react";
 
 const App = () => {
+
+  const { status } = useSelector((state) => state.auth);
+  const dispatch=useDispatch();
+
+  useEffect(() => {
+    if (!status) {
+      dispatch(fetchUser())
+    }
+  }, []);
 
   return (
     <div className="mainSection flex flex-col min-h-screen   ">

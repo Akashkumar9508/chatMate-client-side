@@ -1,27 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaSearch, FaUserFriends, FaUserPlus, FaClock } from "react-icons/fa";
 import friendService from "../services/friendService.js";
 import { toast } from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllUsers, fetchFriendRequests, fetchFriends } from "../features/userSlice.js";
 
 const Friend = () => {
     const users = useSelector(state => state.user.allUsers);
     const friendRequests = useSelector(state => state.user.friendRequests);
     const [searchTerm, setSearchTerm] = useState("");
     const [sentRequests, setSentRequests] = useState([]);
+    const dispatch = useDispatch();
+    const {status} = useSelector(state => state.auth);
 
-    const sendFriendRequest = (userId) => {
-        friendService
-            .sendFriendRequest(userId)
-            .then(() => {
-                setSentRequests((prev) => [...prev, userId]);
-                toast.success("Friend request sent!");
-            })
-            .catch((error) => {
-                console.error("Error sending friend request:", error);
-                toast.error("Error sending friend request!");
-            });
-    };
+    useEffect(() =>{
+        if(status && users.length === 0){
+            dispatch(fetchAllUsers());
+            dispatch(fetchFriends());
+            dispatch(fetchFriendRequests());
+        }
+        
+    },[users, status]);
 
     const handleAcceptRequest = (requestId) => {
         friendService

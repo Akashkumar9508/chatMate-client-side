@@ -2,43 +2,25 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useEffect } from "react";
-import authService from "../services/authService";
-import { login } from "../features/authSlice";
-import { setAllUsers, setFriendRequests, setFriends } from "../features/userSlice";
-import friendService from '../services/friendService';
+import { fetchUser } from "../features/authSlice";
 
 const ProtectedRoute = ({ children }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { status: isAuthenticated } = useSelector((state) => state.auth);
+    const { status, userData } = useSelector((state) => state.auth);
+
 
     useEffect(() => {
-        const fetchCurrentUser = async () => {
-            try {
-                await authService.getCurrentUser().then((user) => dispatch(login(user)));
-                await authService.getAllUsers().then((users) => dispatch(setAllUsers(users)));
-                const friendsId = await friendService.getFriendList();
-                const allFriends = await Promise.all(
-                    friendsId.map((id) => authService.getUserById(id))
-                );
-                dispatch(setFriends(allFriends));
-                const requestsId = await friendService.getFriendRequests();
-                const allRequests = await Promise.all(
-                    requestsId.map((id) => authService.getUserById(id))
-                );
-                dispatch(setFriendRequests(allRequests));
-            } catch (error) {
-                toast.error("Login to access this!");
-                navigate("/login");
-            }
-        };
-
-        if (!isAuthenticated) {
-            fetchCurrentUser();
+        if (!status) {
+            dispatch(fetchUser())
+        .catch((error) => {
+          toast.error("You need to be logged in to access this page!");
+          navigate("/login");
+        });
         }
-    }, [dispatch, navigate, isAuthenticated]);
+    }, [dispatch, navigate, status]);
 
-    if (!isAuthenticated) {
+    if (!status) {
         return (
             <div className="bg-slate-950 w-full h-screen flex items-center justify-center text-[4rem]">
                 Loading...
