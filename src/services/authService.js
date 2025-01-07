@@ -21,7 +21,7 @@ export class AuthService {
         password,
         avatar,
       });
-      this.login({ email, password });
+      await this.login({ email, password });
       return response.data;
     } catch (error) {
       console.error('Error creating account:', error.response?.data || error.message);
