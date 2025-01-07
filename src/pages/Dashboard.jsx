@@ -2,23 +2,27 @@ import React, { useState , useEffect } from 'react';
 import { ChatHeader, ChatMessages, MessageInput, Sidebar } from '../components/allComponents.js';
 import { fetchAllUsers, fetchFriendRequests, fetchFriends } from "../features/userSlice.js";
 import { useDispatch , useSelector } from "react-redux";
+import { fetchFriendsData } from '../features/friendSlice.js';
 
 const Dashboard = () => {
   const selectedUser = useSelector(state => state.user?.selectedUser);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const {status} = useSelector(state => state.auth);
-  const users = useSelector(state => state.user.allUsers);
+  const {allUsers, friends} = useSelector(state => state.user);
 
   const dispatch = useDispatch();
 
   useEffect(() =>{
-    if(status && users.length === 0){
+    if(status && allUsers.length === 0){
         dispatch(fetchAllUsers());
         dispatch(fetchFriends());
         dispatch(fetchFriendRequests());
     }
+    if(friends.length > 0){
+        dispatch(fetchFriendsData(friends));
+    }
     
-},[users, status]);
+},[allUsers, status,friends]);
 
   return (
     <div className="flex w-full overflow-hidden -mt-2 ">

@@ -5,6 +5,7 @@ import friendsService from "../services/friendService";
 const initialState={
   allUsers:[],
   friends:[],
+  unFriends:[],
   friendRequests:[],
   selectedUser:null, //curent chatting user
 };
@@ -63,6 +64,7 @@ const userSlice = createSlice({
     })
     .addCase(fetchFriends.fulfilled, (state, action) => {
       state.friends = action.payload;
+      state.unFriends = state.allUsers.filter(user =>!state.friends.includes(user._id));
     })
     .addCase(fetchFriendRequests.fulfilled, (state, action) => {
       state.friendRequests = action.payload;

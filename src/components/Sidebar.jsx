@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedUser } from '../features/userSlice.js';
 import messagesService from '../services/messageService.js';
 import { initialiseMessages } from '../features/messageSlice.js';
+import { fetchFriendsData } from '../features/friendSlice.js';
 
 const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
-    const users = useSelector(state => state.user?.allUsers);
+    const friendIds = useSelector(state => state.user?.friends);
     const selectedUser = useSelector(state => state.user?.selectedUser);
+    const allFriends = useSelector(state => state.friend?.allFriends);
 
     const dispatch = useDispatch();
 
@@ -23,6 +25,12 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
         }
         fetchUsers();
     }, [selectedUser]);
+
+    useEffect(() => {
+        if (friendIds.length > 0 && allFriends.length === 0) {
+            dispatch(fetchFriendsData(friendIds));
+        }
+    }, [allFriends]);
 
     return (
         <div
@@ -42,7 +50,7 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
 
             {/* Scrollable User List */}
             <ul className="space-y-2 h-full max-h-[80vh] overflow-y-auto pr-2">
-                {users.map((user) => (
+                {allFriends.map((user) => (
                     <li
                         key={user._id}
                         onClick={() => {

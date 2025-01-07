@@ -83,7 +83,7 @@ const Friend = () => {
                                             ? "bg-red-500"
                                             : "bg-green-500"
                                             } px-3 py-2 rounded-md flex items-center gap-2`}
-                                        onClick={() => sendFriendRequest(user._id)}
+                                        onClick={() => friendService.sendFriendRequest(user._id)}
                                         disabled={sentRequests.includes(user._id)}
                                     >
                                         <span className="block sm:hidden">
