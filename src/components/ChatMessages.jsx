@@ -1,15 +1,17 @@
 import { useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
+import { useSocket } from "../context/socketContext";
 
 const ChatMessages = () => {
   const { selectedUser } = useSelector((state) => state.user);
   const loggedInUserId = useSelector((state) => state.auth.userData?._id);
-  const messages = useSelector(
-    (state) => state.message.messages[selectedUser?.userName]
-  );
+  const messages = useSelector((state) => state.message.messages[selectedUser?.userName]);
 
   // Reference to scroll to the bottom
   const messagesEndRef = useRef(null);
+
+  const { socket } = useSocket();
+  
 
   // Auto-scroll to the latest message whenever messages change
   useEffect(() => {

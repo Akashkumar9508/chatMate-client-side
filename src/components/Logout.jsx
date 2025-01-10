@@ -4,11 +4,13 @@ import { MdLogout } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../features/authSlice.js';
 import authService from '../services/authService.js';
+import { useSocket } from '../context/socketContext.jsx';
 
 const Logout = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { status } = useSelector((state) => state.auth);
+    const {socket}=useSocket();
     useEffect(() => {
         
     }, [status]);
@@ -20,6 +22,7 @@ const Logout = () => {
             if(response){
                 dispatch(logout());
                 navigate('/');
+                socket.disconnect();
             }
             else{
                 console,log("logout error")
