@@ -3,7 +3,6 @@ import authService from "../services/authService";
 
 const initialState = {
   allFriends: [],
-  allFriendRequests: [],
 };
 
 export const fetchFriendsData = createAsyncThunk(
@@ -20,17 +19,6 @@ export const fetchFriendsData = createAsyncThunk(
   }
 );
 
-export const fetchFriendsRequestData = createAsyncThunk('friends/fetchFriendsRequestData', async (friendRequestIds) => {
-  try {
-    const friendRequestDataPromises = friendRequestIds.map((id) => authService.getUserById(id));
-    const friendRequests = await Promise.all(friendRequestDataPromises);
-    return friendRequests;
-  } catch (error) {
-    console.error('Error fetching friend request data:', error);
-    throw error;
-  }
-});
-
 const friendSlice = createSlice({
   name: "friend",
   initialState,
@@ -41,10 +29,7 @@ const friendSlice = createSlice({
       })
       .addCase(fetchFriendsData.rejected, (state, action) => {
         console.error('Error fetching friends data:', action.error);
-      })
-      .addCase(fetchFriendsRequestData.fulfilled, (state, action) => {
-        state.allFriendRequests = action.payload;
-      })
+      });
   },
 });
 

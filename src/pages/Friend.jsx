@@ -3,22 +3,16 @@ import { FaSearch, FaUserFriends, FaUserPlus, FaClock } from "react-icons/fa";
 import friendService from "../services/friendService.js";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllUsers } from "../features/userSlice.js";
 
 
 const Friend = () => {
     const users = useSelector(state => state.user.allUsers);
-    const {allFriendRequests}=useSelector(state=>state.friend);
+    const friendRequests = useSelector(state => state.user.friendRequests);
     const [searchTerm, setSearchTerm] = useState("");
     const [sentRequests, setSentRequests] = useState([]);
     const dispatch = useDispatch();
-    const {allUsers} = useSelector(state => state.user);
    
-    useEffect(() =>{
-        if(allUsers.length === 0){
-            dispatch(fetchAllUsers());
-        }
-    });
+
 
     const handleAcceptRequest = (requestId) => {
         friendService
@@ -112,10 +106,10 @@ const Friend = () => {
 
                     <div className="friend-requests flex-1 max-h-[70vh] overflow-y-auto scrollbar-hide pr-2">
                         <h2 className="text-xl font-semibold mb-4">Friend Requests</h2>
-                        {allFriendRequests.length > 0 ? (
-                            allFriendRequests.map((request) => (
+                        {friendRequests.length > 0 ? (
+                            friendRequests.map((request) => (
                                 <div
-                                    key={`${request._id}+1`}
+                                    key={request._id}
                                     className="flex items-center justify-between border-b border-gray-200 py-3"
                                 >
                                     <div className="flex items-center gap-3">

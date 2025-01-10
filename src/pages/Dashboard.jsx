@@ -1,53 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState , useEffect } from 'react';
 import { ChatHeader, ChatMessages, MessageInput, Sidebar } from '../components/allComponents.js';
 import { fetchAllUsers, fetchFriendRequests, fetchFriends } from "../features/userSlice.js";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchFriendsData, fetchFriendsRequestData } from '../features/friendSlice.js';
+import { useDispatch , useSelector } from "react-redux";
+import { fetchFriendsData } from '../features/friendSlice.js';
 
 const Dashboard = () => {
   const selectedUser = useSelector(state => state.user?.selectedUser);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const { status } = useSelector(state => state.auth);
-  const { allUsers, friends, friendRequests } = useSelector(state => state.user);
+  const {status} = useSelector(state => state.auth);
+  const {allUsers, friends} = useSelector(state => state.user);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (status) {
-      if (allUsers.length === 0) {
+  useEffect(() =>{
+    if(status && allUsers.length === 0){
         dispatch(fetchAllUsers());
-      }
-      if (friends.length === 0) {
         dispatch(fetchFriends());
-      }
-      if (friendRequests.length === 0) {
         dispatch(fetchFriendRequests());
-      }
     }
-  }, [status]);
-
-  useEffect(() => {
-    if (status && friends.length > 0) {
-      dispatch(fetchFriendsData(friends));
-      dispatch(fetchFriendsRequestData(friendRequests));
+    if(friends.length > 0){
+        dispatch(fetchFriendsData(friends));
     }
-  }, [status, friends, friendRequests]);
+    
+},[allUsers, status,friends]);
 
   return (
     <div className="flex w-full overflow-hidden -mt-2 ">
-
+     
       <Sidebar
         isSidebarOpen={isSidebarOpen}
         closeSidebar={() => setIsSidebarOpen(false)}
       />
 
       <div className="flex-1 flex flex-col  h-[600px]">
-        <ChatHeader openSidebar={() => setIsSidebarOpen(true)} />
-
+          <ChatHeader openSidebar={() => setIsSidebarOpen(true)} />
+        
 
         <div className=" overflow-auto px-5 pt-3 flex flex-col h-full">
           {selectedUser ? (
-
+            
             <div className="flex relative flex-col h-[100%] justify-between w-full">
               <div className="fixed flex flex-col justify-start md:w-[77%] h-[84%] w-[89%]    md:h-[78%] gap-1">
                 <ChatMessages />
@@ -55,7 +46,7 @@ const Dashboard = () => {
               </div>
             </div>
           ) : (
-
+            
             <div className="flex-1 flex items-center justify-center">
               <h2 className="text-2xl text-gray-400">Select a user to start chat</h2>
             </div>
