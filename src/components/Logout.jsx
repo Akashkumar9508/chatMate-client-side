@@ -4,7 +4,7 @@ import { MdLogout } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../features/authSlice.js';
 import authService from '../services/authService.js';
-import { useSocket } from '../context/socketContext.jsx';
+import { useSocket } from '../context/SocketContext.jsx';
 
 const Logout = () => {
     const dispatch = useDispatch();

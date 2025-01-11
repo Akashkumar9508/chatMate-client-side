@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
-import { useSocket } from "../context/socketContext";
+import { useSocket } from "../context/SocketContext";
 
 const ChatMessages = () => {
   const { selectedUser } = useSelector((state) => state.user);
