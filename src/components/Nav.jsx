@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink ,Link } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { MdChangeCircle } from "react-icons/md";
+import { MdChangeCircle } from "react-icons/md";  // Settings Icon
 import { Logout } from "./allComponents.js";
 import { useSelector } from 'react-redux';
 
@@ -9,17 +9,8 @@ const Nav = () => {
   const auth = useSelector((state) => state.auth);
   const currentUser = auth?.userData;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [themeIndex, setThemeIndex] = useState(0);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isHidden, setIsHidden] = useState(false);
-
-  const themes = ["light", "dark", "cupcake", "bumblebee", "emerald", "corporate", "synthwave", "retro", "cyberpunk", "valentine", "halloween", "garden", "forest", "aqua", "lofi", "pastel", "fantasy", "wireframe", "black", "luxury", "dracula", "cmyk", "autumn", "business", "acid", "lemonade", "night", "coffee", "winter", "dim", "nord", "sunset"];
-
-  const changeTheme = () => {
-    const newIndex = (themeIndex + 1) % themes.length;
-    setThemeIndex(newIndex);
-    document.documentElement.setAttribute("data-theme", themes[newIndex]);
-  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -43,7 +34,7 @@ const Nav = () => {
   }, [lastScrollY]);
 
   return (
-    <nav className={`z-[99] w-full h-14 py-3 flex justify-between items-center px-4 shadow-sm dark:shadow-white mb-1 transition-transform duration-300 ${isHidden ? '-translate-y-full' : 'translate-y-0'}`}>
+    <nav className={`-z-[90909] w-full h-14 py-3 flex justify-between items-center px-4 shadow-sm dark:shadow-white mb-1 transition-transform duration-300 ${isHidden ? '-translate-y-full' : 'translate-y-0'}`}>
       <NavLink to={`${currentUser ? `/user/${currentUser.userName}` : "/"}`} className="logo flex justify-center items-center h-full cursor-pointer">
         {currentUser && currentUser.avatar ? (
           <img
@@ -58,19 +49,24 @@ const Nav = () => {
           </>
         )}
       </NavLink>
+
       <div className="hidden md:flex space-x-6 pr-6 font-semibold text-lg">
         <NavLink to="/" className={({ isActive }) => `hover:text-[#8e52ff] ${isActive ? "text-orange-400 border-b-2 border-orange-400" : ""}`}>Home</NavLink>
         <NavLink to="/friends" className={({ isActive }) => `hover:text-[#8e52ff] ${isActive ? "text-orange-400 border-b-2 border-orange-400" : ""}`}>Friend</NavLink>
         <NavLink to="/dashboard" className={({ isActive }) => `hover:text-[#8e52ff] ${isActive ? "text-orange-400 border-b-2 border-orange-400" : ""}`}>Dashboard</NavLink>
         <NavLink to="/about" className={({ isActive }) => `hover:text-[#8e52ff] ${isActive ? "text-orange-400 border-b-2 border-orange-400" : ""}`}>About</NavLink>
       </div>
+
       <div className="flex items-center space-x-4">
         <div className="hidden md:flex">
           <Logout />
         </div>
-        <button className="p-2 rounded-full" onClick={changeTheme}>
-          <MdChangeCircle size={22} />
-        </button>
+        
+        {/* Settings Button */}
+        <Link to="/setting" className="flex items-center space-x-1">
+          <MdChangeCircle className="text-2xl" />
+          <span className="hidden md:inline">Settings</span> {/* Hidden on mobile */}
+        </Link>
       </div>
 
       <button

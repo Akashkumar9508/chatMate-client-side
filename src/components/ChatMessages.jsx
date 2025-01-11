@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
-import { useSocket } from "../context/socketContext";
+import { useSocket } from "../context/SocketContext";
 import { addMessage } from "../features/messageSlice";
 
 const ChatMessages = () => {

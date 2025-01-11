@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addMessage } from "../features/messageSlice.js";
 import messagesService from "../services/messageService.js";
-import { useSocket } from "../context/socketContext.jsx";
+import { useSocket } from "../context/SocketContext.jsx";
 
 const MessageInput = () => {
     const dispatch = useDispatch();
