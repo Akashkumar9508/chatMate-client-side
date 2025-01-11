@@ -1,16 +1,17 @@
-import React from 'react'
-import {Nav , Footer} from "./components/allComponents"
-import { Outlet } from 'react-router-dom'
+import React from 'react';
+import { Nav, Footer } from "./components/allComponents";
+import { Outlet } from 'react-router-dom';
+import { useThemeStore } from './store/themeStore';
 
 function Layout() {
-  
+  const {theme} = useThemeStore();
   return (
-    <>
-      <Nav/>
-      <Outlet/>
-      {/* <Footer/> */}
-    </>
-  )
+    <div data-theme={theme}>
+      <Nav />
+      <Outlet />
+      {/* <Footer /> */}
+    </div>
+  );
 }
 
-export default Layout
+export default Layout;
