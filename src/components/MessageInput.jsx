@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addMessage } from "../features/messageSlice.js";
 import messagesService from "../services/messageService.js";
+import { useSocket } from "../context/socketContext.jsx";
 
 const MessageInput = () => {
     const dispatch = useDispatch();
     const [message, setMessage] = useState("");
     const selectedUser = useSelector((state) => state.user?.selectedUser);
     const userData = useSelector((state) => state.auth.userData);
+    const { socket } = useSocket();
 
     const handleSendMessage = async () => {
         try {
@@ -24,6 +26,7 @@ const MessageInput = () => {
                         userName: selectedUser.userName,
                     })
                 );
+                socket.emit('message',{message,to:selectedUser.userName,by:userData});
                 await messagesService.sendMessage({ targetUser: selectedUser._id, text: message });
             }
             setMessage(""); 
