@@ -1,4 +1,4 @@
-# MERN Chatting Application
+# MERN RealTime Chatting Application
 
 A full-stack chatting application built with the MERN (MongoDB, Express, React, Node.js) stack. This app enables real-time messaging, group chats, active status indicators, and friend-based access to conversations.
 
