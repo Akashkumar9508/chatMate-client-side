@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authService from "../services/authService";
+import friendsService from "../services/friendService";
 
 const initialState = {
   allFriends: [],
@@ -22,9 +23,11 @@ export const fetchFriendsData = createAsyncThunk(
 
 export const fetchFriendsRequestData = createAsyncThunk('friends/fetchFriendsRequestData', async (friendRequestIds) => {
   try {
-    const friendRequestDataPromises = friendRequestIds.map((id) => authService.getUserById(id));
-    const friendRequests = await Promise.all(friendRequestDataPromises);
-    return friendRequests;
+    const friendRequestData = await friendsService.getFriendRequests();
+    const fetcheduser = await Promise.all(
+      friendRequestData.map(async (id) => await authService.getUserById(id))
+    )
+    return fetcheduser;
   } catch (error) {
     console.error('Error fetching friend request data:', error);
     throw error;
