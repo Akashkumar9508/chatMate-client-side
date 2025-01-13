@@ -4,6 +4,7 @@ import friendService from "../services/friendService.js";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllUsers } from "../features/userSlice.js";
+import {fetchFriendsRequestData} from "../features/friendSlice.js"
 
 
 const Friend = () => {
@@ -17,6 +18,7 @@ const Friend = () => {
     useEffect(() =>{
         if(allUsers.length === 0){
             dispatch(fetchAllUsers());
+            dispatch(fetchFriendsRequestData());
         }
     });
 
