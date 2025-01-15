@@ -4,6 +4,7 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import { MdChangeCircle } from "react-icons/md";
 import { Logout } from "./allComponents.js";
 import { useSelector } from 'react-redux';
+import { MdOutlineSettings } from "react-icons/md";
 
 const Nav = () => {
   const auth = useSelector((state) => state.auth);
@@ -63,8 +64,7 @@ const Nav = () => {
         </div>
         
         <Link to="/setting" className="flex items-center space-x-1">
-          <MdChangeCircle className="text-2xl" />
-          <span className="hidden md:inline">Settings</span>
+        <MdOutlineSettings size={26}/>
         </Link>
       </div>
 

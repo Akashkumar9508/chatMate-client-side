@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { FaPlus } from "react-icons/fa";
 import { useSelector } from 'react-redux'
+
 const GroupForm = ({ isOpen, onClose, onCreate, users }) => {
     const [newGroupName, setNewGroupName] = useState("");
     const [newGroupDesc, setNewGroupDesc] = useState("");
     const [newGroupMembers, setNewGroupMembers] = useState([]);
-    const { allUsers } = useSelector(state => state.user);
+    const { allFriends } = useSelector(state => state.friend);
     const handleAddMember = (user) => {
         if (!newGroupMembers.includes(user)) {
             setNewGroupMembers([...newGroupMembers, user]);
@@ -54,7 +54,7 @@ const GroupForm = ({ isOpen, onClose, onCreate, users }) => {
                 <div className="mb-4">
                     <h3 className="font-semibold mb-2">Add Members</h3>
                     <div className="space-y-2">
-                        {allUsers.map((user) => (
+                        {allFriends.map((user) => (
                             <div key={user._id} className="flex justify-between items-center p-2 border-b border-gray-300">
                                 {/* User Avatar */}
                                 <div className="flex items-center gap-3">
@@ -79,7 +79,6 @@ const GroupForm = ({ isOpen, onClose, onCreate, users }) => {
                 </div>
 
 
-                {/* Members Selected */}
                 <div className="mt-4">
                     <span className="font-semibold">Members: </span>
                     <ul>
@@ -89,7 +88,6 @@ const GroupForm = ({ isOpen, onClose, onCreate, users }) => {
                     </ul>
                 </div>
 
-                {/* Action Buttons */}
                 <div className="mt-6 flex justify-between">
                     <button
                         className="bg-gray-500 px-6 py-3 rounded-md text-white"
