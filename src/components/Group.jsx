@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import { FaSearch, FaUsers, FaPlus, FaClock } from "react-icons/fa";
+import GroupForm from "../components/GroupForm";  // Import the modal component
 
 const Group = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sentRequests, setSentRequests] = useState([]);
-  const [groups, setGroups] = useState([
-    { id: 1, name: "React Developers", avatar: "https://via.placeholder.com/40" },
-    { id: 2, name: "JavaScript Enthusiasts", avatar: "https://via.placeholder.com/40" },
-    { id: 3, name: "Node.js Community", avatar: "https://via.placeholder.com/40" },
-    // Add more sample groups here
-  ]);
+  const [groups, setGroups] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const displayedGroups = groups.filter((group) =>
     group.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleCreateGroup = (newGroup) => {
+    setGroups([...groups, newGroup]);
+    setIsModalOpen(false);
+    alert("Group Created!");
+  };
 
   return (
     <div className="groups-section w-full">
@@ -84,13 +87,19 @@ const Group = () => {
           <h2 className="text-xl font-semibold mb-4">Create a Group</h2>
           <button
             className="bg-blue-500 px-6 py-3 rounded-md text-white font-semibold flex items-center gap-2"
-            onClick={() => alert("Create Group Functionality")}
+            onClick={() => setIsModalOpen(true)}
           >
             <FaPlus />
             Create Group
           </button>
         </div>
       </div>
+
+      <GroupForm
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onCreate={handleCreateGroup}
+      />
     </div>
   );
 };
