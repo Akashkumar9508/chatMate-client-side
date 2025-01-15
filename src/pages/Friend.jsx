@@ -91,7 +91,12 @@ const Friend = () => {
                                             ? "bg-red-500"
                                             : "bg-green-500"
                                             } px-3 py-2 rounded-md flex items-center gap-2`}
-                                        onClick={() => friendService.sendFriendRequest(user._id)}
+                                        onClick={() => {
+                                            friendService.sendFriendRequest(user._id)
+                                             .then(() => {
+                                                toast.success("Friend request sent!");
+                                              })
+                                        }}
                                         disabled={sentRequests.includes(user._id)}
                                     >
                                         <span className="block sm:hidden">
