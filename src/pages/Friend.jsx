@@ -96,6 +96,10 @@ const Friend = () => {
                                              .then(() => {
                                                 toast.success("Friend request sent!");
                                               })
+                                              .catch((error) => {
+                                                console.log(error)
+                                                toast.error(error.response.data? error.response.data.message :"error sending Friend request");
+                                              });
                                         }}
                                         disabled={sentRequests.includes(user._id)}
                                     >
