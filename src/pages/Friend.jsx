@@ -5,7 +5,7 @@ import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllUsers } from "../features/userSlice.js";
 import {fetchFriendsRequestData} from "../features/friendSlice.js"
-
+import Group from '../components/Group.jsx'
 
 const Friend = () => {
     const users = useSelector(state => state.user.allUsers);
@@ -151,6 +151,10 @@ const Friend = () => {
                             <p>No friend requests found.</p>
                         )}
                     </div>
+                </div>
+                
+                <div className=" flex items-center justify-center ">
+                    <Group />
                 </div>
             </div>
         </>

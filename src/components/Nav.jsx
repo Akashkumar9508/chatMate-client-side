@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink ,Link } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { MdChangeCircle } from "react-icons/md";  // Settings Icon
+import { MdChangeCircle } from "react-icons/md";
 import { Logout } from "./allComponents.js";
 import { useSelector } from 'react-redux';
 
@@ -18,11 +18,11 @@ const Nav = () => {
 
   const handleScroll = () => {
     if (window.scrollY > lastScrollY) {
-      setIsHidden(true); // Scrolling down, hide navbar
+      setIsHidden(true);
     } else {
-      setIsHidden(false); // Scrolling up, show navbar
+      setIsHidden(false);
     }
-    setLastScrollY(window.scrollY); // Update last scroll position
+    setLastScrollY(window.scrollY);
   };
 
   useEffect(() => {
@@ -52,8 +52,8 @@ const Nav = () => {
 
       <div className="hidden md:flex space-x-6 pr-6 font-semibold text-lg">
         <NavLink to="/" className={({ isActive }) => `hover:text-[#8e52ff] ${isActive ? "text-orange-400 border-b-2 border-orange-400" : ""}`}>Home</NavLink>
-        <NavLink to="/friends" className={({ isActive }) => `hover:text-[#8e52ff] ${isActive ? "text-orange-400 border-b-2 border-orange-400" : ""}`}>Friend</NavLink>
-        <NavLink to="/dashboard" className={({ isActive }) => `hover:text-[#8e52ff] ${isActive ? "text-orange-400 border-b-2 border-orange-400" : ""}`}>Dashboard</NavLink>
+        <NavLink to="/friends" className={({ isActive }) => `hover:text-[#8e52ff] ${isActive ? "text-orange-400 border-b-2 border-orange-400" : ""}`}>Explore</NavLink>
+        <NavLink to="/dashboard" className={({ isActive }) => `hover:text-[#8e52ff] ${isActive ? "text-orange-400 border-b-2 border-orange-400" : ""}`}>Chats</NavLink>
         <NavLink to="/about" className={({ isActive }) => `hover:text-[#8e52ff] ${isActive ? "text-orange-400 border-b-2 border-orange-400" : ""}`}>About</NavLink>
       </div>
 
@@ -62,10 +62,9 @@ const Nav = () => {
           <Logout />
         </div>
         
-        {/* Settings Button */}
         <Link to="/setting" className="flex items-center space-x-1">
           <MdChangeCircle className="text-2xl" />
-          <span className="hidden md:inline">Settings</span> {/* Hidden on mobile */}
+          <span className="hidden md:inline">Settings</span>
         </Link>
       </div>
 
@@ -94,28 +93,28 @@ const Nav = () => {
             <NavLink
               to="/"
               className={({ isActive }) => `block py-2 hover:text-blue-400 font-semibold text-lg ${isActive ? "text-orange-400" : ""}`}
-              onClick={toggleMenu} // Close menu on click
+              onClick={toggleMenu}
             >
               Home
             </NavLink>
             <NavLink
               to="/friends"
               className="block py-2 hover:text-blue-400 font-semibold text-lg"
-              onClick={toggleMenu} // Close menu on click
+              onClick={toggleMenu}
             >
-              Friend
+              Explore
             </NavLink>
             <NavLink
               to="/dashboard"
               className="block py-2 hover:text-blue-400 font-semibold text-lg"
-              onClick={toggleMenu} // Close menu on click
+              onClick={toggleMenu}
             >
-              Dashboard
+              Chats
             </NavLink>
             <NavLink
               to="/about"
               className={({ isActive }) => `block py-2 hover:text-blue-400 font-semibold text-lg ${isActive ? "text-orange-400" : ""}`}
-              onClick={toggleMenu} // Close menu on click
+              onClick={toggleMenu}
             >
               About
             </NavLink>
