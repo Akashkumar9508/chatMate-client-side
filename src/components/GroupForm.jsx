@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { useSelector } from 'react-redux'
-const GroupForm = ({ isOpen, onClose, onCreate, users }) => {
+import { useSelector } from 'react-redux';
+
+const GroupForm = ({ isOpen, onClose, onCreate }) => {
     const [newGroupName, setNewGroupName] = useState("");
     const [newGroupDesc, setNewGroupDesc] = useState("");
     const [newGroupMembers, setNewGroupMembers] = useState([]);
     const { allUsers } = useSelector(state => state.user);
+
     const handleAddMember = (user) => {
         if (!newGroupMembers.includes(user)) {
             setNewGroupMembers([...newGroupMembers, user]);
@@ -32,31 +34,33 @@ const GroupForm = ({ isOpen, onClose, onCreate, users }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-black p-6 rounded-md w-[600px]">
-                <h2 className="text-xl font-semibold mb-4">Create a Group</h2>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+            <div className="bg-base-100 p-6 rounded-md w-[90%] max-w-[600px] shadow-lg">
+                <h2 className="text-2xl font-semibold mb-4 text-primary">Create a Group</h2>
 
+                {/* Group Name Input */}
                 <input
                     type="text"
                     placeholder="Group Name"
                     value={newGroupName}
                     onChange={(e) => setNewGroupName(e.target.value)}
-                    className="w-full p-3 mb-3 border rounded-md"
+                    className="input input-bordered input-primary w-full mb-3"
                 />
 
+                {/* Group Description Textarea */}
                 <textarea
                     placeholder="Group Description"
                     value={newGroupDesc}
                     onChange={(e) => setNewGroupDesc(e.target.value)}
-                    className="w-full p-3 mb-3 border rounded-md"
+                    className="textarea textarea-bordered textarea-primary w-full mb-3"
                 ></textarea>
 
+                {/* Add Members Section */}
                 <div className="mb-4">
-                    <h3 className="font-semibold mb-2">Add Members</h3>
-                    <div className="space-y-2">
+                    <h3 className="font-semibold mb-2 text-primary">Add Members</h3>
+                    <div className="space-y-2 max-h-40 overflow-y-auto">
                         {allUsers.map((user) => (
-                            <div key={user._id} className="flex justify-between items-center p-2 border-b border-gray-300">
-                                {/* User Avatar */}
+                            <div key={user._id} className="flex justify-between items-center p-2 border-b border-gray-300 hover:bg-base-200">
                                 <div className="flex items-center gap-3">
                                     <img
                                         src={user.avatar}
@@ -65,10 +69,8 @@ const GroupForm = ({ isOpen, onClose, onCreate, users }) => {
                                     />
                                     <span className="text-sm">{user.userName}</span>
                                 </div>
-
-                                {/* Add Button */}
                                 <button
-                                    className="bg-blue-500 text-white px-3 py-1 rounded-md"
+                                    className="btn btn-sm btn-primary"
                                     onClick={() => handleAddMember(user)}
                                 >
                                     Add
@@ -78,29 +80,33 @@ const GroupForm = ({ isOpen, onClose, onCreate, users }) => {
                     </div>
                 </div>
 
-
-                {/* Members Selected */}
+                {/* Selected Members List */}
                 <div className="mt-4">
-                    <span className="font-semibold">Members: </span>
-                    <ul>
-                        {newGroupMembers.map((member, index) => (
-                            <li key={index}>{member.name}</li>
-                        ))}
-                    </ul>
+                    <span className="font-semibold text-primary">Members:</span>
+                    {newGroupMembers.length > 0 ? (
+                        <ul className="list-disc pl-5 mt-2">
+                            {newGroupMembers.map((member, index) => (
+                                <li key={index}>{member.userName}</li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p className="text-sm text-gray-500 mt-2">No members added yet.</p>
+                    )}
                 </div>
 
                 {/* Action Buttons */}
-                <div className="mt-6 flex justify-between">
+                <div className="mt-6 flex justify-end gap-4">
                     <button
-                        className="bg-gray-500 px-6 py-3 rounded-md text-white"
+                        className="btn btn-outline btn-error"
                         onClick={onClose}
                     >
                         Cancel
                     </button>
                     <button
-                        className="bg-blue-500 px-6 py-3 rounded-md text-white"
+                        className="btn btn-primary"
                         onClick={handleCreateGroup}
-                    > Create 
+                    >
+                        Create Group
                     </button>
                 </div>
             </div>

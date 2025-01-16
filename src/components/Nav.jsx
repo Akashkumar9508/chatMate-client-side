@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink ,Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { MdChangeCircle } from "react-icons/md";
-import { Logout } from "./allComponents.js";
+import { MdChangeCircle } from 'react-icons/md';
+import { Logout } from './allComponents.js';
 import { useSelector } from 'react-redux';
 
 const Nav = () => {
@@ -27,100 +27,158 @@ const Nav = () => {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [lastScrollY]);
 
   return (
-    <nav className={`-z-[90909] w-full h-14 py-3 flex justify-between items-center px-4 shadow-sm dark:shadow-white mb-1 transition-transform duration-300 ${isHidden ? '-translate-y-full' : 'translate-y-0'}`}>
-      <NavLink to={`${currentUser ? `/user/${currentUser.userName}` : "/"}`} className="logo flex justify-center items-center h-full cursor-pointer">
-        {currentUser && currentUser.avatar ? (
-          <img
-            src={currentUser.avatar}
-            className="h-8 w-8 rounded-full object-cover"
-            alt={`${currentUser.fullName}'s avatar`}
-          />
-        ) : (
-          <>
-            <img src="https://res.cloudinary.com/chatmateapp/image/upload/v1734678699/i0atxfmhhbwemls6xqq8.png" className="h-[60%] md:h-full" alt="ChatMate Logo"/>
-            <h1 className="text-1xl md:text-2xl font-bold">ChatMate</h1>
-          </>
-        )}
-      </NavLink>
+    <nav
+      className={`w-full z-50 bg-base-100 dark:bg-gray-900 transition-transform duration-300 shadow-md px-4 md:px-8 py-3 ${
+        isHidden ? '-translate-y-full' : 'translate-y-0'
+      }`}
+    >
+      <div className="flex justify-between items-center">
+        <NavLink
+          to={`${currentUser ? `/user/${currentUser.userName}` : '/'}`}
+          className="flex items-center space-x-2"
+        >
+          {currentUser && currentUser.avatar ? (
+            <img
+              src={currentUser.avatar}
+              className="h-10 w-10 rounded-full object-cover border border-gray-300 dark:border-gray-600"
+              alt={`${currentUser.fullName}'s avatar`}
+            />
+          ) : (
+            <>
+              <img
+                src="https://res.cloudinary.com/chatmateapp/image/upload/v1734678699/i0atxfmhhbwemls6xqq8.png"
+                className="h-10"
+                alt="ChatMate Logo"
+              />
+              <h1 className="text-xl md:text-2xl font-bold text-base-900">ChatMate</h1>
+            </>
+          )}
+        </NavLink>
 
-      <div className="hidden md:flex space-x-6 pr-6 font-semibold text-lg">
-        <NavLink to="/" className={({ isActive }) => `hover:text-[#8e52ff] ${isActive ? "text-orange-400 border-b-2 border-orange-400" : ""}`}>Home</NavLink>
-        <NavLink to="/friends" className={({ isActive }) => `hover:text-[#8e52ff] ${isActive ? "text-orange-400 border-b-2 border-orange-400" : ""}`}>Explore</NavLink>
-        <NavLink to="/dashboard" className={({ isActive }) => `hover:text-[#8e52ff] ${isActive ? "text-orange-400 border-b-2 border-orange-400" : ""}`}>Chats</NavLink>
-        <NavLink to="/about" className={({ isActive }) => `hover:text-[#8e52ff] ${isActive ? "text-orange-400 border-b-2 border-orange-400" : ""}`}>About</NavLink>
-      </div>
-
-      <div className="flex items-center space-x-4">
-        <div className="hidden md:flex">
-          <Logout />
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center space-x-6 font-medium">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `transition-colors duration-300 hover:text-blue-500 ${
+                isActive ? 'text-blue-600 border-b-2 border-blue-500' : 'text-base-900'
+              }`
+            }
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/friends"
+            className={({ isActive }) =>
+              `text- transition-colors duration-300 hover:text-blue-500 ${
+                isActive ? 'text-blue-600 border-b-2 border-blue-500' : 'text-base-900'
+              }`
+            }
+          >
+            Explore
+          </NavLink>
+          <NavLink
+            to="/dashboard"
+            className={({ isActive }) =>
+              `transition-colors duration-300 hover:text-blue-500 ${
+                isActive ? 'text-blue-600 border-b-2 border-blue-500' : 'text-base-900'
+              }`
+            }
+          >
+            Chats
+          </NavLink>
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              ` transition-colors duration-300 hover:text-blue-500 ${
+                isActive ? 'text-blue-600 border-b-2 border-blue-500' : 'text-base-900'
+              }`
+            }
+          >
+            About
+          </NavLink>
         </div>
-        
-        <Link to="/setting" className="flex items-center space-x-1">
-          <MdChangeCircle className="text-2xl" />
-          <span className="hidden md:inline">Settings</span>
-        </Link>
+
+        {/* Settings & Logout */}
+        <div className="md:flex items-center space-x-4">
+          <div className="hidden md:block">
+            <Logout />
+          </div>
+          <Link to="/setting" className="flex items-center space-x-2">
+            <MdChangeCircle className="text-black-900" />
+            <span className="text-base-900 hidden md:block">Settings</span>
+          </Link>
+        </div>
+
+        {/* Mobile Menu Toggle */}
+        <button
+          className="md:hidden text-base-900"
+          onClick={toggleMenu}
+          aria-label="Toggle navigation"
+        >
+          {isMenuOpen ? <FaTimes /> : <FaBars />}
+        </button>
       </div>
 
-      <button
-        className="md:hidden hamburger"
-        onClick={toggleMenu}
-        aria-label="Toggle navigation"
-      >
-        <FaBars />
-      </button>
-
+      {/* Mobile Menu */}
       {isMenuOpen && (
-        <>
-          <div
-            className="fixed inset-0 bg-black md:hidden"
-            onClick={toggleMenu}
-          ></div>
-          <div className="w-[90%] text-white backdrop-blur-sm bg-black bg-opacity-70 mobile-menu fixed inset-0 px-6 py-4 h-screen">
-            <button
-              className="absolute top-4 right-4 text-2xl"
-              onClick={toggleMenu}
-            >
-              <FaTimes />
-            </button>
-
+        <div className="md:hidden w-full bg-black bg-opacity-60  z-40">
+          <div className="bg-base-100 dark:bg-gray-900 w-full p-6 flex flex-col space-y-6">
             <NavLink
               to="/"
-              className={({ isActive }) => `block py-2 hover:text-blue-400 font-semibold text-lg ${isActive ? "text-orange-400" : ""}`}
+              className={({ isActive }) =>
+                `py-2 font-medium text-lg hover:text-blue-500 transition-colors duration-300 ${
+                  isActive ? 'text-blue-600' : 'text-base-900'
+                }`
+              }
               onClick={toggleMenu}
             >
               Home
             </NavLink>
             <NavLink
               to="/friends"
-              className="block py-2 hover:text-blue-400 font-semibold text-lg"
+              className={({ isActive }) =>
+                `py-2 font-medium text-lg hover:text-blue-500 transition-colors duration-300 ${
+                  isActive ? 'text-blue-600' : 'text-base-900'
+                }`
+              }
               onClick={toggleMenu}
             >
               Explore
             </NavLink>
             <NavLink
               to="/dashboard"
-              className="block py-2 hover:text-blue-400 font-semibold text-lg"
+              className={({ isActive }) =>
+                `py-2 font-medium text-lg hover:text-blue-500 transition-colors duration-300 ${
+                  isActive ? 'text-blue-600' : 'text-base-900'
+                }`
+              }
               onClick={toggleMenu}
             >
               Chats
             </NavLink>
             <NavLink
               to="/about"
-              className={({ isActive }) => `block py-2 hover:text-blue-400 font-semibold text-lg ${isActive ? "text-orange-400" : ""}`}
+              className={({ isActive }) =>
+                `py-2 font-medium text-lg hover:text-blue-500 transition-colors duration-300 ${
+                  isActive ? 'text-blue-600' : 'text-base-900'
+                }`
+              }
               onClick={toggleMenu}
             >
               About
             </NavLink>
+
             <Logout />
           </div>
-        </>
+        </div>
       )}
     </nav>
   );
