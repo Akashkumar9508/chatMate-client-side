@@ -4,6 +4,7 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import { MdChangeCircle } from 'react-icons/md';
 import { Logout } from './allComponents.js';
 import { useSelector } from 'react-redux';
+import { MdOutlineSettings } from "react-icons/md";
 
 const Nav = () => {
   const auth = useSelector((state) => state.auth);

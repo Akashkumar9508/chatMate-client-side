@@ -80,7 +80,6 @@ const GroupForm = ({ isOpen, onClose, onCreate }) => {
                     </div>
                 </div>
 
-                {/* Selected Members List */}
                 <div className="mt-4">
                     <span className="font-semibold text-primary">Members:</span>
                     {newGroupMembers.length > 0 ? (
