@@ -25,7 +25,7 @@ const Dashboard = () => {
 },[allUsers, status,friends]);
 
   return (
-    <div className="flex w-full overflow-hidden -mt-2 ">
+    <div className="flex w-full overflow-hidden h-lvh  ">
      
       <Sidebar
         isSidebarOpen={isSidebarOpen}

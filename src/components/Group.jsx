@@ -19,8 +19,8 @@ const Group = () => {
   };
 
   return (
-    <div className="groups-section w-full">
-      <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+    <div className="groups-section w-full bg-base-100 p-4 md:p-8 mt-10">
+      <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2 text-primary">
         <FaUsers /> Groups
       </h2>
 
@@ -31,36 +31,37 @@ const Group = () => {
           placeholder="Search groups..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="rounded-md px-4 py-2 sm:w-64 outline-none md:w-[85%]"
+          className="input input-bordered input-primary w-full md:w-3/4 px-4 py-2"
         />
-        <button className="bg-blue-500 px-5 py-2 rounded-md flex items-center gap-2 h-10">
+        <button className="btn btn-primary h-10 flex items-center gap-2">
           <FaSearch />
+          <span className="hidden sm:inline">Search</span>
         </button>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-6">
-        <div className="groups-list mb-8 flex-1 max-h-[70vh] overflow-y-auto scrollbar-hide pr-2">
-          <h2 className="text-xl font-semibold mb-2">All Groups</h2>
+      <div className="flex flex-col md:flex-row gap-8">
+        <div className="groups-list mb-8 flex-1 max-h-[70vh] overflow-y-auto pr-2">
+          <h2 className="text-xl font-semibold mb-4 text-primary">All Groups</h2>
           {displayedGroups.length > 0 ? (
             displayedGroups.map((group) => (
               <div
                 key={group.id}
-                className="flex items-center justify-between border-b border-gray-200 py-3"
+                className="flex items-center justify-between border-b border-gray-200 py-3 hover:bg-base-200 transition-colors duration-200 ease-in-out"
               >
                 <div className="flex items-center gap-3">
                   <img
                     src={group.avatar}
                     alt={group.name || "Group Avatar"}
-                    className="w-10 h-10 rounded-full"
+                    className="w-12 h-12 rounded-full shadow-md"
                   />
-                  <span>{group.name}</span>
+                  <span className="text-lg font-medium">{group.name}</span>
                 </div>
                 <button
-                  className={`${
+                  className={`btn ${
                     sentRequests.includes(group.id)
-                      ? "bg-red-500"
-                      : "bg-green-500"
-                  } px-3 py-2 rounded-md flex items-center gap-2`}
+                      ? "btn-error"
+                      : "btn-success"
+                  } btn-sm flex items-center gap-2`}
                   onClick={() => {
                     setSentRequests([...sentRequests, group.id]);
                   }}
@@ -80,13 +81,14 @@ const Group = () => {
               </div>
             ))
           ) : (
-            <p>No groups found.</p>
+            <p className="text-gray-500">No groups found.</p>
           )}
         </div>
-        <div className="create-group flex-1 max-h-[70vh] overflow-y-auto scrollbar-hide pr-2">
-          <h2 className="text-xl font-semibold mb-4">Create a Group</h2>
+
+        <div className="create-group flex-1 max-h-[70vh] overflow-y-auto pr-2">
+          <h2 className="text-xl font-semibold mb-4 text-primary">Create a Group</h2>
           <button
-            className="bg-blue-500 px-6 py-3 rounded-md text-white font-semibold flex items-center gap-2"
+            className="btn btn-primary btn-lg w-full sm:w-auto flex items-center gap-2"
             onClick={() => setIsModalOpen(true)}
           >
             <FaPlus />
