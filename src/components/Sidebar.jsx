@@ -10,6 +10,8 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
     const friendIds = useSelector(state => state.user?.friends);
     const selectedUser = useSelector(state => state.user?.selectedUser);
     const allFriends = useSelector(state => state.friend?.allFriends);
+    console.log(allFriends);
+    
 
     const dispatch = useDispatch();
 

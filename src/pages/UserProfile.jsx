@@ -6,9 +6,10 @@ import { MdModeEdit } from "react-icons/md";
 import { login } from "../features/authSlice.js";
 
 function UserProfile() {
-  const auth = useSelector((state) => state.auth);
-  const user = auth?.userData;
+  const {userData} = useSelector(state => state.auth);
+  const {selectedUser}=useSelector(state=>state.user);
   const { userName } = useParams();
+  const user =userData?.userName===userName?userData:selectedUser;
   const [file, setFile] = useState(null);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -73,7 +74,7 @@ function UserProfile() {
             )}
           </div>
           <form onSubmit={handleUpload}>
-            <label htmlFor="FileForLabel" className="cursor-pointer absolute bottom-2 right-2 sm:bottom-1 sm:right-4 bg-blue-500 p-2 rounded-full shadow-md hover:bg-blue-600 transition">
+            <label htmlFor="FileForLabel" className={`cursor-pointer absolute bottom-2 right-2 sm:bottom-1 sm:right-4 bg-blue-500 p-2 rounded-full shadow-md hover:bg-blue-600 transition ${userData?.userName===userName?"":"hidden"}`}>
             <MdModeEdit size={30}/>
             </label>
             <input
@@ -96,7 +97,7 @@ function UserProfile() {
         <div className="flex-1 flex flex-col gap-4">
           <div>
             <p className="text-2xl font-semibold ">{user?.fullName || "Full Name"}</p>
-            <p>@{userName}</p>
+            <p>@{user?.userName}</p>
           </div>
           <div className="flex flex-col gap-2">
             <label className=" text-sm font-medium">Bio</label>

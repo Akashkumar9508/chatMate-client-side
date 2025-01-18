@@ -5,6 +5,7 @@ import Signup from "./Signup";
 import UserProfile from "./UserProfile.jsx";
 import About from "./About.jsx";
 import SettingsPage from "./Setting.jsx";
+import GroupProfile from "./GroupProfile.jsx";
 
 
-export { Dashboard, Friend, Login, Signup, UserProfile , About , SettingsPage};
+export { Dashboard, Friend, Login, Signup, UserProfile , About , SettingsPage, GroupProfile};

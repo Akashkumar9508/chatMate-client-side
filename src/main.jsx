@@ -7,7 +7,7 @@ import ProtectedRoute from './components/ProtectedRoutes.jsx';
 import { Provider } from 'react-redux';
 import store from './store/store.js';
 import Layout from './Layout.jsx';
-import { Signup, Login, Dashboard, Friend, UserProfile, About , SettingsPage } from './pages/allPages.js';
+import { Signup, Login, Dashboard, Friend, UserProfile, About , SettingsPage, GroupProfile } from './pages/allPages.js';
 import { SocketProvider } from './context/SocketContext.jsx'
 
 createRoot(document.getElementById('root')).render(
@@ -38,6 +38,7 @@ createRoot(document.getElementById('root')).render(
                   <UserProfile />
                 </ProtectedRoute>
               } />
+              <Route path='/group/:groupId' element={<GroupProfile/>}/>
             </Route>
           </Routes>
         </BrowserRouter>
