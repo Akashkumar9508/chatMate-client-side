@@ -1,5 +1,5 @@
 import Dashboard from "./Dashboard.jsx";
-import Friend from "./Friend.jsx";
+import Explore from "./Explore.jsx";
 import Login from "./Login.jsx";
 import Signup from "./Signup";
 import UserProfile from "./UserProfile.jsx";
@@ -8,4 +8,4 @@ import SettingsPage from "./Setting.jsx";
 import GroupProfile from "./GroupProfile.jsx";
 
 
-export { Dashboard, Friend, Login, Signup, UserProfile , About , SettingsPage, GroupProfile};
+export { Dashboard, Explore, Login, Signup, UserProfile , About , SettingsPage, GroupProfile};

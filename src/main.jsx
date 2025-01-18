@@ -7,7 +7,7 @@ import ProtectedRoute from './components/ProtectedRoutes.jsx';
 import { Provider } from 'react-redux';
 import store from './store/store.js';
 import Layout from './Layout.jsx';
-import { Signup, Login, Dashboard, Friend, UserProfile, About , SettingsPage, GroupProfile } from './pages/allPages.js';
+import { Signup, Login, Dashboard, Explore, UserProfile, About , SettingsPage, GroupProfile } from './pages/allPages.js';
 import { SocketProvider } from './context/SocketContext.jsx'
 
 createRoot(document.getElementById('root')).render(
@@ -28,9 +28,9 @@ createRoot(document.getElementById('root')).render(
                   <Dashboard />
                 </ProtectedRoute>
               } />
-              <Route path="friends" element={
+              <Route path="explore" element={
                 <ProtectedRoute>
-                  <Friend />
+                  <Explore />
                 </ProtectedRoute>
               } />
               <Route path='/user/:userName' element={

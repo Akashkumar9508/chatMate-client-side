@@ -76,7 +76,7 @@ const Nav = () => {
             Home
           </NavLink>
           <NavLink
-            to="/friends"
+            to="/explore"
             className={({ isActive }) =>
               `text- transition-colors duration-300 hover:text-blue-500 ${
                 isActive ? 'text-blue-600 border-b-2 border-blue-500' : 'text-base-900'
@@ -144,7 +144,7 @@ const Nav = () => {
               Home
             </NavLink>
             <NavLink
-              to="/friends"
+              to="/explore"
               className={({ isActive }) =>
                 `py-2 font-medium text-lg hover:text-blue-500 transition-colors duration-300 ${
                   isActive ? 'text-blue-600' : 'text-base-900'

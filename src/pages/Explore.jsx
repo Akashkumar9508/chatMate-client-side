@@ -7,7 +7,7 @@ import { fetchAllUsers } from "../features/userSlice.js";
 import { fetchFriendsRequestData } from "../features/friendSlice.js";
 import Group from "../components/Group.jsx";
 
-const Friend = () => {
+const Explore = () => {
   const users = useSelector((state) => state.user.allUsers);
   const { allFriendRequests } = useSelector((state) => state.friend);
   const [searchTerm, setSearchTerm] = useState("");
@@ -167,4 +167,4 @@ const Friend = () => {
   );
 };
 
-export default Friend;
+export default Explore;
