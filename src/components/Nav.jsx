@@ -5,6 +5,7 @@ import { MdChangeCircle } from 'react-icons/md';
 import { Logout } from './allComponents.js';
 import { useSelector } from 'react-redux';
 import { MdOutlineSettings } from "react-icons/md";
+import { SlSettings } from "react-icons/sl";
 
 const Nav = () => {
   const auth = useSelector((state) => state.auth);
@@ -36,7 +37,7 @@ const Nav = () => {
 
   return (
     <nav
-      className={`w-full z-50 bg-base-100 dark:bg-gray-900 transition-transform duration-300 shadow-md px-4 md:px-8 py-3 ${
+      className={`w-full relative z-50 bg-base-100 dark:bg-gray-900 transition-transform duration-300 shadow-md px-4 md:px-8 py-3 ${
         isHidden ? '-translate-y-full' : 'translate-y-0'
       }`}
     >
@@ -113,8 +114,8 @@ const Nav = () => {
             <Logout />
           </div>
           <Link to="/setting" className="flex items-center space-x-2">
-            <MdChangeCircle className="text-black-900" />
-            <span className="text-base-900 hidden md:block">Settings</span>
+            <SlSettings />
+
           </Link>
         </div>
 
@@ -130,7 +131,7 @@ const Nav = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden w-full bg-black bg-opacity-60  z-40">
+        <div className="md:hidden absolute top-16 right-0 w-full  bg-black bg-opacity-60  z-[99]">
           <div className="bg-base-100 dark:bg-gray-900 w-full p-6 flex flex-col space-y-6">
             <NavLink
               to="/"

@@ -95,12 +95,12 @@ const Login = () => {
                 {...register("password", {
                   required: "Password is required",
                 })}
-                className="input input-bordered mt-1 w-full"  
+                className="input input-bordered mt-1 w-full "  
               />
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
-                className="absolute inset-y-0 right-4 top-6 text-base-content hover:text-secondary"
+                className="absolute inset-y-0 right-4 top-10 w-5 h-5  text-base-content hover:text-secondary"
               >
                 {showPassword ? (
                   <HiOutlineEye size={20} />

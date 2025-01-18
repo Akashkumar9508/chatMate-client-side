@@ -44,7 +44,7 @@ const ChatMessages = () => {
   }, [messages]); // Scroll whenever messages change
 
   return (
-    <div className="h-full w-full bg-base-100 p-5 flex flex-col justify-end rounded-lg border border-base-300 overflow-hidden shadow-inner shadow-slate-400">
+    <div className="max-h-[80%] w-full bg-base-100 p-5 flex flex-col justify-end rounded-lg border border-base-300 overflow-hidden shadow-inner shadow-slate-400">
       {" "}
       {/* DaisyUI bg and border */}
       {/* Scrollable message container */}
