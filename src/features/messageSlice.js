@@ -17,6 +17,8 @@ const initialState = {
          *...
          */
     },
+    groupMessages:{},
+    chattingWithUser:false,
 };
 
 const messageSlice = createSlice({
@@ -38,6 +40,9 @@ const messageSlice = createSlice({
                 isSeen: false,
             });
         },
+        setChattingWithUser:(state,action)=>{
+            state.chattingWithUser = action.payload;
+        },
         clearMessages: (state, action) => {
             const { userId } = action.payload;
             if (state.messages[userId]) {
@@ -47,6 +52,6 @@ const messageSlice = createSlice({
     },
 });
 
-export const { addMessage, clearMessages, initialiseMessages } = messageSlice.actions;
+export const { addMessage, clearMessages, initialiseMessages,setChattingWithUser } = messageSlice.actions;
 
 export default messageSlice.reducer;

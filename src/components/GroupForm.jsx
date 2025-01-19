@@ -1,23 +1,23 @@
 import React, { useState } from "react";
-import { FaPlus } from "react-icons/fa";
-import { useSelector } from 'react-redux';
-import groupsService from "../services/groupService";
+import { useDispatch, useSelector } from 'react-redux';
+import { createGroup } from "../features/groupSlice";
 
 const GroupForm = ({ isOpen, onClose, onCreate }) => {
     const [newGroupName, setNewGroupName] = useState("");
     const [newGroupDesc, setNewGroupDesc] = useState("");
     const [newGroupMembers, setNewGroupMembers] = useState([]);
     const { allFriends } = useSelector(state => state.friend);
+    const dispatch=useDispatch();
 
     const handleAddMember = (user) => {
-        if (!newGroupMembers.includes(user)) {
-            setNewGroupMembers([...newGroupMembers, user]);
+        if (!newGroupMembers.includes(user._id)) {
+            setNewGroupMembers([...newGroupMembers, user._id]);
         }
     };
 
     const handleCreateGroup = () => {
         if (newGroupName && newGroupDesc) {
-            groupsService.createGroup(newGroupName,newGroupMembers,newGroupDesc);
+            dispatch(createGroup({newGroupName,newGroupMembers,newGroupDesc}));
             setNewGroupName("");
             setNewGroupDesc("");
             setNewGroupMembers([]);

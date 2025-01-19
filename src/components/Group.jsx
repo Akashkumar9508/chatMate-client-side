@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { FaSearch, FaUsers, FaPlus, FaClock } from "react-icons/fa";
 import GroupForm from "../components/GroupForm";  // Import the modal component
+import { useSelector } from "react-redux";
 
 const Group = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sentRequests, setSentRequests] = useState([]);
-  const [groups, setGroups] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const {allGroups}=useSelector(state=>state.group);
 
-  const displayedGroups = groups.filter((group) =>
+  const displayedGroups = allGroups.filter((group) =>
     group.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleCreateGroup = (newGroup) => {
-    setGroups([...groups, newGroup]);
     setIsModalOpen(false);
     alert("Group Created!");
   };
@@ -45,7 +45,7 @@ const Group = () => {
           {displayedGroups.length > 0 ? (
             displayedGroups.map((group) => (
               <div
-                key={group.id}
+                key={group._id}
                 className="flex items-center justify-between border-b border-gray-200 py-3 hover:bg-base-200 transition-colors duration-200 ease-in-out"
               >
                 <div className="flex items-center gap-3">

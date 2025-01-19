@@ -3,12 +3,25 @@ import groupsService from "../services/groupService";
 
 const initialState = {
   allGroups: [],
+  userGroups: [],
   groupCreatedByUser:[],
   selectedGroup: null,
 };
 
+export const fetchUserGroups =createAsyncThunk('userGroups',async ()=>{
+  const response = await groupsService.getUserGroups();
+  return response;
+});
+
+export const createGroup = createAsyncThunk('createGroup', async({newGroupName,newGroupMembers,newGroupDesc})=>{
+  const response=await groupsService.createGroup(newGroupName,newGroupMembers,newGroupDesc);
+  console.log(response);
+  return response;
+});
+
 export const fetchAllGroups = createAsyncThunk('fetchAllGroups', async()=>{
   const response = await groupsService.getAllGroups();
+  
   return response;
 });
 
@@ -41,7 +54,14 @@ const groupSlice = createSlice({
       })
      .addCase(fetchGroupCreatedByUser.rejected, (state, action) => {
         console.error('Error fetching groups created by user:', action.error);
-      });
+      })
+      .addCase(fetchUserGroups.fulfilled, (state, action) => {
+        state.userGroups = action.payload;
+      })
+      .addCase(createGroup.fulfilled, (state, action) => {
+        state.allGroups.push(action.payload);
+        state.groupCreatedByUser.push(action.payload);
+      })
   },
 });
 

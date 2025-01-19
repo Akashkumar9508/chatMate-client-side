@@ -3,7 +3,7 @@ import { ChatHeader, ChatMessages, MessageInput, Sidebar } from '../components/a
 import { fetchAllUsers, fetchFriendRequests, fetchFriends } from "../features/userSlice.js";
 import { useDispatch , useSelector } from "react-redux";
 import { fetchFriendsData } from '../features/friendSlice.js';
-import { fetchAllGroups, fetchGroupCreatedByUser } from '../features/groupSlice.js';
+import { fetchAllGroups, fetchGroupCreatedByUser, fetchUserGroups } from '../features/groupSlice.js';
 
 const Dashboard = () => {
   const selectedUser = useSelector(state => state.user?.selectedUser);
@@ -20,6 +20,7 @@ const Dashboard = () => {
         dispatch(fetchFriendRequests());
         dispatch(fetchAllGroups());
         dispatch(fetchGroupCreatedByUser());
+        dispatch(fetchUserGroups());
     }
     if(friends.length > 0){
         dispatch(fetchFriendsData(friends));

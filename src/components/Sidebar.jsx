@@ -3,12 +3,14 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedUser } from '../features/userSlice.js';
 import messagesService from '../services/messageService.js';
-import { initialiseMessages } from '../features/messageSlice.js';
+import { initialiseMessages, setChattingWithUser } from '../features/messageSlice.js';
 import { fetchFriendsData } from '../features/friendSlice.js';
+import { selectGroup } from '../features/groupSlice.js';
 
 const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
     const friendIds = useSelector(state => state.user?.friends);
     const selectedUser = useSelector(state => state.user?.selectedUser);
+    const { userGroups } = useSelector(state => state.group)
     const { allFriends } = useSelector(state => state.friend);
     const { onlineUsers } = useSelector(state => state.user);
     const dispatch = useDispatch();
@@ -55,6 +57,7 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
                         key={user._id}
                         onClick={() => {
                             dispatch(setSelectedUser(user));
+                            dispatch(setChattingWithUser(true));
                             closeSidebar();
                         }}
                         className={`cursor-pointer py-2 px-4 rounded-lg flex items-center space-x-3 transition duration-300 ${user.userName === selectedUser?.userName ? "bg-orange-800" : "hover:bg-blue-600"
@@ -73,6 +76,28 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
                         </div>
                         <span className="text-sm md:text-base font-semibold">
                             {user.fullName}
+                        </span>
+                    </li>
+                ))}
+                {userGroups.map((group) => (
+                    <li
+                        key={group._id}
+                        onClick={() => {
+                            dispatch(selectGroup(group));
+                            dispatch(setChattingWithUser(false));
+                            closeSidebar();
+                        }}
+                        className={`cursor-pointer py-2 px-4 rounded-lg flex items-center space-x-3 transition duration-300 hover:bg-blue-600`}
+                    >
+                        <div className="relative w-10 h-10 rounded-full">
+                            <img
+                                src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq73OqLy9LUw3eUfuuFRFFGr5yuR8WSc7dow&s'}
+                                alt={group.name}
+                                className="w-full h-full object-cover rounded-full"
+                            />
+                        </div>
+                        <span className="text-sm md:text-base font-semibold">
+                            {group.name}
                         </span>
                     </li>
                 ))}

@@ -6,7 +6,7 @@ import { addMessage } from "../features/messageSlice";
 const ChatMessages = () => {
   const { selectedUser } = useSelector((state) => state.user);
   const loggedInUserId = useSelector((state) => state.auth.userData?._id);
-  const messages = useSelector((state) => state.message.messages[selectedUser?.userName]);
+  const {messages,groupMessages,chattingWithUser} = useSelector((state) => state.message);
 
   // Reference to scroll to the bottom
   const messagesEndRef = useRef(null);
@@ -50,7 +50,7 @@ const ChatMessages = () => {
       {/* Scrollable message container */}
       <div className="flex-2 overflow-y-auto scrollbar-hide pr-2">
         {/* Map messages from the bottom to top */}
-        {messages?.map((msg, index) => (
+        {messages[selectedUser.userName]?.map((msg, index) => (
           <div
             key={index}
             className={`mb-1 ${msg.sender === loggedInUserId ? "text-right" : "text-left"
