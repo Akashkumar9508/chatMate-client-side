@@ -9,10 +9,8 @@ import { fetchFriendsData } from '../features/friendSlice.js';
 const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
     const friendIds = useSelector(state => state.user?.friends);
     const selectedUser = useSelector(state => state.user?.selectedUser);
-    const allFriends = useSelector(state => state.friend?.allFriends);
-    console.log(allFriends);
-    
-
+    const { allFriends } = useSelector(state => state.friend);
+    const { onlineUsers } = useSelector(state => state.user);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -69,7 +67,7 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
                                 className="w-full h-full object-cover rounded-full"
                             />
                             <span
-                                className={`absolute bottom-0 right-0 w-3 h-3 rounded-full ${user.activeStatus ? 'bg-green-500' : 'bg-red-500'
+                                className={`absolute bottom-0 right-0 w-3 h-3 rounded-full ${onlineUsers.includes(user.userName) ? 'bg-green-500' : 'bg-red-500'
                                     }`}
                             />
                         </div>

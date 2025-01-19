@@ -8,7 +8,7 @@ const initialState={
   unFriends:[],
   friendRequests:[],
   selectedUser:null, //curent chatting user
-  onlineUsers:{}, // online users in the chatroom
+  onlineUsers:[], // online users in the chatroom
 };
 
 export const fetchAllUsers = createAsyncThunk("fetchAllUsers", async () => {
@@ -58,7 +58,7 @@ const userSlice = createSlice({
       state.selectedUser = action.payload;
     },
     setOnlineUsers:(state,action)=>{
-      state.onlineUsers = action.payload;
+      state.onlineUsers = Object.keys(action.payload);
     }
   },
   extraReducers: (builder) => {

@@ -8,7 +8,7 @@ import { fetchFriendsRequestData } from "../features/friendSlice.js";
 import Group from "../components/Group.jsx";
 
 const Explore = () => {
-  const users = useSelector((state) => state.user.allUsers);
+  const {unFriends} = useSelector((state) => state.user);
   const { allFriendRequests } = useSelector((state) => state.friend);
   const [searchTerm, setSearchTerm] = useState("");
   const [sentRequests, setSentRequests] = useState([]);
@@ -46,7 +46,7 @@ const Explore = () => {
       });
   };
 
-  const displayedUsers = users.filter((user) =>
+  const displayedUsers = unFriends.filter((user) =>
     user.fullName?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 

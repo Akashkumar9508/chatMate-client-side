@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useSelector } from 'react-redux';
+import groupsService from "../services/groupService";
 
 const GroupForm = ({ isOpen, onClose, onCreate }) => {
     const [newGroupName, setNewGroupName] = useState("");
     const [newGroupDesc, setNewGroupDesc] = useState("");
     const [newGroupMembers, setNewGroupMembers] = useState([]);
-    const { allUsers } = useSelector(state => state.user);
+    const { allFriends } = useSelector(state => state.friend);
 
     const handleAddMember = (user) => {
         if (!newGroupMembers.includes(user)) {
@@ -16,13 +17,7 @@ const GroupForm = ({ isOpen, onClose, onCreate }) => {
 
     const handleCreateGroup = () => {
         if (newGroupName && newGroupDesc) {
-            const newGroup = {
-                id: Date.now(),
-                name: newGroupName,
-                description: newGroupDesc,
-                members: newGroupMembers,
-            };
-            onCreate(newGroup);
+            groupsService.createGroup(newGroupName,newGroupMembers,newGroupDesc);
             setNewGroupName("");
             setNewGroupDesc("");
             setNewGroupMembers([]);
@@ -59,7 +54,7 @@ const GroupForm = ({ isOpen, onClose, onCreate }) => {
                 <div className="mb-4">
                     <h3 className="font-semibold mb-2 text-primary">Add Members</h3>
                     <div className="space-y-2 max-h-40 overflow-y-auto">
-                        {allUsers.map((user) => (
+                        {allFriends.map((user) => (
                             <div key={user._id} className="flex justify-between items-center p-2 border-b border-gray-300 hover:bg-base-200">
                                 <div className="flex items-center gap-3">
                                     <img
