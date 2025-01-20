@@ -1,52 +1,63 @@
-import React from 'react';
+import React from "react";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function GroupProfile() {
-  const groupName = "The Coding Ninjas";
-  const groupMembers = [
-    { name: "John Doe", avatar: "https://example.com/john.jpg" },
-    { name: "Jane Smith", avatar: "https://example.com/jane.jpg" },
-    { name: "David Lee", avatar: "https://example.com/david.jpg" },
-  ];
-  const createdBy = "John Doe";
-  const groupDescription = "A group for coding enthusiasts to learn and share.";
+  const { allGroups } = useSelector((state) => state.group);
+  console.log("Groups:", allGroups);
+
+  const { groupId } = useParams();
+  const group = allGroups.find((group) => group._id === groupId);
+  console.log("Selected Group:", group);
+
+  // Fallbacks in case data is missing
+  const groupDescription = group?.description || "No description provided.";
+  const groupMembers = group?.members || []; 
 
   return (
-    <div className="group-profile max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 border border-gray-200">
-      <div className="profile-header flex items-center gap-4 mb-6">
-        <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgxz1zRNl-yf4oWutkanlAnw88gT2wOAcEpQ&s"
-          alt="Group Avatar"
-          className="h-24 w-24 rounded-full object-cover border-4 border-indigo-500 shadow-lg"
-        />
-        <h1 className="text-3xl font-extrabold text-gray-800">{groupName}</h1>
-      </div>
+    <div className="min-h-screen bg-base-100 flex items-center justify-center p-4">
+      <div className="group-profile max-w-5xl w-full bg-black rounded-xl shadow-xl p-6 border border-gray-300 shadow-cyan-400">
+        {/* Profile Header */}
+        <div className="profile-header flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-8">
+          <img
+            src={group.avatar}
+            alt="Group Avatar"
+            className="h-28 w-28 rounded-full object-cover border-4 border-red-500 hover:scale-110 transition-transform"
+          />
+          <div className="text-center sm:text-left">
+            <h1 className="text-4xl font-extrabold text-white">{group?.name}</h1>
+            <p className="text-gray-300 mt-2 text-lg ">
+              <span className="font-semibold text-indigo-600">Created By:</span> {group?.createdBy || "Unknown"}
+            </p>
+            <p className="text-gray-300 mt-1 text-lg">
+              <span className="font-semibold text-indigo-600">Description:</span> {groupDescription}
+            </p>
+          </div>
+        </div>
 
-      <div className="profile-info text-gray-600 mb-6">
-        <p className="mb-2">
-          <span className="font-semibold text-indigo-600">Created By:</span> {createdBy}
-        </p>
-        <p>
-          <span className="font-semibold text-indigo-600">Description:</span> {groupDescription}
-        </p>
-      </div>
-
-      <div className="members-section">
-        <h2 className="text-2xl font-semibold text-gray-700 mb-4">Members:</h2>
-        <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {groupMembers.map((member, index) => (
-            <li
-              key={index}
-              className="flex items-center space-x-3 bg-gray-50 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-            >
-              <img
-                src={member.avatar}
-                alt={member.name}
-                className="h-12 w-12 rounded-full object-cover border-2 border-gray-300"
-              />
-              <span className="text-gray-800 font-medium">{member.name}</span>
-            </li>
-          ))}
-        </ul>
+        {/* Members Section */}
+        <div className="members-section">
+          <h2 className="text-2xl font-bold text-white mb-6">Members:</h2>
+          <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+            {groupMembers.length > 0 ? (
+              groupMembers.map((member, index) => (
+                <li
+                  key={index}
+                  className="flex flex-col items-center bg-gray-50 p-4 rounded-lg shadow-sm hover:shadow-lg hover:scale-110 transition-transform"
+                >
+                  <img
+                    src={member.avatar || "https://via.placeholder.com/150"}
+                    alt={member.name || "Member"}
+                    className="h-16 w-16 rounded-full object-cover border-2 border-gray-200 hover:scale-110 transition-transform shadow-lg shadow-rose-950"
+                  />
+                  <span className="mt-3 text-gray-800 text-center font-bold">{member.name || "Anonymous"}</span>
+                </li>
+              ))
+            ) : (
+              <p className="text-gray-400">No members found.</p>
+            )}
+          </ul>
+        </div>
       </div>
     </div>
   );

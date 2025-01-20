@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { createGroup } from "../features/groupSlice";
+// import { createGroup } from "../features/groupSlice";
+import groupService from '../services/groupService.js';
 
 const GroupForm = ({ isOpen, onClose, onCreate }) => {
     const [newGroupName, setNewGroupName] = useState("");
@@ -17,7 +18,7 @@ const GroupForm = ({ isOpen, onClose, onCreate }) => {
 
     const handleCreateGroup = () => {
         if (newGroupName && newGroupDesc) {
-            dispatch(createGroup({newGroupName,newGroupMembers,newGroupDesc}));
+            groupService.createGroup(newGroupName, newGroupMembers, newGroupDesc);
             setNewGroupName("");
             setNewGroupDesc("");
             setNewGroupMembers([]);
@@ -33,7 +34,6 @@ const GroupForm = ({ isOpen, onClose, onCreate }) => {
             <div className="bg-base-100 p-6 rounded-md w-[90%] max-w-[600px] shadow-lg">
                 <h2 className="text-2xl font-semibold mb-4 text-primary">Create a Group</h2>
 
-                {/* Group Name Input */}
                 <input
                     type="text"
                     placeholder="Group Name"
@@ -42,7 +42,6 @@ const GroupForm = ({ isOpen, onClose, onCreate }) => {
                     className="input input-bordered input-primary w-full mb-3"
                 />
 
-                {/* Group Description Textarea */}
                 <textarea
                     placeholder="Group Description"
                     value={newGroupDesc}
@@ -50,7 +49,6 @@ const GroupForm = ({ isOpen, onClose, onCreate }) => {
                     className="textarea textarea-bordered textarea-primary w-full mb-3"
                 ></textarea>
 
-                {/* Add Members Section */}
                 <div className="mb-4">
                     <h3 className="font-semibold mb-2 text-primary">Add Members</h3>
                     <div className="space-y-2 max-h-40 overflow-y-auto">
@@ -88,7 +86,6 @@ const GroupForm = ({ isOpen, onClose, onCreate }) => {
                     )}
                 </div>
 
-                {/* Action Buttons */}
                 <div className="mt-6 flex justify-end gap-4">
                     <button
                         className="btn btn-outline btn-error"

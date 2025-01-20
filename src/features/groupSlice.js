@@ -13,11 +13,6 @@ export const fetchUserGroups =createAsyncThunk('userGroups',async ()=>{
   return response;
 });
 
-export const createGroup = createAsyncThunk('createGroup', async({newGroupName,newGroupMembers,newGroupDesc})=>{
-  const response=await groupsService.createGroup(newGroupName,newGroupMembers,newGroupDesc);
-  console.log(response);
-  return response;
-});
 
 export const fetchAllGroups = createAsyncThunk('fetchAllGroups', async()=>{
   const response = await groupsService.getAllGroups();
@@ -57,10 +52,6 @@ const groupSlice = createSlice({
       })
       .addCase(fetchUserGroups.fulfilled, (state, action) => {
         state.userGroups = action.payload;
-      })
-      .addCase(createGroup.fulfilled, (state, action) => {
-        state.allGroups.push(action.payload);
-        state.groupCreatedByUser.push(action.payload);
       })
   },
 });
