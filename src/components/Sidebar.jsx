@@ -39,7 +39,6 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
             className={`fixed h-[90%] backdrop-blur-lg translate-y-5 md:static top-0 left-0 w-full md:w-1/5 px-4 border-b md:border-b-0 md:border-r z-10 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
                 } md:translate-x-0 transition-transform duration-300 ease-in-out`}
         >
-            {/* Close Button for Mobile */}
             <button
                 onClick={closeSidebar}
                 className="md:hidden absolute top-4 right-4 font-bold"
@@ -47,11 +46,10 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
                 <FaTimes />
             </button>
 
-            {/* Sidebar Header */}
-            <h2 className="text-2xl font-semibold mb-4 text-blue-400">Online Buddies</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-blue-400">Chats</h2>
 
-            {/* Scrollable User List */}
-            <ul className="space-y-2 h-full max-h-[80vh] overflow-y-auto pr-2">
+            <h3 className="text-lg font-semibold mb-2 text-gray-600">Users</h3>
+            <ul className="space-y-2 max-h-[40vh] overflow-y-auto pr-2">
                 {allFriends.map((user) => (
                     <li
                         key={user._id}
@@ -79,6 +77,9 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
                         </span>
                     </li>
                 ))}
+            </ul>
+            <h3 className="text-lg font-semibold mt-4 mb-2 text-gray-600">Groups</h3>
+            <ul className="space-y-2 max-h-[40vh] overflow-y-auto pr-2">
                 {userGroups.map((group) => (
                     <li
                         key={group._id}
@@ -91,7 +92,7 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
                     >
                         <div className="relative w-10 h-10 rounded-full">
                             <img
-                                src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq73OqLy9LUw3eUfuuFRFFGr5yuR8WSc7dow&s'}
+                                src={group.avatar}
                                 alt={group.name}
                                 className="w-full h-full object-cover rounded-full"
                             />
