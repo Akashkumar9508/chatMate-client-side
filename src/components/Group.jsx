@@ -30,9 +30,8 @@ const Group = () => {
           <h2 className="text-xl font-semibold mb-4 text-primary">All Groups</h2>
           {displayedGroups.length > 0 ? (
             displayedGroups.map((group) => (
-              <NavLink to={`/group/${group._id}`}>
+              <NavLink to={`/group/${group._id}`} key={group._id}>
                 <div
-                  key={group._id}
                   className="flex items-center justify-between border-b  border-gray-200 py-3 hover:bg-base-200 transition-colors duration-200 ease-in-out"
 
                 >
