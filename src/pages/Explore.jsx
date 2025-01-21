@@ -3,24 +3,40 @@ import { FaSearch, FaUserFriends, FaUserPlus, FaClock } from "react-icons/fa";
 import friendService from "../services/friendService.js";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllUsers } from "../features/userSlice.js";
+import { fetchAllUsers, fetchFriends } from "../features/userSlice.js";
 import { fetchFriendsRequestData } from "../features/friendSlice.js";
 import Group from "../components/Group.jsx";
+import { fetchAllGroups, fetchGroupCreatedByUser, fetchUserGroups } from "../features/groupSlice.js";
 
 const Explore = () => {
-  const {unFriends} = useSelector((state) => state.user);
+  const { unFriends } = useSelector((state) => state.user);
   const { allFriendRequests } = useSelector((state) => state.friend);
   const [searchTerm, setSearchTerm] = useState("");
   const [sentRequests, setSentRequests] = useState([]);
   const dispatch = useDispatch();
-  const { allUsers } = useSelector((state) => state.user);
+  const { allUsers, friends,friendRequests } = useSelector((state) => state.user);
+  const { allGroups } = useSelector(state => state.group)
+
 
   useEffect(() => {
     if (allUsers.length === 0) {
       dispatch(fetchAllUsers());
-      dispatch(fetchFriendsRequestData());
     }
-  }, [allUsers.length, dispatch]);
+    else {
+      if (friends.length === 0) {
+        dispatch(fetchFriends());
+      }
+      if (friendRequests.length>0 && allFriendRequests.length === 0) {
+        dispatch(fetchFriendsRequestData(friendRequests));
+      }
+      if (allGroups.length === 0) {
+        dispatch(fetchAllGroups());
+        dispatch(fetchGroupCreatedByUser());
+        dispatch(fetchUserGroups());
+        
+      }
+    }
+  }, [allUsers, friends, dispatch,allFriendRequests,allGroups]);
 
   const handleAcceptRequest = (requestId) => {
     friendService
@@ -84,11 +100,10 @@ const Explore = () => {
                     <span className="desui-font-medium desui-text-base-800">{user.userName}</span>
                   </div>
                   <button
-                    className={`${
-                      sentRequests.includes(user._id)
-                        ? "desui-bg-red-500"
-                        : "desui-bg-green-500"
-                    } px-3 py-2 rounded-md flex items-center gap-2 desui-text-white hover:desui-opacity-90 desui-transition`}
+                    className={`${sentRequests.includes(user._id)
+                      ? "desui-bg-red-500"
+                      : "desui-bg-green-500"
+                      } px-3 py-2 rounded-md flex items-center gap-2 desui-text-white hover:desui-opacity-90 desui-transition`}
                     onClick={() => {
                       friendService.sendFriendRequest(user._id).then(() => {
                         toast.success("Friend request sent!");

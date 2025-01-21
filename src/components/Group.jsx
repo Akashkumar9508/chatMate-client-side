@@ -20,14 +20,13 @@ const Group = () => {
   };
 
   return (
-    <div className="groups-section w-full bg-base-100 p-4 md:p-8 ">
+    <div className="groups-section w-full bg-base-100 p-4 md:p-8 mt-5 ">
       <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2 text-primary">
         <FaUsers /> Groups
       </h2>
 
       <div className="flex flex-col md:flex-row gap-8">
         <div className="groups-list mb-8 flex-1 max-h-[70vh] overflow-y-auto pr-2">
-          <h2 className="text-xl font-semibold mb-4 text-primary">All Groups</h2>
           {displayedGroups.length > 0 ? (
             displayedGroups.map((group) => (
               <NavLink to={`/group/${group._id}`} key={group._id}>

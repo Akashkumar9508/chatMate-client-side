@@ -23,9 +23,8 @@ export const fetchFriendsData = createAsyncThunk(
 
 export const fetchFriendsRequestData = createAsyncThunk('friends/fetchFriendsRequestData', async (friendRequestIds) => {
   try {
-    const friendRequestData = await friendsService.getFriendRequests();
     const fetcheduser = await Promise.all(
-      friendRequestData.map(async (id) => await authService.getUserById(id))
+      friendRequestIds.map(async (id) => await authService.getUserById(id))
     )
     return fetcheduser;
   } catch (error) {
