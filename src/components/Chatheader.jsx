@@ -6,10 +6,10 @@ const ChatHeader = ({ openSidebar }) => {
     return (
         <div className="flex items-center justify-between mt-4 5 px-4 text-center " >
             <div>
-                <NavLink className="flex items-center px-2 gap-3 cursor-pointer" to={`/user/${selctedUser?.userName}`}>
+                <div className="flex items-center px-2 gap-3">
                     <img src={selctedUser?.avatar} className={`h-12 w-12 ${selctedUser ? "" : "hidden"}`} />
                     <h2 className="text-xl md:text-1xl font-semibold">{selctedUser ? selctedUser.fullName : 'N/A'}</h2>
-                </NavLink>
+                </div>
             </div>
             <button
                 onClick={openSidebar}

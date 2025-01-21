@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaSearch, FaUsers, FaPlus, FaClock } from "react-icons/fa";
 import GroupForm from "../components/GroupForm";  // Import the modal component
 import { useSelector } from "react-redux";
-import { NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const Group = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -29,42 +29,40 @@ const Group = () => {
         <div className="groups-list mb-8 flex-1 max-h-[70vh] overflow-y-auto pr-2">
           {displayedGroups.length > 0 ? (
             displayedGroups.map((group) => (
-              <NavLink to={`/group/${group._id}`} key={group._id}>
-                <div
-                  className="flex items-center justify-between border-b  border-gray-200 py-3 hover:bg-base-200 transition-colors duration-200 ease-in-out"
+              <div
+                className="flex items-center justify-between border-b  border-gray-200 py-3 hover:bg-base-200 transition-colors duration-200 ease-in-out"
 
-                >
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={group.avatar}
-                      alt={group.name || "Group Avatar"}
-                      className="w-12 h-12 rounded-full shadow-md"
-                    />
-                    <span className="text-lg font-medium">{group.name}</span>
-                  </div>
-                  <button
-                    className={`btn ${sentRequests.includes(group.id)
-                        ? "btn-error"
-                        : "btn-success"
-                      } btn-sm flex items-center gap-2`}
-                    onClick={() => {
-                      setSentRequests([...sentRequests, group.id]);
-                    }}
-                    disabled={sentRequests.includes(group.id)}
-                  >
-                    <span className="block sm:hidden">
-                      {sentRequests.includes(group.id) ? (
-                        <FaClock className="animate-spin" />
-                      ) : (
-                        <FaPlus />
-                      )}
-                    </span>
-                    <span className="hidden sm:inline">
-                      {sentRequests.includes(group.id) ? "Request Sent" : "Join Group"}
-                    </span>
-                  </button>
+              >
+                <div className="flex items-center gap-3">
+                  <img
+                    src={group.avatar}
+                    alt={group.name || "Group Avatar"}
+                    className="w-12 h-12 rounded-full shadow-md"
+                  />
+                  <span className="text-lg font-medium">{group.name}</span>
                 </div>
-              </NavLink>
+                <button
+                  className={`btn ${sentRequests.includes(group.id)
+                    ? "btn-error"
+                    : "btn-success"
+                    } btn-sm flex items-center gap-2`}
+                  onClick={() => {
+                    setSentRequests([...sentRequests, group.id]);
+                  }}
+                  disabled={sentRequests.includes(group.id)}
+                >
+                  <span className="block sm:hidden">
+                    {sentRequests.includes(group.id) ? (
+                      <FaClock className="animate-spin" />
+                    ) : (
+                      <FaPlus />
+                    )}
+                  </span>
+                  <span className="hidden sm:inline">
+                    {sentRequests.includes(group.id) ? "Request Sent" : "Join Group"}
+                  </span>
+                </button>
+              </div>
             ))
           ) : (
             <p className="text-gray-500">No groups found.</p>

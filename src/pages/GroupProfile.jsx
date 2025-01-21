@@ -4,11 +4,9 @@ import { useSelector } from "react-redux";
 
 function GroupProfile() {
   const { allGroups } = useSelector((state) => state.group);
-  console.log("Groups:", allGroups);
 
   const { groupId } = useParams();
   const group = allGroups.find((group) => group._id === groupId);
-  console.log("Selected Group:", group);
 
   // Fallbacks in case data is missing
   const groupDescription = group?.description || "No description provided.";
