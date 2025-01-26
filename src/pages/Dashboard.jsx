@@ -10,7 +10,7 @@ const Dashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { status } = useSelector(state => state.auth);
   const { allUsers, friends } = useSelector(state => state.user);
-  const { allGroups } = useSelector(state => state.group)
+  const { allGroups,selectedGroup } = useSelector(state => state.group)
 
   const dispatch = useDispatch();
 
@@ -46,7 +46,7 @@ const Dashboard = () => {
 
 
         <div className=" overflow-auto px-5 pt-3 flex flex-col h-full">
-          {selectedUser ? (
+          {selectedUser || selectedGroup ? (
 
             <div className="flex relative flex-col h-[100%] justify-between w-full">
               <div className="fixed flex flex-col justify-start md:w-[77%] h-[84%] w-[89%]    md:h-[78%] gap-1">

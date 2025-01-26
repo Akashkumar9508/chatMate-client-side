@@ -10,7 +10,8 @@ const ChatMessages = () => {
   const {selectedGroup}=useSelector(state=>state.group);
 
   // Reference to scroll to the bottom
-  const showMessage=chattingWithUser?messages[selectedUser?.userName]:groupMessages[selectedUser?._id];
+  const showMessage=chattingWithUser?messages[selectedUser?.userName]:groupMessages[selectedGroup?._id];
+  
   const messagesEndRef = useRef(null);
   const dispatch=useDispatch();
 
@@ -46,7 +47,7 @@ const ChatMessages = () => {
   }, [messages]); // Scroll whenever messages change
 
   return (
-    <div className="max-h-[80%] w-full bg-base-100 p-5 flex flex-col justify-end rounded-lg border border-base-300 overflow-hidden shadow-inner shadow-slate-400">
+    <div className="h-[85%] w-full bg-base-100 p-5 flex flex-col justify-end rounded-lg border border-base-300 overflow-hidden shadow-inner shadow-slate-400">
       {" "}
       {/* DaisyUI bg and border */}
       {/* Scrollable message container */}

@@ -23,6 +23,7 @@ const Logout = () => {
                 dispatch(logout());
                 navigate('/');
                 socket.disconnect();
+                window.location.reload();
             }
             else{
                 console,log("logout error")

@@ -33,6 +33,11 @@ createRoot(document.getElementById('root')).render(
                   <Explore />
                 </ProtectedRoute>
               } />
+              <Route path='/user/:userName' element={
+                <ProtectedRoute>
+                  <UserProfile />
+                </ProtectedRoute>
+              } />
             </Route>
           </Routes>
         </BrowserRouter>

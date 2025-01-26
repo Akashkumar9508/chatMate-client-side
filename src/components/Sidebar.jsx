@@ -9,14 +9,16 @@ import { selectGroup } from '../features/groupSlice.js';
 
 const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
     const friendIds = useSelector(state => state.user?.friends);
-    const selectedUser = useSelector(state => state.user?.selectedUser);
-    const { userGroups } = useSelector(state => state.group)
+    const { selectedUser } = useSelector(state => state.user);
+    const { userGroups } = useSelector(state => state.group);
     const { allFriends } = useSelector(state => state.friend);
     const { onlineUsers } = useSelector(state => state.user);
+    const { chattingWithUser } = useSelector((state) => state.message);
+    const { selectedGroup } = useSelector(state => state.group);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        async function fetchUsers() {
+        async function fetchMessages() {
             if (selectedUser) {
                 await messagesService.getMessagesWithUser(selectedUser?.userName)
                     .then((response) => dispatch(initialiseMessages({
@@ -25,7 +27,7 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
                     })));
             }
         }
-        fetchUsers();
+        fetchMessages();
     }, [selectedUser]);
 
     useEffect(() => {
@@ -58,7 +60,7 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
                             dispatch(setChattingWithUser(true));
                             closeSidebar();
                         }}
-                        className={`cursor-pointer py-2 px-4 rounded-lg flex items-center space-x-3 transition duration-300 ${user.userName === selectedUser?.userName ? "bg-orange-800" : "hover:bg-blue-600"
+                        className={`cursor-pointer py-2 px-4 rounded-lg flex items-center space-x-3 transition duration-300 ${chattingWithUser && user.userName === selectedUser?.userName ? "bg-orange-800" : "hover:bg-blue-600"
                             }`}
                     >
                         <div className="relative w-10 h-10 rounded-full">
@@ -80,7 +82,7 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
             </ul>
             <h3 className="text-lg font-semibold mt-4 mb-2 text-gray-600">Groups</h3>
             <ul className="space-y-2 max-h-[40vh] overflow-y-auto pr-2">
-                {userGroups.map((group) => (
+                {userGroups?.map((group) => (
                     <li
                         key={group._id}
                         onClick={() => {
@@ -88,7 +90,7 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
                             dispatch(setChattingWithUser(false));
                             closeSidebar();
                         }}
-                        className={`cursor-pointer py-2 px-4 rounded-lg flex items-center space-x-3 transition duration-300 hover:bg-blue-600`}
+                        className={`cursor-pointer py-2 px-4 rounded-lg flex items-center space-x-3 transition duration-300 ${!chattingWithUser && group._id === selectedGroup?._id ? "bg-orange-800" : "hover:bg-blue-600"}`}
                     >
                         <div className="relative w-10 h-10 rounded-full">
                             <img

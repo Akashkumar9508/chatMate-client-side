@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addMessage } from "../features/messageSlice.js";
 import messagesService from "../services/messageService.js";
@@ -10,8 +10,10 @@ const MessageInput = () => {
     const dispatch = useDispatch();
     const [message, setMessage] = useState("");
     const [popupEmoji, setPopupEmoji] = useState(null); 
-    const selectedUser = useSelector((state) => state.user?.selectedUser);
-    const userData = useSelector((state) => state.auth.userData);
+    const {selectedUser} = useSelector((state) => state.user);
+    const {selectedGroup}=useSelector(state=>state.group);
+    const {userData} = useSelector((state) => state.auth);
+    const {chattingWithUser} = useSelector((state) => state.message);
     const { socket } = useSocket();
 
     const handleSendMessage = async () => {
@@ -30,13 +32,17 @@ const MessageInput = () => {
                     })
                 );
                 socket.emit('message',{message,to:selectedUser.userName,by:userData});
-                await messagesService.sendMessage({ targetUser: selectedUser._id, text: message });
+                await messagesService.sendMessage({ targetUser: chattingWithUser?selectedUser._id:null,targetGroupId:!chattingWithUser?selectedGroup._id:null, text: message });
             }
             setMessage(""); 
         } catch (error) {
             console.error("Error sending message:", error);
         }
     };
+
+    useEffect(()=>{
+        setMessage("");
+    },[selectedGroup,selectedUser]);
 
     // Handle "Enter" key press to send message
     const handleKeyPress = (e) => {
