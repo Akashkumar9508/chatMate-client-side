@@ -36,7 +36,7 @@ export class MessagesService {
     // Get messages in a group
     async getGroupMessages(groupId) {
         try {
-            const response = await this.API.get(`/group/${groupId}`);
+            const response = await this.API.get(`/getGroupMessages/${groupId}`);
             return response.data;
         } catch (error) {
             console.error('Error fetching group messages:', error);

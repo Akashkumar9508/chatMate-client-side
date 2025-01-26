@@ -44,7 +44,7 @@ const ChatMessages = () => {
         inline: "nearest",
       });
     }
-  }, [messages]); // Scroll whenever messages change
+  }, [showMessage,messages]); // Scroll whenever messages change
 
   return (
     <div className="h-[85%] w-full bg-base-100 p-5 flex flex-col justify-end rounded-lg border border-base-300 overflow-hidden shadow-inner shadow-slate-400">

@@ -40,6 +40,20 @@ const messageSlice = createSlice({
                 isSeen: false,
             });
         },
+        initialiseGroupMessages:(state,action)=>{
+            state.groupMessages[action.payload.id]=action.payload.messages;
+        },
+        addGroupMessage: (state, action) => {
+            const { senderId, content, date, groupId } = action.payload;
+            if (!state.groupMessages[groupId]) {
+                state.groupMessages[groupId] = [];
+            }
+            state.groupMessages[groupId].push({
+                content: content,
+                sender: senderId,
+                sentAt: date,
+            });
+        },
         setChattingWithUser:(state,action)=>{
             state.chattingWithUser = action.payload;
         },
@@ -52,6 +66,6 @@ const messageSlice = createSlice({
     },
 });
 
-export const { addMessage, clearMessages, initialiseMessages,setChattingWithUser } = messageSlice.actions;
+export const { addMessage, clearMessages, initialiseMessages,setChattingWithUser, initialiseGroupMessages,addGroupMessage } = messageSlice.actions;
 
 export default messageSlice.reducer;

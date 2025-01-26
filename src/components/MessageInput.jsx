@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addMessage } from "../features/messageSlice.js";
+import { addGroupMessage, addMessage } from "../features/messageSlice.js";
 import messagesService from "../services/messageService.js";
 import { useSocket } from "../context/SocketContext.jsx";
 
@@ -9,45 +9,52 @@ const emojis = ["😀", "😂", "🥰", "😎", "🤔", "🙃", "😱", "🎉", 
 const MessageInput = () => {
     const dispatch = useDispatch();
     const [message, setMessage] = useState("");
-    const [popupEmoji, setPopupEmoji] = useState(null); 
-    const {selectedUser} = useSelector((state) => state.user);
-    const {selectedGroup}=useSelector(state=>state.group);
-    const {userData} = useSelector((state) => state.auth);
-    const {chattingWithUser} = useSelector((state) => state.message);
+    const [popupEmoji, setPopupEmoji] = useState(null);
+    const { selectedUser } = useSelector((state) => state.user);
+    const { selectedGroup } = useSelector(state => state.group);
+    const { userData } = useSelector((state) => state.auth);
+    const { chattingWithUser } = useSelector((state) => state.message);
     const { socket } = useSocket();
+
 
     const handleSendMessage = async () => {
         try {
             if (message.trim() === "") {
-                return; 
+                return;
             }
 
-            if (selectedUser) {
-                dispatch(
-                    addMessage({
-                        senderId: userData?._id,
-                        content: message,
-                        Date: Date.now(),
-                        userName: selectedUser.userName,
-                    })
-                );
-                socket.emit('message',{message,to:selectedUser.userName,by:userData});
-                await messagesService.sendMessage({ targetUser: chattingWithUser?selectedUser._id:null,targetGroupId:!chattingWithUser?selectedGroup._id:null, text: message });
+            if (chattingWithUser) {
+                if (selectedUser) {
+                    dispatch(
+                        addMessage({
+                            senderId: userData?._id,
+                            content: message,
+                            Date: Date.now(),
+                            userName: selectedUser.userName,
+                        })
+                    );
+                    socket.emit('message', { message, to: selectedUser.userName, by: userData });
+                }
+            } else {
+                if (selectedGroup) {
+                    dispatch(addGroupMessage({ content: message, senderId: userData?._id, date: Date.now(), groupId: selectedGroup?._id }));
+                }
             }
-            setMessage(""); 
+            await messagesService.sendMessage({ targetUser: chattingWithUser ? selectedUser._id : null, targetGroupId: !chattingWithUser ? selectedGroup._id : null, text: message });
+            setMessage("");
         } catch (error) {
             console.error("Error sending message:", error);
         }
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         setMessage("");
-    },[selectedGroup,selectedUser]);
+    }, [selectedGroup, selectedUser]);
 
     // Handle "Enter" key press to send message
     const handleKeyPress = (e) => {
         if (e.key === "Enter") {
-            e.preventDefault(); 
+            e.preventDefault();
             handleSendMessage();
         }
     };
@@ -84,7 +91,7 @@ const MessageInput = () => {
                     className="absolute text-4xl"
                     style={{
                         top: "-30px",
-                        left: "10px", 
+                        left: "10px",
                         animation: "popup 1s ease-out",
                     }}
                 >

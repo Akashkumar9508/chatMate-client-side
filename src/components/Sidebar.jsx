@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedUser } from '../features/userSlice.js';
 import messagesService from '../services/messageService.js';
-import { initialiseMessages, setChattingWithUser } from '../features/messageSlice.js';
+import { initialiseGroupMessages, initialiseMessages, setChattingWithUser } from '../features/messageSlice.js';
 import { fetchFriendsData } from '../features/friendSlice.js';
 import { selectGroup } from '../features/groupSlice.js';
 
@@ -13,22 +13,26 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
     const { userGroups } = useSelector(state => state.group);
     const { allFriends } = useSelector(state => state.friend);
     const { onlineUsers } = useSelector(state => state.user);
-    const { chattingWithUser } = useSelector((state) => state.message);
+    const { chattingWithUser, messages,groupMessages } = useSelector((state) => state.message);
     const { selectedGroup } = useSelector(state => state.group);
     const dispatch = useDispatch();
 
     useEffect(() => {
         async function fetchMessages() {
-            if (selectedUser) {
-                await messagesService.getMessagesWithUser(selectedUser?.userName)
-                    .then((response) => dispatch(initialiseMessages({
-                        userName: selectedUser.userName,
-                        messages: response
-                    })));
+            if (chattingWithUser) {
+                if (selectedUser && !messages[selectedUser?.userName]){
+                    await messagesService.getMessagesWithUser(selectedUser?.userName)
+                        .then((response) => dispatch(initialiseMessages({userName: selectedUser.userName,messages: response})));
+                }
+            }else{
+                if (selectedGroup &&!groupMessages[selectedGroup?._id]){
+                    await messagesService.getGroupMessages(selectedGroup?._id)
+                        .then((response) => dispatch(initialiseGroupMessages({id: selectedGroup._id, messages: response})));
+                }
             }
         }
         fetchMessages();
-    }, [selectedUser]);
+    }, [selectedUser,selectedGroup]);
 
     useEffect(() => {
         if (friendIds.length > 0 && allFriends.length === 0) {
