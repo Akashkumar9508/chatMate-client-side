@@ -37,7 +37,7 @@ const MessageInput = () => {
                 }
             } else {
                 if (selectedGroup) {
-                    dispatch(addGroupMessage({ content: message, senderId: userData?._id, date: Date.now(), groupId: selectedGroup?._id }));
+                    socket.emit('groupMessage', { message, by: userData, groupId: selectedGroup._id });
                 }
             }
             await messagesService.sendMessage({ targetUser: chattingWithUser ? selectedUser._id : null, targetGroupId: !chattingWithUser ? selectedGroup._id : null, text: message });

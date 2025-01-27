@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
 import { useSocket } from "../context/SocketContext";
-import { addMessage } from "../features/messageSlice";
+import { addGroupMessage, addMessage } from "../features/messageSlice";
 
 const ChatMessages = () => {
   const { selectedUser } = useSelector((state) => state.user);
@@ -28,12 +28,17 @@ const ChatMessages = () => {
         })
       );
     };
+    const handleGroupMessage = (payload) => {
+      dispatch(addGroupMessage({senderId: payload?.by._id, content: payload.message,date: Date.now(),groupId: payload?.groupId}));
+    };
     socket.on('message', handleIncomingMessage);
+    socket.on('groupMessage', handleGroupMessage);
 
     return () => {
       socket.off('message', handleIncomingMessage);
     };
   }, [socket, dispatch, loggedInUserId]);
+  
 
   // Auto-scroll to the latest message whenever messages change
   useEffect(() => {
